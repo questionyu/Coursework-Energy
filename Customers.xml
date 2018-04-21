@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<customers>
+    <customer>
+        <ID>12345678</ID>
+        <name>Jim</name>
+        <address>New York</address>
+    </customer>
+    <customer>
+        <ID>63147727</ID>
+        <name>test1</name>
+        <address>test</address>
+    </customer>
+</customers>
