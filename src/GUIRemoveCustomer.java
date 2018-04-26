@@ -22,7 +22,7 @@ class GUIRemoveCustomer extends JPanel {
 		for (Customer customer : Controller.getCustomers()) {
 			JButton customerButton = new JButton("\"" + customer.getName() + "\"" + customer.getAddress());
 			customerButton.setFont(GUIMain.getUIMainFont());
-			customerButton.addMouseListener(new mouseAdapter(this, customer));
+			customerButton.addMouseListener(new mouseAdapter(customer));
 			userListPanel.add(customerButton);
 		}
 		JScrollPane scrollPane = new JScrollPane(userListPanel);
@@ -48,11 +48,6 @@ class GUIRemoveCustomer extends JPanel {
 	 */
 	class mouseAdapter extends MouseAdapter {
 		/**
-		 * The panel.
-		 */
-		private JPanel panel;
-
-		/**
 		 * The customer.
 		 */
 		private Customer customer;
@@ -62,8 +57,7 @@ class GUIRemoveCustomer extends JPanel {
 		 *
 		 * @param customer The customer.
 		 */
-		mouseAdapter(JPanel panel, Customer customer) {
-			this.panel = panel;
+		mouseAdapter(Customer customer) {
 			this.customer = customer;
 		}
 

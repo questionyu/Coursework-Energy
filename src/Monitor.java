@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Title        Monitor.java
  * Description  This class defines a monitor.
  */
-public class Monitor {
+class Monitor {
 	/**
 	 * The customer of monitor.
 	 */
@@ -38,7 +38,7 @@ public class Monitor {
 	/**
 	 * This function sends readings.
 	 */
-	public void sendReadings() {
+	void sendReadings() {
 		try {
 			File electricityReadingsFile = new File("./readings/" + customer.getID() + "electricity.txt");
 			File gasReadingsFile = new File("./readings/" + customer.getID() + "gas.txt");
@@ -47,8 +47,8 @@ public class Monitor {
 			Scanner electricityScanner = new Scanner(electricityInputStream);
 			Scanner gasScanner = new Scanner(gasInputStream);
 
-			double electricityReadings = Double.parseDouble(electricityScanner.nextLine());
-			double gasReadings = Double.parseDouble(gasScanner.nextLine());
+			String electricityReadings = electricityScanner.nextLine();
+			String gasReadings = gasScanner.nextLine();
 
 			electricityScanner.close();
 			gasScanner.close();
@@ -58,8 +58,8 @@ public class Monitor {
 			File sendReadingsFile = new File("./receivedReadings/" + customer.getID() + ".txt");
 			FileWriter sendReadingsFileWriter = new FileWriter(sendReadingsFile);
 
-			sendReadingsFileWriter.write(Double.toString(electricityReadings) + "\n");
-			sendReadingsFileWriter.write(Double.toString(gasReadings) + "\n");
+			sendReadingsFileWriter.write(electricityReadings + "\n");
+			sendReadingsFileWriter.write(gasReadings + "\n");
 
 			sendReadingsFileWriter.close();
 		} catch (IOException e) {
