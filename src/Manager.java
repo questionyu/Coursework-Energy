@@ -88,8 +88,10 @@ public class Manager {
 	 */
 	void removeCustomer(Customer customer) {
 		for (Monitor monitor : monitors)
-			if (monitor.getCustomer().equals(customer))
+			if (monitor.getCustomer().equals(customer)) {
 				monitor.stopRecording();
+				monitors.remove(monitor);
+			}
 		customers.remove(customer);
 	}
 
@@ -155,7 +157,7 @@ public class Manager {
 	 * @return Bill.
 	 */
 	private double calculateBill(double electricityReadings, double gasReadings) {
-		return electricityReadings * (priceElectricity + 1 / tariffElectricity) + gasReadings * (priceGas + 1 / tariffGas);
+		return electricityReadings * (priceElectricity + tariffElectricity / 100) + gasReadings * (priceGas + tariffGas / 100);
 	}
 
 	/**
