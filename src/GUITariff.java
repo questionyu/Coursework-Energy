@@ -38,9 +38,9 @@ class GUITariff extends JPanel {
 		backButton.setFont(GUIMain.getUIMainFont());
 		backButton.addActionListener(e -> GUIMain.showManager());
 
-		JButton addButton = new JButton("Update");
-		addButton.setFont(GUIMain.getUIMainFont());
-		addButton.addActionListener(e -> {
+		JButton updateButton = new JButton("Update");
+		updateButton.setFont(GUIMain.getUIMainFont());
+		updateButton.addActionListener(e -> {
 			String tariffElectricityString = tariffElectricityTextField.getText();
 			String tariffGasString = tariffGasTextField.getText();
 			if (tariffElectricityString.equals("") || tariffGasString.equals("")) {
@@ -62,6 +62,7 @@ class GUITariff extends JPanel {
 
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());
+		southPanel.add(updateButton);
 
 		add(promptLabel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
