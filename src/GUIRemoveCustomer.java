@@ -66,8 +66,10 @@ class GUIRemoveCustomer extends JPanel {
 		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			if (GUIMain.showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+				return;
 			Controller.removeCustomer(customer);
-			GUIMain.showMessageDialog("Successfully removed!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+			GUIMain.showMessageDialog("Removed successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 			GUIMain.showManager();
 		}
 	}
