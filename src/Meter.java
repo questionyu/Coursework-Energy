@@ -67,6 +67,28 @@ abstract class Meter {
 		}
 	}
 
+
+	/**
+	 * This function returns a reading.
+	 *
+	 * @return Reading.
+	 */
+	double getReading() {
+		double result = 0;
+		try {
+			File file = new File("./readings/" + customerID + suffix + ".txt");
+			FileInputStream fileInputStream = new FileInputStream(file);
+			Scanner fileScanner = new Scanner(fileInputStream);
+
+			result = Double.parseDouble(fileScanner.nextLine());
+			fileScanner.close();
+			fileInputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	/**
 	 * This function returns a random reading.
 	 *

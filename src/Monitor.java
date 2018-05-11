@@ -36,6 +36,18 @@ class Monitor {
 	}
 
 	/**
+	 * This function will get the readings.
+	 *
+	 * @return The readings of this monitor.
+	 */
+	double[] getReadings() {
+		double readings[] = new double[2];
+		readings[0] = meterElectricity.getReading();
+		readings[1] = meterGas.getReading();
+		return readings;
+	}
+
+	/**
 	 * This function sends readings.
 	 */
 	void sendReadings() {
