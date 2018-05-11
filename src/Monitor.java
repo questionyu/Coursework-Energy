@@ -83,4 +83,8 @@ class Monitor {
 	Customer getCustomer() {
 		return customer;
 	}
+
+	double getBudget() {
+		return customer.getBudget();
+	}
 }

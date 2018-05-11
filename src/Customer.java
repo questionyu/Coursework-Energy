@@ -35,11 +35,13 @@ class Customer {
 	 * @param name    The name of customer.
 	 * @param address The address of customer.
 	 * @param ID      The specified ID of customer.
+	 * @param budget  The budget of customer.
 	 */
-	Customer(String name, String address, int ID) {
+	Customer(String name, String address, int ID, double budget) {
 		this.name = name;
 		this.address = address;
 		this.ID = ID;
+		this.budget = budget;
 	}
 
 	/**

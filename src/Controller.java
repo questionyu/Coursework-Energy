@@ -75,7 +75,7 @@ class Controller {
 	 * @return True: Succeed. False: Failed(Already exists).
 	 */
 	static boolean addCustomer(String name, String address) {
-		Customer newCustomer = new Customer(name, address, generateRandomID());
+		Customer newCustomer = new Customer(name, address, generateRandomID(), 0);
 		if (checkDuplicated(newCustomer))
 			return false;
 		while (checkID(newCustomer.getID()))
@@ -272,8 +272,9 @@ class Controller {
 					int ID = Integer.parseInt(customerElement.getElementsByTagName("ID").item(0).getTextContent());
 					String name = customerElement.getElementsByTagName("name").item(0).getTextContent();
 					String address = customerElement.getElementsByTagName("address").item(0).getTextContent();
+					double budget = Double.parseDouble(customerElement.getElementsByTagName("budget").item(0).getTextContent());
 
-					customers.add(new Customer(name, address, ID));
+					customers.add(new Customer(name, address, ID, budget));
 				}
 
 			}
@@ -296,6 +297,7 @@ class Controller {
 		Element ID;
 		Element name;
 		Element address;
+		Element budget;
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
@@ -314,9 +316,13 @@ class Controller {
 				address = doc.createElement("address");
 				address.appendChild(doc.createTextNode(singleCustomer.getAddress()));
 
+				budget = doc.createElement("budget");
+				budget.appendChild(doc.createTextNode("" + singleCustomer.getBudget()));
+
 				customer.appendChild(ID);
 				customer.appendChild(name);
 				customer.appendChild(address);
+				customer.appendChild(budget);
 
 				customers.appendChild(customer);
 			}
