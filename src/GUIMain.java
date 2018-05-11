@@ -126,6 +126,21 @@ class GUIMain extends JFrame {
 	}
 
 	/**
+	 * This function creates a updateTariff panel and adds it to CardLayout.
+	 */
+	static void updateTariff() {
+		energyPanel.add(new GUIUpdateTariff(), "GUIUpdateTariff");
+		showUpdateTariff();
+	}
+
+	/**
+	 * This function shows the updateTariff panel.
+	 */
+	static void showUpdateTariff() {
+		energyCardLayout.show(energyPanel, "GUIUpdateTariff");
+	}
+
+	/**
 	 * This function creates a monitor panel and adds it to CardLayout.
 	 */
 	static void monitor() {
@@ -170,11 +185,11 @@ class GUIMain extends JFrame {
 	/**
 	 * This function shows a confirm dialog on screen.
 	 *
-	 * @param text        The message.
-	 * @param title       The window title.
+	 * @param text       The message.
+	 * @param title      The window title.
 	 * @param optionType The type of this message.
 	 */
-	static int  showConfirmDialog(String text, String title, int optionType) {
+	static int showConfirmDialog(String text, String title, int optionType) {
 		JLabel promptLabel = new JLabel(text, JLabel.CENTER);
 		promptLabel.setFont(getUIMainFont());
 		return JOptionPane.showConfirmDialog(null, promptLabel, title, optionType);

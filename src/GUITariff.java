@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Title        GUITariff.java
+ * Title        GUIUpdateTariff.java
  * Description  This class shows information about tariff.
  */
 class GUITariff extends JPanel {
@@ -16,19 +16,22 @@ class GUITariff extends JPanel {
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 25, 25));
 
-		JLabel tariffElectricityLabel = new JLabel("New electricity tariff:");
+		JLabel tariffElectricityLabel = new JLabel("Electricity tariff:");
 		tariffElectricityLabel.setFont(GUIMain.getUIMainFont());
 
-		JLabel tariffGasLabel = new JLabel("New Gas tariff:");
+		JLabel electricityLabel = new JLabel(Controller.getTariffElectricity() + " p/KWh");
+		electricityLabel.setFont(GUIMain.getUIMainFont());
+
+		JLabel tariffGasLabel = new JLabel("Gas tariff:");
 		tariffGasLabel.setFont(GUIMain.getUIMainFont());
 
-		JTextField tariffElectricityTextField = new JTextField();
-		JTextField tariffGasTextField = new JTextField();
+		JLabel gasLabel = new JLabel(Controller.getTariffGas() + " p/KWh");
+		gasLabel.setFont(GUIMain.getUIMainFont());
 
 		centerPanel.add(tariffElectricityLabel);
-		centerPanel.add(tariffElectricityTextField);
+		centerPanel.add(electricityLabel);
 		centerPanel.add(tariffGasLabel);
-		centerPanel.add(tariffGasTextField);
+		centerPanel.add(gasLabel);
 
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();
@@ -40,31 +43,7 @@ class GUITariff extends JPanel {
 
 		JButton updateButton = new JButton("Update");
 		updateButton.setFont(GUIMain.getUIMainFont());
-		updateButton.addActionListener(e -> {
-			String tariffElectricityString = tariffElectricityTextField.getText();
-			String tariffGasString = tariffGasTextField.getText();
-			if (tariffElectricityString.equals("") || tariffGasString.equals("")) {
-				GUIMain.showMessageDialog("Tariff can not be blank!", "Whoops!", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			double tariffElectricity, tariffGas;
-			try {
-				tariffElectricity = Double.parseDouble(tariffElectricityString);
-				tariffGas = Double.parseDouble(tariffGasString);
-			}catch (Exception exception) {
-				GUIMain.showMessageDialog("Tariff must be a number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (tariffElectricity < 0 || tariffGas < 0) {
-				GUIMain.showMessageDialog("Tariff must be a positive number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (GUIMain.showConfirmDialog("Confirm to update tariff?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
-				return;
-			Controller.updateTariff(tariffElectricity, tariffGas);
-			GUIMain.showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-			GUIMain.showManager();
-		});
+		updateButton.addActionListener(e -> GUIMain.updateTariff());
 
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());

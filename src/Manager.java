@@ -38,12 +38,12 @@ public class Manager {
 	/**
 	 * Electricity tariff. (Unit: Penny)
 	 */
-	private double tariffElectricity = 14.6;
+	private double tariffElectricity;
 
 	/**
 	 * Gas tariff. (Unit: Penny)
 	 */
-	private double tariffGas = 3.88;
+	private double tariffGas;
 
 	/**
 	 * Constructor function of manager.
@@ -105,7 +105,7 @@ public class Manager {
 	/**
 	 * This function will generate bills.
 	 */
-	public void generateBills() {
+	void generateBills() {
 		for (Customer customer : customers) {
 			try {
 				File billFile = new File("./bills/" + customer.getID() + ".txt");
@@ -209,5 +209,24 @@ public class Manager {
 	 */
 	void setTariffGas(double tariffGas) {
 		this.tariffGas = tariffGas;
+	}
+
+
+	/**
+	 * Getter function of tariffElectricity.
+	 *
+	 * @return The electricity tariff.
+	 */
+	double getTariffElectricity() {
+		return tariffElectricity;
+	}
+
+	/**
+	 * Getter function of tariffGas.
+	 *
+	 * @return The gas tariff.
+	 */
+	double getTariffGas() {
+		return tariffGas;
 	}
 }

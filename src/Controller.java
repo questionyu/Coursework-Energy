@@ -151,35 +151,6 @@ class Controller {
 	}
 
 	/**
-	 * This function will update the tariff.
-	 *
-	 * @param newTariffElectricity The new tariff of electricity.
-	 * @param newTariffGas         The new tariff of gas.
-	 */
-	static void updateTariff(double newTariffElectricity, double newTariffGas) {
-		// TODO
-		manager.setTariffElectricity(newTariffElectricity);
-		manager.setTariffGas(newTariffGas);
-	}
-
-	/**
-	 * This function will let monitors to send readings.
-	 */
-	static void sendReadings() {
-		// TODO Temporarily codes
-		for (Monitor monitor : manager.getMonitors())
-			monitor.sendReadings();
-	}
-
-	/**
-	 * This function will let manager to generate bills.
-	 */
-	static void generateBills() {
-		// TODO Temporarily codes
-		manager.generateBills();
-	}
-
-	/**
 	 * This function gets electricity from file.
 	 *
 	 * @return Electricity tariff.
@@ -197,6 +168,53 @@ class Controller {
 	private static double getTariffGasFromFile() {
 		// TODO
 		return 0;
+	}
+
+	/**
+	 * This function will update the tariff.
+	 *
+	 * @param newTariffElectricity The new tariff of electricity.
+	 * @param newTariffGas         The new tariff of gas.
+	 */
+	static void updateTariff(double newTariffElectricity, double newTariffGas) {
+		// TODO
+		manager.setTariffElectricity(newTariffElectricity);
+		manager.setTariffGas(newTariffGas);
+	}
+
+	/**
+	 * This function will get the electricity tariff from manager.
+	 *
+	 * @return The electricity tariff.
+	 */
+	static double getTariffElectricity() {
+		return manager.getTariffElectricity();
+	}
+
+	/**
+	 * This function will get the gas tariff from manager.
+	 *
+	 * @return The gas tariff.
+	 */
+	static double getTariffGas() {
+		return manager.getTariffGas();
+	}
+
+	/**
+	 * This function will let monitors to send readings.
+	 */
+	static void sendReadings() {
+		// TODO Temporarily codes
+		for (Monitor monitor : manager.getMonitors())
+			monitor.sendReadings();
+	}
+
+	/**
+	 * This function will let manager to generate bills.
+	 */
+	static void generateBills() {
+		// TODO Temporarily codes
+		manager.generateBills();
 	}
 
 	/**
