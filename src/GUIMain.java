@@ -171,6 +171,21 @@ class GUIMain extends JFrame {
 	}
 
 	/**
+	 * This function creates a more panel and adds it to CardLayout.
+	 */
+	static void more() {
+		energyPanel.add(new GUIMore(), "GUIMore");
+		showMore();
+	}
+
+	/**
+	 * This function shows the more panel.
+	 */
+	static void showMore() {
+		energyCardLayout.show(energyPanel, "GUIMore");
+	}
+
+	/**
 	 * This function shows a input dialog on screen.
 	 *
 	 * @param text        The prompt message.

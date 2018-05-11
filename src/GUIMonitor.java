@@ -57,8 +57,13 @@ class GUIMonitor extends JPanel {
 		backButton.setFont(GUIMain.getUIMainFont());
 		backButton.addActionListener(e -> GUIMain.showWelcome());
 
+		JButton moreButton = new JButton("More");
+		moreButton.setFont(GUIMain.getUIMainFont());
+		moreButton.addActionListener(e -> GUIMain.more());
+
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());
+		southPanel.add(moreButton);
 
 		add(promptLabel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
