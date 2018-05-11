@@ -55,8 +55,14 @@ class GUITariff extends JPanel {
 				GUIMain.showMessageDialog("Tariff must be a number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			if (tariffElectricity < 0 || tariffGas < 0) {
+				GUIMain.showMessageDialog("Tariff must be a positive number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if (GUIMain.showConfirmDialog("Confirm to update tariff?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+				return;
 			Controller.updateTariff(tariffElectricity, tariffGas);
-			GUIMain.showMessageDialog("Successfully updated!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+			GUIMain.showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 			GUIMain.showManager();
 		});
 
