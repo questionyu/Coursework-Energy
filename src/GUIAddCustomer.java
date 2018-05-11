@@ -48,11 +48,13 @@ class GUIAddCustomer extends JPanel {
 				GUIMain.showMessageDialog("Name or address can not be blank!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			if (GUIMain.showConfirmDialog("Confirm to add new customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+				return;
 			if (!Controller.addCustomer(name, address)) {
 				GUIMain.showMessageDialog("Customer already exists!", "Whoops!", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			GUIMain.showMessageDialog("Successfully add!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+			GUIMain.showMessageDialog("Add successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 			GUIMain.showManager();
 		});
 
