@@ -28,6 +28,16 @@ class Controller {
 	private static Manager manager;
 
 	/**
+	 * The monitor of logged customer;
+	 */
+	private static Monitor monitor;
+
+	/**
+	 * The logged customer;
+	 */
+	private static Customer customer;
+
+	/**
 	 * A private blank constructor. Prevent other class creating a instance of Controller.
 	 */
 	private Controller() {
@@ -121,6 +131,38 @@ class Controller {
 				if (customer.getAddress().equals(newAddress))
 					return true;
 		return false;
+	}
+
+	/**
+	 * This function will record the logged customer.
+	 *
+	 * @param ID The ID of customer.
+	 */
+	static void login(int ID) {
+		for (Monitor logMonitor : getMonitors())
+			if (logMonitor.getCustomer().getID() == ID) {
+				monitor = logMonitor;
+				customer = logMonitor.getCustomer();
+				return;
+			}
+	}
+
+	/**
+	 * Getter function of monitor.
+	 *
+	 * @return Logged monitor.
+	 */
+	static Monitor getLoggedMonitor() {
+		return monitor;
+	}
+
+	/**
+	 * Getter function of customer.
+	 *
+	 * @return Logged customer.
+	 */
+	static Customer getLoggedCustomer() {
+		return customer;
 	}
 
 	/**
