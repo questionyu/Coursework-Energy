@@ -28,6 +28,10 @@ class GUIManager extends JPanel {
 		tariffButton.setFont(GUIMain.getUIMainFont());
 		tariffButton.addActionListener(e -> GUIMain.tariff());
 
+		JButton viewButton = new JButton("View");
+		viewButton.setFont(GUIMain.getUIMainFont());
+		viewButton.addActionListener(e -> GUIMain.view());
+
 		JButton generateBillsButton = new JButton("Generate bills (Temporarily)");
 		generateBillsButton.setFont(GUIMain.getUIMainFont());
 		generateBillsButton.addActionListener(e -> Controller.generateBills());
@@ -35,7 +39,7 @@ class GUIManager extends JPanel {
 		centerPanel.add(addCustomerButton);
 		centerPanel.add(removeCustomerButton);
 		centerPanel.add(tariffButton);
-		centerPanel.add(generateBillsButton);
+		centerPanel.add(viewButton);
 
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();

@@ -141,6 +141,21 @@ class GUIMain extends JFrame {
 	}
 
 	/**
+	 * This function creates a view panel and adds it to CardLayout.
+	 */
+	static void view() {
+		energyPanel.add(new GUIView(), "GUIView");
+		showView();
+	}
+
+	/**
+	 * This function shows the view panel.
+	 */
+	static void showView() {
+		energyCardLayout.show(energyPanel, "GUIView");
+	}
+
+	/**
 	 * This function creates a monitor panel and adds it to CardLayout.
 	 */
 	static void monitor() {

@@ -69,6 +69,15 @@ class Controller {
 	}
 
 	/**
+	 * Getter function of monitors.
+	 *
+	 * @return All monitors of the system.
+	 */
+	static ArrayList<Monitor> getMonitors() {
+		return manager.getMonitors();
+	}
+
+	/**
 	 * Getter function of customers.
 	 *
 	 * @return All customers of the system.
