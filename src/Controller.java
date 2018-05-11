@@ -11,7 +11,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Title        Controller.java
@@ -33,7 +37,8 @@ class Controller {
 	 * This function creates the object of manager.
 	 */
 	static void startManager() {
-		manager = new Manager(getCustomerFromFile(), getTariffElectricityFromFile(), getTariffGasFromFile());
+		double tariff[] = getTariffFromFile();
+		manager = new Manager(getCustomerFromFile(), tariff[0], tariff[1]);
 	}
 
 	/**
@@ -151,23 +156,37 @@ class Controller {
 	}
 
 	/**
-	 * This function gets electricity from file.
+	 * This function gets tariff from file.
 	 *
-	 * @return Electricity tariff.
+	 * @return An array about tariff.
 	 */
-	private static double getTariffElectricityFromFile() {
-		// TODO
-		return 0;
-	}
+	private static double[] getTariffFromFile() {
+		double tariff[] = new double[2];
+		try {
+			File file = new File("./tariff.txt");
+			if (file.createNewFile()) {
+				FileWriter fileWriter = new FileWriter(file);
+				fileWriter.write(Double.toString(0) + "\n");
+				fileWriter.write(Double.toString(0) + "\n");
+				fileWriter.close();
+				tariff[0] = 0;
+				tariff[1] = 0;
+			} else {
+				FileInputStream fileInputStream = new FileInputStream(file);
+				Scanner fileScanner = new Scanner(fileInputStream);
 
-	/**
-	 * This function gets gas from file.
-	 *
-	 * @return Gas tariff.
-	 */
-	private static double getTariffGasFromFile() {
-		// TODO
-		return 0;
+				double tariffElectricity = Double.parseDouble(fileScanner.nextLine());
+				double tariffGas = Double.parseDouble(fileScanner.nextLine());
+				tariff[0] = tariffElectricity;
+				tariff[1] = tariffGas;
+
+				fileScanner.close();
+				fileInputStream.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return tariff;
 	}
 
 	/**
@@ -177,9 +196,17 @@ class Controller {
 	 * @param newTariffGas         The new tariff of gas.
 	 */
 	static void updateTariff(double newTariffElectricity, double newTariffGas) {
-		// TODO
 		manager.setTariffElectricity(newTariffElectricity);
 		manager.setTariffGas(newTariffGas);
+		try {
+			File file = new File("./tariff.txt");
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write(Double.toString(newTariffElectricity) + "\n");
+			fileWriter.write(Double.toString(newTariffGas) + "\n");
+			fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
