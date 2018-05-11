@@ -168,6 +168,19 @@ class GUIMain extends JFrame {
 	}
 
 	/**
+	 * This function shows a confirm dialog on screen.
+	 *
+	 * @param text        The message.
+	 * @param title       The window title.
+	 * @param optionType The type of this message.
+	 */
+	static int  showConfirmDialog(String text, String title, int optionType) {
+		JLabel promptLabel = new JLabel(text, JLabel.CENTER);
+		promptLabel.setFont(getUIMainFont());
+		return JOptionPane.showConfirmDialog(null, promptLabel, title, optionType);
+	}
+
+	/**
 	 * Getter function of main font of UI.
 	 *
 	 * @return The main font.
