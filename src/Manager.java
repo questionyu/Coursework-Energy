@@ -194,6 +194,24 @@ public class Manager {
 	}
 
 	/**
+	 * Getter function of priceElectricity.
+	 *
+	 * @return The electricity price.
+	 */
+	double getPriceElectricity() {
+		return priceElectricity;
+	}
+
+	/**
+	 * Getter function of priceGas.
+	 *
+	 * @return The gas price.
+	 */
+	double getPriceGas() {
+		return priceGas;
+	}
+
+	/**
 	 * Setter function of tariffElectricity.
 	 *
 	 * @param tariffElectricity New tariff of electricity.
@@ -210,7 +228,6 @@ public class Manager {
 	void setTariffGas(double tariffGas) {
 		this.tariffGas = tariffGas;
 	}
-
 
 	/**
 	 * Getter function of tariffElectricity.

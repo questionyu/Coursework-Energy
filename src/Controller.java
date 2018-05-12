@@ -268,12 +268,57 @@ class Controller {
 	}
 
 	/**
+	 * This function will get the budget of logged customer.
+	 *
+	 * @return The budget which be set by customer.
+	 */
+	static double getBudget() {
+		return customer.getBudget();
+	}
+
+	/**
 	 * This function will update the budget.
 	 *
 	 * @param newBudget The new budget of customer.
 	 */
 	static void updateBudget(double newBudget) {
 		customer.setBudget(newBudget);
+	}
+
+	/**
+	 * This function will get the readings of logged monitor.
+	 *
+	 * @return The readings.
+	 */
+	static double[] getReadings() {
+		return monitor.getReadings();
+	}
+
+	/**
+	 * This function will get the costs of logged monitor.
+	 *
+	 * @return The costs.
+	 */
+	static double[] getCosts() {
+		return monitor.getCosts();
+	}
+
+	/**
+	 * This function will get the electricity price from manager.
+	 *
+	 * @return The electricity price.
+	 */
+	static double getPriceElectricity() {
+		return manager.getPriceElectricity();
+	}
+
+	/**
+	 * This function will get the gas price from manager.
+	 *
+	 * @return The gas price.
+	 */
+	static double getPriceGas() {
+		return manager.getPriceGas();
 	}
 
 	/**

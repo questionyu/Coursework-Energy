@@ -48,6 +48,18 @@ class Monitor {
 	}
 
 	/**
+	 * This function will get the costs.
+	 *
+	 * @return The costs of this monitor.
+	 */
+	double[] getCosts() {
+		double costs[] = new double[2];
+		costs[0] = meterElectricity.getReading() * (Controller.getPriceElectricity() + Controller.getTariffElectricity() / 100);
+		costs[1] = meterGas.getReading() * (Controller.getPriceGas() + Controller.getTariffGas() / 100);
+		return costs;
+	}
+
+	/**
 	 * This function sends readings.
 	 */
 	void sendReadings() {
