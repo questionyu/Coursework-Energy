@@ -92,10 +92,10 @@ abstract class Meter {
 	/**
 	 * This function returns a random reading.
 	 *
-	 * @return Random number smaller than 0.001
+	 * @return Random number smaller than 1
 	 */
 	private double getRandomReadings() {
-		return Math.random() / 1000;
+		return Math.random();
 	}
 
 	/**
