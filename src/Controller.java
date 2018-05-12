@@ -48,7 +48,7 @@ class Controller {
 	 */
 	static void startManager() {
 		double tariff[] = getTariffFromFile();
-		manager = new Manager(getCustomerFromFile(), tariff[0], tariff[1]);
+		manager = new Manager(getCustomersFromFile(), tariff[0], tariff[1]);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Controller {
 	 * @return True: Succeed. False: Failed.
 	 */
 	static boolean loadCustomers() {
-		return getCustomerFromFile() != null;
+		return getCustomersFromFile() != null;
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Controller {
 	 * This function saves the customers.
 	 */
 	private static void saveCustomer() {
-		writeCustomerToFile(manager.getCustomers());
+		writeCustomersToFile(manager.getCustomers());
 	}
 
 	/**
@@ -353,12 +353,12 @@ class Controller {
 	 *
 	 * @return the ArrayList which contains all customers.
 	 */
-	private static ArrayList<Customer> getCustomerFromFile() {
+	private static ArrayList<Customer> getCustomersFromFile() {
 		ArrayList<Customer> customers = new ArrayList<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new File("Customers.xml"));
+			Document doc = builder.parse(new File("./Customers.xml"));
 			NodeList customerList = doc.getElementsByTagName("customer");
 
 			for (int i = 0; i < customerList.getLength(); i++) {
@@ -387,7 +387,7 @@ class Controller {
 	 *
 	 * @param customerList The ArrayList which contains all customers which you want to save to file.
 	 */
-	private static void writeCustomerToFile(ArrayList<Customer> customerList) {
+	private static void writeCustomersToFile(ArrayList<Customer> customerList) {
 		Document doc;
 		Element customers;
 		Element customer;
@@ -428,7 +428,7 @@ class Controller {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("Customers.xml"));
+			StreamResult result = new StreamResult(new File("./Customers.xml"));
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // Set the indent. For better looks.
 			transformer.transform(source, result);
