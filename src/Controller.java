@@ -349,7 +349,7 @@ class Controller {
 	}
 
 	/**
-	 * This function read films form xml and save to an ArrayList, and return it.
+	 * This function read customers from xml and save to an ArrayList, and return it.
 	 *
 	 * @return the ArrayList which contains all customers.
 	 */
