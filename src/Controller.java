@@ -268,6 +268,15 @@ class Controller {
 	}
 
 	/**
+	 * This function will update the budget.
+	 *
+	 * @param newBudget The new budget of customer.
+	 */
+	static void updateBudget(double newBudget) {
+		customer.setBudget(newBudget);
+	}
+
+	/**
 	 * This function will get the electricity tariff from manager.
 	 *
 	 * @return The electricity tariff.

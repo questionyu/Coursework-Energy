@@ -186,6 +186,51 @@ class GUIMain extends JFrame {
 	}
 
 	/**
+	 * This function creates a history panel and adds it to CardLayout.
+	 */
+	static void history() {
+		energyPanel.add(new GUIHistory(), "GUIHistory");
+		showHistory();
+	}
+
+	/**
+	 * This function shows the history panel.
+	 */
+	static void showHistory() {
+		energyCardLayout.show(energyPanel, "GUIHistory");
+	}
+
+	/**
+	 * This function creates a budget panel and adds it to CardLayout.
+	 */
+	static void budget() {
+		energyPanel.add(new GUIBudget(), "GUIBudget");
+		showBudget();
+	}
+
+	/**
+	 * This function shows the budget panel.
+	 */
+	static void showBudget() {
+		energyCardLayout.show(energyPanel, "GUIBudget");
+	}
+
+	/**
+	 * This function creates a checkTariff panel and adds it to CardLayout.
+	 */
+	static void checkTariff() {
+		energyPanel.add(new GUICheckTariff(), "GUICheckTariff");
+		showCheckTariff();
+	}
+
+	/**
+	 * This function shows the checkTariff panel.
+	 */
+	static void showCheckTariff() {
+		energyCardLayout.show(energyPanel, "GUICheckTariff");
+	}
+
+	/**
 	 * This function shows a input dialog on screen.
 	 *
 	 * @param text        The prompt message.
