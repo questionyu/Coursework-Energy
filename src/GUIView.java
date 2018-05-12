@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Title        GUIView.java
+ * Description  This class views the readings of customers for manager.
+ */
 class GUIView extends JPanel {
 	GUIView() {
 		super(new BorderLayout());

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Title        GUIUpdateTariff.java
+ * Title        GUITariff.java
  * Description  This class shows information about tariff.
  */
 class GUITariff extends JPanel {

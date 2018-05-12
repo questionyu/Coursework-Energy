@@ -3,7 +3,7 @@ import java.awt.*;
 
 /**
  * Title        GUIAddCustomer.java
- * Description  This class help to add a new customer.
+ * Description  This class helps to add a new customer.
  */
 class GUIAddCustomer extends JPanel {
 	GUIAddCustomer() {

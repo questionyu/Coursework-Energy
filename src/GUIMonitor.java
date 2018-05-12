@@ -10,7 +10,7 @@ class GUIMonitor extends JPanel {
 		super(new BorderLayout());
 
 		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Select one to continue");
+		JLabel promptLabel = new JLabel("Monitor");
 		promptLabel.setFont(GUIMain.getUIMainFont());
 
 		// BorderLayout.CENTER
@@ -18,15 +18,19 @@ class GUIMonitor extends JPanel {
 
 		JLabel electricityLabel = new JLabel("Electricity:");
 		electricityLabel.setFont(GUIMain.getUIMainFont());
+
 		JLabel gasLabel = new JLabel("Gas:");
 		gasLabel.setFont(GUIMain.getUIMainFont());
+
 		JLabel budgetLabel = new JLabel("Budget:");
 		budgetLabel.setFont(GUIMain.getUIMainFont());
 
 		JLabel electricityReading = new JLabel(Controller.getLoggedMonitor().getReadings()[0] + " KWh");
 		electricityReading.setFont(GUIMain.getUIMainFont());
+
 		JLabel gasReading = new JLabel(Controller.getLoggedMonitor().getReadings()[1] + " KWh");
 		gasReading.setFont(GUIMain.getUIMainFont());
+
 		JLabel budget = new JLabel(Controller.getLoggedCustomer().getBudget() + " £");
 		budget.setFont(GUIMain.getUIMainFont());
 
@@ -46,7 +50,7 @@ class GUIMonitor extends JPanel {
 		addCustomerButton.setFont(GUIMain.getUIMainFont());
 		addCustomerButton.addActionListener(e -> {
 			Controller.sendReadings();
-			GUIMain.showMessageDialog("Successfully send!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+			GUIMain.showMessageDialog("Send successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 		});
 
 		// BorderLayout.SOUTH

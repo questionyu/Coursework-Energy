@@ -120,6 +120,9 @@ abstract class Meter {
 	 * This class will record the readings.
 	 */
 	private class RecordingTask extends TimerTask {
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void run() {
 			try {
