@@ -34,7 +34,7 @@ class GUIMore extends JPanel {
 
 		JButton backButton = new JButton("Back");
 		backButton.setFont(GUIMain.getUIMainFont());
-		backButton.addActionListener(e -> GUIMain.showMonitor());
+		backButton.addActionListener(e -> GUIMain.monitor());
 
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());

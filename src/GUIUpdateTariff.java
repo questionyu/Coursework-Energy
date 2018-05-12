@@ -63,7 +63,7 @@ class GUIUpdateTariff extends JPanel {
 				return;
 			Controller.updateTariff(tariffElectricity, tariffGas);
 			GUIMain.showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-			GUIMain.showTariff();
+			GUIMain.showManager();
 		});
 
 		southPanel.add(backButton);
