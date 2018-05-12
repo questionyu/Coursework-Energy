@@ -90,6 +90,7 @@ public class Manager {
 		for (Monitor monitor : monitors)
 			if (monitor.getCustomer().equals(customer)) {
 				monitor.stopRecording();
+				monitor.deleteReadings();
 				monitors.remove(monitor);
 			}
 		customers.remove(customer);

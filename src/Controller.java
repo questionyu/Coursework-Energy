@@ -116,14 +116,6 @@ class Controller {
 	 */
 	static void removeCustomer(Customer customer) {
 		manager.removeCustomer(customer);
-		try {
-			File electricityFile = new File("./readings/" + customer.getID() + "electricity.txt");
-			electricityFile.delete();
-			File gasFile = new File("./readings/" + customer.getID() + "gas.txt");
-			gasFile.delete();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

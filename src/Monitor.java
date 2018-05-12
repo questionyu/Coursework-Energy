@@ -100,6 +100,20 @@ class Monitor {
 	}
 
 	/**
+	 * This function will delete reading of this monitor.
+	 */
+	void deleteReadings() { // TODO
+		try {
+			File electricityFile = new File("./readings/" + customer.getID() + "electricity.txt");
+			electricityFile.delete();
+			File gasFile = new File("./readings/" + customer.getID() + "gas.txt");
+			gasFile.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * The getter function of customer.
 	 *
 	 * @return The customer of monitor.
