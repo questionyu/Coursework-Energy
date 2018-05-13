@@ -70,7 +70,10 @@ class GUIMonitor extends JPanel {
 
 		JButton backButton = new JButton("Back");
 		backButton.setFont(GUIMain.getUIMainFont());
-		backButton.addActionListener(e -> GUIMain.showWelcome());
+		backButton.addActionListener(e -> {
+			Controller.logout();
+			GUIMain.showWelcome();
+		});
 
 		JButton moreButton = new JButton("More");
 		moreButton.setFont(GUIMain.getUIMainFont());

@@ -60,6 +60,13 @@ class Controller {
 	}
 
 	/**
+	 * This function starts the monitor.
+	 */
+	private static void startMonitor() {
+		monitor.startRecording();
+	}
+
+	/**
 	 * This function loads customers.
 	 *
 	 * @return True: Succeed. False: Failed.
@@ -144,8 +151,18 @@ class Controller {
 			if (logMonitor.getCustomer().getID() == ID) {
 				monitor = logMonitor;
 				customer = logMonitor.getCustomer();
+				startMonitor();
 				return;
 			}
+	}
+
+	/**
+	 * This function will logout the logged customer.
+	 */
+	static void logout() {
+		monitor.stopRecording();
+		monitor = null;
+		customer = null;
 	}
 
 	/**

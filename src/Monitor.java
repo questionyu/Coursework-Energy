@@ -92,6 +92,14 @@ class Monitor {
 	}
 
 	/**
+	 * This function will start recording.
+	 */
+	void startRecording() {
+		meterElectricity.startRecording();
+		meterGas.startRecording();
+	}
+
+	/**
 	 * This function will stop recording before some customer be removed.
 	 */
 	void stopRecording() {
