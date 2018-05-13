@@ -107,7 +107,7 @@ abstract class Meter {
 		gasReading = 0;
 		recordingTimer = new Timer();
 		recordingTask = new RecordingTask();
-		recordingTimer.schedule(recordingTask, 0, period * 1000); // Let meter run the sleepTask periodically.
+		recordingTimer.schedule(recordingTask, 0, period * 1000); // Let meter run the recordingTask periodically.
 	}
 
 	/**
