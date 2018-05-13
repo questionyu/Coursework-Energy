@@ -130,6 +130,11 @@ class Monitor {
 		return customer;
 	}
 
+	/**
+	 * The getter function of budget.
+	 *
+	 * @return The budget of customer.
+	 */
 	double getBudget() {
 		return customer.getBudget();
 	}
