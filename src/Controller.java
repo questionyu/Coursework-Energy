@@ -265,7 +265,7 @@ class Controller {
 	 * @return The budget which be set by customer.
 	 */
 	static double getBudget() {
-		return customer.getBudget();
+		return monitor.getBudget();
 	}
 
 	/**
@@ -351,7 +351,7 @@ class Controller {
 	/**
 	 * This function read customers from xml and save to an ArrayList, and return it.
 	 *
-	 * @return the ArrayList which contains all customers.
+	 * @return The ArrayList which contains all customers.
 	 */
 	private static ArrayList<Customer> getCustomersFromFile() {
 		ArrayList<Customer> customers = new ArrayList<>();
@@ -385,9 +385,9 @@ class Controller {
 	/**
 	 * This function saves ArrayList of customers to xml file.
 	 *
-	 * @param customerList The ArrayList which contains all customers which you want to save to file.
+	 * @param customersList The ArrayList which contains all customers which you want to save to file.
 	 */
-	private static void writeCustomersToFile(ArrayList<Customer> customerList) {
+	private static void writeCustomersToFile(ArrayList<Customer> customersList) {
 		Document doc;
 		Element customers;
 		Element customer;
@@ -401,7 +401,7 @@ class Controller {
 			doc = dbBuilder.newDocument();
 
 			customers = doc.createElement("customers");
-			for (Customer singleCustomer : customerList) {
+			for (Customer singleCustomer : customersList) {
 				customer = doc.createElement("customer");
 
 				ID = doc.createElement("ID");
