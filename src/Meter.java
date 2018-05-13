@@ -12,6 +12,16 @@ import java.util.TimerTask;
  */
 abstract class Meter {
 	/**
+	 *
+	 */
+	static final int ELECTRICITY_METER = 0;
+
+	/**
+	 *
+	 */
+	static final int GAS_METER = 1;
+
+	/**
 	 * The customer's ID.
 	 */
 	private int customerID;
@@ -22,9 +32,19 @@ abstract class Meter {
 	private int period;
 
 	/**
-	 * The recording files' suffix.
+	 * The type of meter.
 	 */
-	private String suffix;
+	private int meterType;
+
+	/**
+	 * The reading of electricity.
+	 */
+	private static double electricityReading;
+
+	/**
+	 * The reading of gas.
+	 */
+	private static double gasReading;
 
 	/**
 	 * Recording timer.
@@ -41,32 +61,13 @@ abstract class Meter {
 	 *
 	 * @param customerID The customer's ID.
 	 * @param period     The period of updating readings.(Unit: second)
-	 * @param suffix     The recording files' suffix.
+	 * @param meterType  The type of meter.
 	 */
-	Meter(int customerID, int period, String suffix) {
+	Meter(int customerID, int period, int meterType) {
 		this.customerID = customerID;
 		this.period = period;
-		this.suffix = suffix;
-		initReadings();
-		startRecording();
+		this.meterType = meterType;
 	}
-
-	/**
-	 * This function will check the readings files if exist. If not then will create files.
-	 */
-	private void initReadings() {
-		try {
-			File file = new File("./readings/" + customerID + suffix + ".txt");
-			if (file.createNewFile()) {
-				FileWriter fileWriter = new FileWriter(file);
-				fileWriter.write(Double.toString(0));
-				fileWriter.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 
 	/**
 	 * This function returns a reading.
@@ -101,7 +102,9 @@ abstract class Meter {
 	/**
 	 * Let the meter start the timer.
 	 */
-	private void startRecording() { // This only can run once.
+	void startRecording() { // This only can run once.
+		electricityReading = 0;
+		gasReading = 0;
 		recordingTimer = new Timer();
 		recordingTask = new RecordingTask();
 		recordingTimer.schedule(recordingTask, 0, period * 1000); // Let meter run the sleepTask periodically.
@@ -125,24 +128,10 @@ abstract class Meter {
 		 */
 		@Override
 		public void run() {
-			try {
-				File file = new File("./readings/" + customerID + suffix + ".txt");
-				FileInputStream fileInputStream = new FileInputStream(file);
-				Scanner fileScanner = new Scanner(fileInputStream);
-
-				double result = Double.parseDouble(fileScanner.nextLine());
-				fileScanner.close();
-				fileInputStream.close();
-
-				FileWriter fileWriter = new FileWriter(file);
-
-				result += getRandomReadings();
-				fileWriter.write(Double.toString(result));
-
-				fileWriter.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			if (meterType == ELECTRICITY_METER)
+				electricityReading += getRandomReadings();
+			else if (meterType == GAS_METER)
+				gasReading += getRandomReadings();
 		}
 	}
 }
