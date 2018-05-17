@@ -1,9 +1,10 @@
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Title        Manager.java
@@ -46,6 +47,16 @@ public class Manager {
 	private double tariffGas;
 
 	/**
+	 * Bills timer.
+	 */
+	private Timer billsTimer;
+
+	/**
+	 * Bills task.
+	 */
+	private BillsTask billsTask;
+
+	/**
 	 * Constructor function of manager.
 	 *
 	 * @param customers         All customers of the system.
@@ -59,6 +70,24 @@ public class Manager {
 		monitors = new ArrayList<>();
 		for (Customer customer : customers)
 			monitors.add(new Monitor(customer));
+	}
+
+	/**
+	 * This function will start timer.
+	 */
+	void startTimer() {
+		billsTimer = new Timer();
+		billsTask = new BillsTask();
+		billsTimer.schedule(billsTask, 0, (24 * 60 * 60 * 1000)); // Once a day.
+	}
+
+	/**
+	 * This function will stop timer.
+	 */
+	void stopTimer() {
+		billsTask.cancel();
+		billsTimer.cancel();
+		billsTimer.purge();
 	}
 
 	/**
@@ -239,5 +268,20 @@ public class Manager {
 	 */
 	double getTariffGas() {
 		return tariffGas;
+	}
+
+	/**
+	 * This class will run the generateBills function.
+	 */
+	private class BillsTask extends TimerTask {
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void run() {
+			Calendar now = Calendar.getInstance();
+			if (now.get(Calendar.DAY_OF_MONTH) == 1)
+				generateBills();
+		}
 	}
 }

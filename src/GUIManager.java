@@ -43,7 +43,10 @@ class GUIManager extends JPanel {
 
 		JButton backButton = new JButton("Back");
 		backButton.setFont(GUIMain.getUIMainFont());
-		backButton.addActionListener(e -> GUIMain.showWelcome());
+		backButton.addActionListener(e -> {
+			Controller.stopManagerTimer();
+			GUIMain.showWelcome();
+		});
 
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());

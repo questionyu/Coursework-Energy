@@ -135,6 +135,20 @@ class Controller {
 	}
 
 	/**
+	 * This function will start timer.
+	 */
+	static void startManagerTimer() {
+		manager.startTimer();
+	}
+
+	/**
+	 * This function will stop timer.
+	 */
+	static void stopManagerTimer() {
+		manager.stopTimer();
+	}
+
+	/**
 	 * This function will record the logged customer and start the monitor.
 	 *
 	 * @param ID The ID of customer.

@@ -34,9 +34,10 @@ class GUIWelcome extends JPanel {
 			}
 			if (Controller.getIDType(ID) < 0) {
 				GUIMain.showMessageDialog("ID does not exist!", "Whoops!", JOptionPane.ERROR_MESSAGE);
-			} else if (Controller.getIDType(ID) == 0)
+			} else if (Controller.getIDType(ID) == 0) {
+				Controller.startManagerTimer();
 				GUIMain.manager();
-			else {
+			} else {
 				Controller.login(ID);
 				GUIMain.monitor();
 			}
