@@ -149,10 +149,10 @@ public class Manager {
 	 * @param customer The customer whose bill will be generated.
 	 * @return Bill information.
 	 */
-	private String generateBill(Customer customer) {
+	private String generateBill(Customer customer) { // TODO 1,2月的情况需要考虑
 		ArrayList<Readings> readings = Controller.getReadingsFromFile(customer.getID(), "receivedReadings");
 		Calendar now = Calendar.getInstance();
-		int thisMonth = now.get(Calendar.MONTH); // TODO 1,2月的情况需要考虑
+		int thisMonth = now.get(Calendar.MONTH);
 		ArrayList<Readings> lastMonthReadings = new ArrayList<>();
 		ArrayList<Readings> theMonthBeforeLastReadings = new ArrayList<>();
 		for (Readings singleReadings : readings) {
@@ -166,6 +166,7 @@ public class Manager {
 		if (lastMonthReadings.size() == 0)
 			return "Name: " + customer.getName() + "\n" +
 					"Address: " + customer.getAddress() + "\n" +
+					"Time: " + now.get(Calendar.YEAR) + "-" + now.get(Calendar.MONTH) + "\n" +
 					"Electricity readings: " + 0 + "\n" +
 					"Gas readings: " + 0 + "\n" +
 					"Total bill: " + 0;
@@ -181,6 +182,7 @@ public class Manager {
 		double total = electricityReadings * (priceElectricity + tariffElectricity / 100) + gasReadings * (priceGas + tariffGas / 100);
 		return "Name: " + customer.getName() + "\n" +
 				"Address: " + customer.getAddress() + "\n" +
+				"Time: " + now.get(Calendar.YEAR) + "-" + (now.get(Calendar.MONTH) + 1) + "\n" +
 				"Electricity readings: " + electricityReadings + "\n" +
 				"Gas readings: " + gasReadings + "\n" +
 				"Total bill: " + total;
