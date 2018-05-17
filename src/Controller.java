@@ -115,6 +115,7 @@ class Controller {
 	 */
 	static void removeCustomer(Customer customer) {
 		manager.removeCustomer(customer);
+		saveCustomer();
 	}
 
 	/**
@@ -266,6 +267,7 @@ class Controller {
 	 */
 	static void updateBudget(double budget) {
 		monitor.setBudget(budget);
+		saveCustomer();
 	}
 
 	/**
