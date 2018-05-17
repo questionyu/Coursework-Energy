@@ -1,8 +1,19 @@
 import java.util.Calendar;
 
 class Readings {
+	/**
+	 * The date of readings.
+	 */
 	private Calendar date;
+
+	/**
+	 * The accumulative readings of electricity.
+	 */
 	private double electricity;
+
+	/**
+	 * The accumulative readings of gas.
+	 */
 	private double gas;
 
 	Readings(Calendar date, double electricity, double gas) {

@@ -176,7 +176,7 @@ class Monitor {
 	}
 
 	/**
-	 * The getter function of customer.
+	 * Getter function of customer.
 	 *
 	 * @return The customer of monitor.
 	 */
@@ -185,7 +185,7 @@ class Monitor {
 	}
 
 	/**
-	 * The getter function of budget.
+	 * Getter function of budget.
 	 *
 	 * @return The budget of customer.
 	 */
