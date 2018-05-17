@@ -1,0 +1,6 @@
+Name: Jim
+Address: New York
+Time: 2018-4
+Electricity readings: 2.0000000000000004
+Gas readings: 0.19999999999999998
+Total bill: 2.5397600000000002

@@ -1,0 +1,6 @@
+Name: 5
+Address: 5
+Time: 2018-4
+Electricity readings: 0.0
+Gas readings: 0.0
+Total bill: 0.0
