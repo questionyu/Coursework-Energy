@@ -303,11 +303,11 @@ class Controller {
 				"" + (getReadings().get(0).getElectricity() * (getPriceElectricity() + getTariffElectricity() / 100) + getReadings().get(0).getGas() * (getPriceGas() + getTariffGas() / 100))};
 		for (int i = 1; i < readingsData.length; i++) {
 			Readings singleReadings = getReadings().get(i);
-			Readings lastReaings = getReadings().get(i - 1);
+			Readings lastReadings = getReadings().get(i - 1);
 			readingsData[i] = new String[]{calendarToString(singleReadings.getDate()),
 					"" + singleReadings.getElectricity(),
 					"" + singleReadings.getGas(),
-					"" + ((singleReadings.getElectricity() - lastReaings.getElectricity()) * (getPriceElectricity() + getTariffElectricity() / 100) + (singleReadings.getGas() - lastReaings.getGas()) * (getPriceGas() + getTariffGas() / 100))};
+					"" + ((singleReadings.getElectricity() - lastReadings.getElectricity()) * (getPriceElectricity() + getTariffElectricity() / 100) + (singleReadings.getGas() - lastReadings.getGas()) * (getPriceGas() + getTariffGas() / 100))};
 		}
 		return readingsData;
 	}
