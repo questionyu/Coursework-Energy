@@ -41,7 +41,7 @@ class GUIMonitor extends JPanel {
 		budget.setFont(GUIMain.getUIMainFont());
 
 		JPanel alertPanel = new JPanel();
-		if (Controller.getBudget() < Controller.getCosts()[0] + Controller.getCosts()[1])
+		if (Controller.getBudget() > Controller.getCosts()[0] + Controller.getCosts()[1])
 			alertPanel.setBackground(Color.CYAN);
 		else
 			alertPanel.setBackground(Color.RED);
