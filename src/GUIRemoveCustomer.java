@@ -20,7 +20,7 @@ class GUIRemoveCustomer extends JPanel {
 		userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
 
 		for (Customer customer : Controller.getCustomers()) {
-			JButton customerButton = new JButton("\"" + customer.getName() + "\"" + customer.getAddress());
+			JButton customerButton = new JButton("\"" + customer.getName() + "\"  " + customer.getAddress());
 			customerButton.setFont(GUIMain.getUIMainFont());
 			customerButton.addMouseListener(new mouseAdapter(customer));
 			userListPanel.add(customerButton);
