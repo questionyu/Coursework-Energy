@@ -51,7 +51,7 @@ class Monitor {
 	}
 
 	/**
-	 * This function will get the readings.
+	 * This function will get the real-time readings.
 	 *
 	 * @return The readings of this monitor.
 	 */
