@@ -493,7 +493,7 @@ class Controller {
 	 * This function read readings from xml and save to an ArrayList, and return it.
 	 *
 	 * @param ID The ID of customer.
-	 * @return The ArrayList which contains all customers.
+	 * @return The ArrayList which contains readings.
 	 */
 	static ArrayList<Readings> getReadingsFromFile(int ID) {
 		ArrayList<Readings> readings = new ArrayList<>();
