@@ -129,7 +129,7 @@ class Manager {
 	/**
 	 * This function will generate bills.
 	 */
-	private void generateBills() {
+	void generateBills() {
 		for (Customer customer : customers) {
 			try {
 				File billFile = new File("./bills/" + customer.getID() + ".txt");
@@ -199,7 +199,7 @@ class Manager {
 	/**
 	 * This function will send bills.
 	 */
-	private void sendBills() {
+	void sendBills() {
 		for (Customer customer : customers) {
 			try {
 				File sourceFile = new File("./bills/" + customer.getID() + ".txt");

@@ -24,9 +24,18 @@ class GUIMore extends JPanel {
 		tariffButton.setFont(GUIMain.getUIMainFont());
 		tariffButton.addActionListener(e -> GUIMain.checkTariff());
 
+		// Only for demo
+		JButton sendReadingsButton = new JButton("Send readings (Only for demo)");
+		sendReadingsButton.setFont(GUIMain.getUIMainFont());
+		sendReadingsButton.addActionListener(e -> {
+			Controller.sendReadings();
+			GUIMain.showMessageDialog("Send successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+		});
+
 		centerPanel.add(viewButton);
 		centerPanel.add(budgetButton);
 		centerPanel.add(tariffButton);
+		centerPanel.add(sendReadingsButton);
 
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();

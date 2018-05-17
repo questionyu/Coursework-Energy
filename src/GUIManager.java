@@ -48,8 +48,17 @@ class GUIManager extends JPanel {
 			GUIMain.showWelcome();
 		});
 
+		// Only for demo
+		JButton billsButton = new JButton("Bills (Only for demo)");
+		billsButton.setFont(GUIMain.getUIMainFont());
+		billsButton.addActionListener(e -> {
+			Controller.bills();
+			GUIMain.showMessageDialog("Generate and send bills successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+		});
+
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());
+		southPanel.add(billsButton);
 
 		add(promptLabel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);

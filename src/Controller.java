@@ -68,6 +68,21 @@ class Controller {
 	}
 
 	/**
+	 * Only for demo. Send readings.
+	 */
+	static void sendReadings() {
+		monitor.sendReadings();
+	}
+
+	/**
+	 * Only for demo. Generate and send bills.
+	 */
+	static void bills() {
+		manager.generateBills();
+		manager.sendBills();
+	}
+
+	/**
 	 * Getter function of monitors.
 	 *
 	 * @return All monitors of the system.
