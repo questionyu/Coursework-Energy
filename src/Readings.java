@@ -22,4 +22,12 @@ class Readings {
 	double getGas() {
 		return gas;
 	}
+
+	void setElectricity(double electricity) {
+		this.electricity = electricity;
+	}
+
+	void setGas(double gas) {
+		this.gas = gas;
+	}
 }
