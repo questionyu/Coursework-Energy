@@ -18,7 +18,7 @@ class GUIBudget extends JPanel {
 		JLabel newBudgetLabel = new JLabel("New budget:");
 		newBudgetLabel.setFont(GUIMain.getUIMainFont());
 
-		JLabel oldBudget = new JLabel(Controller.getLoggedCustomer().getBudget() + " £");
+		JLabel oldBudget = new JLabel(Controller.getBudget() + " £");
 		oldBudget.setFont(GUIMain.getUIMainFont());
 
 		JTextField newBudget = new JTextField();
