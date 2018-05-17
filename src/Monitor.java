@@ -112,7 +112,7 @@ class Monitor {
 		if (readings.size() == 0)
 			return readings;
 		Calendar date = Calendar.getInstance();
-		date.add(Calendar.WEEK_OF_YEAR, -7);
+		date.add(Calendar.WEEK_OF_YEAR, -4);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
@@ -132,7 +132,7 @@ class Monitor {
 		if (readings.size() == 0)
 			return readings;
 		Calendar date = Calendar.getInstance();
-		date.add(Calendar.MONTH, -7);
+		date.add(Calendar.MONTH, -3);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
