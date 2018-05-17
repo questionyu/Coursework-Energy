@@ -211,14 +211,6 @@ class Manager {
 		}
 	}
 
-	public void getReadings() {
-		// TODO
-	}
-
-	public void getBills() {
-		// TODO
-	}
-
 	/**
 	 * Getter function of customers.
 	 *
