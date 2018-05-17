@@ -56,14 +56,6 @@ class GUIMonitor extends JPanel {
 		centerPanel.add(budget);
 		centerPanel.add(alertPanel);
 
-		// TODO
-		JButton addCustomerButton = new JButton("Send readings (Temporarily)");
-		addCustomerButton.setFont(GUIMain.getUIMainFont());
-		addCustomerButton.addActionListener(e -> {
-			Controller.sendReadings();
-			GUIMain.showMessageDialog("Send successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-		});
-
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
