@@ -144,14 +144,30 @@ class Monitor {
 	}
 
 	/**
-	 * This function will get the costs.
+	 * This function will get the costs this month.
 	 *
 	 * @return The costs of this monitor.
 	 */
-	double[] getCosts() {
+	double[] getCosts() {  // TODO 1月的情况需要考虑
+		Calendar now = Calendar.getInstance();
+		int thisMonth = now.get(Calendar.MONTH);
+		ArrayList<Readings> lastMonthReadings = new ArrayList<>();
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().get(Calendar.MONTH) == (thisMonth - 1))
+				lastMonthReadings.add(singleReadings);
+		double electricityReadings;
+		double gasReadings;
+		if (lastMonthReadings.size() == 0) {
+			electricityReadings = meterElectricity.getReading();
+			gasReadings = meterGas.getReading();
+		} else {
+			Readings lastMonthReading = lastMonthReadings.get(lastMonthReadings.size() - 1);
+			electricityReadings = meterElectricity.getReading() - lastMonthReading.getElectricity();
+			gasReadings = meterGas.getReading() - lastMonthReading.getGas();
+		}
 		double costs[] = new double[2];
-		costs[0] = meterElectricity.getReading() * (Controller.getPriceElectricity() + Controller.getTariffElectricity() / 100);
-		costs[1] = meterGas.getReading() * (Controller.getPriceGas() + Controller.getTariffGas() / 100);
+		costs[0] = electricityReadings * (Controller.getPriceElectricity() + Controller.getTariffElectricity() / 100);
+		costs[1] = gasReadings * (Controller.getPriceGas() + Controller.getTariffGas() / 100);
 		return costs;
 	}
 
