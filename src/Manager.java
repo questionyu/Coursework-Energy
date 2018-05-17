@@ -183,7 +183,7 @@ public class Manager {
 		double total = electricityReadings * (priceElectricity + tariffElectricity / 100) + gasReadings * (priceGas + tariffGas / 100);
 		return "Name: " + customer.getName() + "\n" +
 				"Address: " + customer.getAddress() + "\n" +
-				"Time: " + now.get(Calendar.YEAR) + "-" + (now.get(Calendar.MONTH) + 1) + "\n" +
+				"Time: " + now.get(Calendar.YEAR) + "-" + now.get(Calendar.MONTH) + "\n" +
 				"Electricity readings: " + electricityReadings + "\n" +
 				"Gas readings: " + gasReadings + "\n" +
 				"Total bill: " + total;
