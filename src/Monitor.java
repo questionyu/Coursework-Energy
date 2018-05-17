@@ -295,7 +295,7 @@ class Monitor {
 	}
 
 	/**
-	 * This class will run the sendReadings function.
+	 * This class will run the sendReadings function once a month.
 	 */
 	private class SendingTask extends TimerTask {
 		/**
