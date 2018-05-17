@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
@@ -191,8 +192,16 @@ public class Manager {
 	/**
 	 * This function will send bills.
 	 */
-	void sendBills() {
-		generateBills();
+	private void sendBills() {
+		for (Customer customer : customers) {
+			try {
+				File sourceFile = new File("./bills/" + customer.getID() + ".txt");
+				File newFile = new File("./receivedBills/" + customer.getID() + ".txt");
+				Files.copy(sourceFile.toPath(), newFile.toPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void getReadings() {
@@ -285,8 +294,10 @@ public class Manager {
 		@Override
 		public void run() {
 			Calendar now = Calendar.getInstance();
-			if (now.get(Calendar.DAY_OF_MONTH) == 1)
+			if (now.get(Calendar.DAY_OF_MONTH) == 1) {
 				generateBills();
+				sendBills();
+			}
 		}
 	}
 }
