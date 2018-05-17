@@ -69,13 +69,8 @@ class GUIHistory extends JPanel implements ActionListener {
 		String[][] readingsDataByMonth = Controller.getReadingsDataByMonth();
 
 		JTable tableByDay = new JTable(readingsDataByDay, columnNames);
-		tableByDay.setFont(new Font(null, Font.PLAIN, 15));
-
 		JTable tableByWeek = new JTable(readingsDataByWeek, columnNames);
-		tableByDay.setFont(new Font(null, Font.PLAIN, 15));
-
 		JTable tableByMonth = new JTable(readingsDataByMonth, columnNames);
-		tableByDay.setFont(new Font(null, Font.PLAIN, 15));
 
 		historyPanel.add(new JScrollPane(tableByDay), "day");
 		historyPanel.add(new JScrollPane(tableByWeek), "week");
@@ -102,16 +97,6 @@ class GUIHistory extends JPanel implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-			case "day":
-				historyCardLayout.show(historyPanel, "day");
-				break;
-			case "week":
-				historyCardLayout.show(historyPanel, "week");
-				break;
-			case "month":
-				historyCardLayout.show(historyPanel, "month");
-				break;
-		}
+		historyCardLayout.show(historyPanel, e.getActionCommand());
 	}
 }
