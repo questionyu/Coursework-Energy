@@ -1,8 +1,10 @@
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Title        Monitor.java
@@ -38,6 +40,10 @@ class Monitor {
 	 * Recording task.
 	 */
 	private RecordingTask recordingTask;
+
+	private Timer sendingTimer;
+
+	private SendingTask sendingTask;
 
 	/**
 	 * The constructor function of monitor.
@@ -86,30 +92,11 @@ class Monitor {
 	/**
 	 * This function sends readings.
 	 */
-	void sendReadings() { //TODO
+	void sendReadings() {
 		try {
-			File electricityReadingsFile = new File("./readings/" + customer.getID() + "electricity.txt");
-			File gasReadingsFile = new File("./readings/" + customer.getID() + "gas.txt");
-			FileInputStream electricityInputStream = new FileInputStream(electricityReadingsFile);
-			FileInputStream gasInputStream = new FileInputStream(gasReadingsFile);
-			Scanner electricityScanner = new Scanner(electricityInputStream);
-			Scanner gasScanner = new Scanner(gasInputStream);
-
-			String electricityReadings = electricityScanner.nextLine();
-			String gasReadings = gasScanner.nextLine();
-
-			electricityScanner.close();
-			gasScanner.close();
-			electricityInputStream.close();
-			gasInputStream.close();
-
-			File sendReadingsFile = new File("./receivedReadings/" + customer.getID() + ".txt");
-			FileWriter sendReadingsFileWriter = new FileWriter(sendReadingsFile);
-
-			sendReadingsFileWriter.write(electricityReadings + "\n");
-			sendReadingsFileWriter.write(gasReadings + "\n");
-
-			sendReadingsFileWriter.close();
+			File sourceFile = new File("./readings/" + customer.getID() + ".xml");
+			File newFile = new File("./receivedReadings/" + customer.getID() + ".xml");
+			Files.copy(sourceFile.toPath(), newFile.toPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -148,12 +135,20 @@ class Monitor {
 		recordingTimer = new Timer();
 		recordingTask = new RecordingTask();
 		recordingTimer.schedule(recordingTask, 0, (10 * 60 * 1000)); // Let monitor run the recordingTask periodically.
+
+		sendingTimer = new Timer();
+		sendingTask = new SendingTask();
+		sendingTimer.schedule(sendingTask, 0, (24 * 60 * 60 * 1000)); // Once a day.
 	}
 
 	/**
 	 * This function will stop recording.
 	 */
 	void stopRecording() {
+		sendingTask.cancel();
+		sendingTimer.cancel();
+		sendingTimer.purge();
+
 		recordingTask.cancel();
 		recordingTimer.cancel();
 		recordingTimer.purge();
@@ -230,6 +225,21 @@ class Monitor {
 		@Override
 		public void run() {
 			saveReadings();
+		}
+	}
+
+	/**
+	 * This class will run the sendReadings function.
+	 */
+	private class SendingTask extends TimerTask {
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void run() {
+			Calendar now = Calendar.getInstance();
+			if (now.get(Calendar.DAY_OF_MONTH) == 1) // Send readings in the first day of the month.
+				sendReadings();
 		}
 	}
 }

@@ -97,13 +97,6 @@ public class Manager {
 	}
 
 	/**
-	 * This function will receive readings from monitors.
-	 */
-	public void receiveReadings() {
-		// TODO
-	}
-
-	/**
 	 * This function will generate bills.
 	 */
 	private void generateBills() {
