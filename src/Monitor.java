@@ -41,8 +41,14 @@ class Monitor {
 	 */
 	private RecordingTask recordingTask;
 
+	/**
+	 * Sending timer.
+	 */
 	private Timer sendingTimer;
 
+	/**
+	 * Sending task.
+	 */
 	private SendingTask sendingTask;
 
 	/**
