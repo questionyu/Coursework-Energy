@@ -378,9 +378,14 @@ class Controller {
 	private static ArrayList<Customer> getCustomersFromFile() {
 		ArrayList<Customer> customers = new ArrayList<>();
 		try {
+			File file = new File("./Customers.xml");
+			if (file.createNewFile()){
+				System.out.println("Customers file not exist. Created new one.");
+				return customers;
+			}
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new File("./Customers.xml"));
+			Document doc = builder.parse(file);
 			NodeList customerList = doc.getElementsByTagName("customer");
 
 			for (int i = 0; i < customerList.getLength(); i++) {
