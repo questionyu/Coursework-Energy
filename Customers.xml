@@ -4,66 +4,66 @@
         <ID>12345678</ID>
         <name>Jim</name>
         <address>New York</address>
-        <budget>0</budget>
+        <budget>150.0</budget>
     </customer>
     <customer>
         <ID>63147727</ID>
         <name>test1</name>
         <address>test</address>
-        <budget>0</budget>
+        <budget>100.0</budget>
     </customer>
     <customer>
         <ID>47637461</ID>
         <name>1</name>
         <address>1</address>
-        <budget>0</budget>
+        <budget>90.0</budget>
     </customer>
     <customer>
         <ID>61371295</ID>
         <name>2</name>
         <address>2</address>
-        <budget>0</budget>
+        <budget>85.0</budget>
     </customer>
     <customer>
         <ID>85227591</ID>
         <name>3</name>
         <address>3</address>
-        <budget>0</budget>
+        <budget>80.5</budget>
     </customer>
     <customer>
         <ID>13122176</ID>
         <name>4</name>
         <address>4</address>
-        <budget>0</budget>
+        <budget>0.0</budget>
     </customer>
     <customer>
         <ID>53383819</ID>
         <name>5</name>
         <address>5</address>
-        <budget>0</budget>
+        <budget>0.0</budget>
     </customer>
     <customer>
         <ID>53352921</ID>
         <name>6</name>
         <address>6</address>
-        <budget>0</budget>
+        <budget>0.0</budget>
     </customer>
     <customer>
         <ID>35833571</ID>
         <name>7</name>
         <address>7</address>
-        <budget>0</budget>
+        <budget>0.0</budget>
     </customer>
     <customer>
         <ID>91628256</ID>
         <name>8</name>
         <address>8</address>
-        <budget>0</budget>
+        <budget>0.0</budget>
     </customer>
     <customer>
         <ID>11434938</ID>
         <name>9</name>
         <address>9</address>
-        <budget>0</budget>
+        <budget>0.0</budget>
     </customer>
 </customers>
