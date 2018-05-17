@@ -11,7 +11,7 @@ import java.util.TimerTask;
  * Title        Manager.java
  * Description  This class defines the manager system.
  */
-public class Manager {
+class Manager {
 	/**
 	 * Manager ID.
 	 */
@@ -135,7 +135,7 @@ public class Manager {
 				File billFile = new File("./bills/" + customer.getID() + ".txt");
 				FileWriter billFileWriter = new FileWriter(billFile);
 
-				billFileWriter.write(generateBill(customer));
+				billFileWriter.write(generateBillString(customer));
 
 				billFileWriter.close();
 			} catch (IOException e) {
@@ -145,12 +145,29 @@ public class Manager {
 	}
 
 	/**
-	 * This function will generate a bill for specified customer.
+	 * This function will generate a bill string for specified customer.
 	 *
 	 * @param customer The customer whose bill will be generated.
 	 * @return Bill information.
 	 */
-	private String generateBill(Customer customer) { // TODO 1,2月的情况需要考虑
+	private String generateBillString(Customer customer) {
+		Calendar now = Calendar.getInstance();
+		double[] bill = generateBill(customer);
+		return "Name: " + customer.getName() + "\n" +
+				"Address: " + customer.getAddress() + "\n" +
+				"Time: " + now.get(Calendar.YEAR) + "-" + now.get(Calendar.MONTH) + "\n" +
+				"Electricity readings: " + bill[0] + "\n" +
+				"Gas readings: " + bill[1] + "\n" +
+				"Total bill: " + bill[2];
+	}
+
+	/**
+	 * This function will calculate readings and bill for specified customer.
+	 *
+	 * @param customer The customer whose bill will be generated.
+	 * @return Bill information.
+	 */
+	double[] generateBill(Customer customer) { // TODO 1,2月的情况需要考虑
 		ArrayList<Readings> readings = Controller.getReadingsFromFile(customer.getID(), "receivedReadings");
 		Calendar now = Calendar.getInstance();
 		int thisMonth = now.get(Calendar.MONTH);
@@ -165,12 +182,7 @@ public class Manager {
 		double electricityReadings;
 		double gasReadings;
 		if (lastMonthReadings.size() == 0)
-			return "Name: " + customer.getName() + "\n" +
-					"Address: " + customer.getAddress() + "\n" +
-					"Time: " + now.get(Calendar.YEAR) + "-" + now.get(Calendar.MONTH) + "\n" +
-					"Electricity readings: " + 0 + "\n" +
-					"Gas readings: " + 0 + "\n" +
-					"Total bill: " + 0;
+			return new double[]{0, 0, 0};
 		Readings lastMonthReading = lastMonthReadings.get(lastMonthReadings.size() - 1);
 		if (theMonthBeforeLastReadings.size() == 0) {
 			electricityReadings = lastMonthReading.getElectricity();
@@ -181,12 +193,7 @@ public class Manager {
 			gasReadings = lastMonthReading.getGas() - theMonthBeforeLastReading.getGas();
 		}
 		double total = electricityReadings * (priceElectricity + tariffElectricity / 100) + gasReadings * (priceGas + tariffGas / 100);
-		return "Name: " + customer.getName() + "\n" +
-				"Address: " + customer.getAddress() + "\n" +
-				"Time: " + now.get(Calendar.YEAR) + "-" + now.get(Calendar.MONTH) + "\n" +
-				"Electricity readings: " + electricityReadings + "\n" +
-				"Gas readings: " + gasReadings + "\n" +
-				"Total bill: " + total;
+		return new double[]{electricityReadings, gasReadings, total};
 	}
 
 	/**
