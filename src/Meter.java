@@ -22,11 +22,6 @@ abstract class Meter {
 	static final int GAS_METER = 1;
 
 	/**
-	 * The customer's ID.
-	 */
-	private int customerID;
-
-	/**
 	 * The period of updating readings.
 	 */
 	private int period;
@@ -59,12 +54,10 @@ abstract class Meter {
 	/**
 	 * The constructor function of meter.
 	 *
-	 * @param customerID The customer's ID.
 	 * @param period     The period of updating readings.(Unit: second)
 	 * @param meterType  The type of meter.
 	 */
-	Meter(int customerID, int period, int meterType) {
-		this.customerID = customerID;
+	Meter(int period, int meterType) {
 		this.period = period;
 		this.meterType = meterType;
 	}

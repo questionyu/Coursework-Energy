@@ -31,8 +31,8 @@ class Monitor {
 	 */
 	Monitor(Customer customer) {
 		this.customer = customer;
-		meterElectricity = new MeterElectricity(customer.getID());
-		meterGas = new MeterGas(customer.getID());
+		meterElectricity = new MeterElectricity();
+		meterGas = new MeterGas();
 	}
 
 	/**
