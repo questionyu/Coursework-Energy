@@ -7,12 +7,12 @@ import java.util.TimerTask;
  */
 abstract class Meter {
 	/**
-	 *
+	 * Electricity type.
 	 */
 	static final int ELECTRICITY_METER = 0;
 
 	/**
-	 *
+	 * Gas type.
 	 */
 	static final int GAS_METER = 1;
 
@@ -49,8 +49,8 @@ abstract class Meter {
 	/**
 	 * The constructor function of meter.
 	 *
-	 * @param period     The period of updating readings.(Unit: second)
-	 * @param meterType  The type of meter.
+	 * @param period    The period of updating readings.(Unit: second)
+	 * @param meterType The type of meter.
 	 */
 	Meter(int period, int meterType) {
 		this.period = period;

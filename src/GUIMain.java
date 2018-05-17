@@ -263,6 +263,7 @@ class GUIMain extends JFrame {
 	 * @param text       The message.
 	 * @param title      The window title.
 	 * @param optionType The type of this message.
+	 * @return An int indicating the option selected by the user.
 	 */
 	static int showConfirmDialog(String text, String title, int optionType) {
 		JLabel promptLabel = new JLabel(text, JLabel.CENTER);
