@@ -14,7 +14,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -31,11 +35,6 @@ class Controller {
 	 * The monitor of logged customer;
 	 */
 	private static Monitor monitor;
-
-	/**
-	 * The logged customer;
-	 */
-	private static Customer customer;
 
 	/**
 	 * A private blank constructor. Prevent other class creating a instance of Controller.
@@ -57,13 +56,6 @@ class Controller {
 	static void startGUI() {
 		new GUIMain();
 		GUIMain.welcome();
-	}
-
-	/**
-	 * This function starts the monitor.
-	 */
-	private static void startMonitor() {
-		monitor.startRecording();
 	}
 
 	/**
@@ -142,45 +134,27 @@ class Controller {
 	}
 
 	/**
-	 * This function will record the logged customer.
+	 * This function will record the logged customer and start the monitor.
 	 *
 	 * @param ID The ID of customer.
 	 */
 	static void login(int ID) {
 		for (Monitor logMonitor : getMonitors())
-			if (logMonitor.getCustomer().getID() == ID) {
+			if (logMonitor.getID() == ID) {
 				monitor = logMonitor;
-				customer = logMonitor.getCustomer();
-				startMonitor();
+				monitor.loadReadings();
+				monitor.startRecording();
 				return;
 			}
 	}
 
 	/**
-	 * This function will logout the logged customer.
+	 * This function will logout the logged customer and stop the monitor.
 	 */
 	static void logout() {
 		monitor.stopRecording();
+		monitor.saveReadings();
 		monitor = null;
-		customer = null;
-	}
-
-	/**
-	 * Getter function of monitor.
-	 *
-	 * @return Logged monitor.
-	 */
-	static Monitor getLoggedMonitor() {
-		return monitor;
-	}
-
-	/**
-	 * Getter function of customer.
-	 *
-	 * @return Logged customer.
-	 */
-	static Customer getLoggedCustomer() {
-		return customer;
 	}
 
 	/**
@@ -288,10 +262,10 @@ class Controller {
 	/**
 	 * This function will update the budget.
 	 *
-	 * @param newBudget The new budget of customer.
+	 * @param budget The new budget of customer.
 	 */
-	static void updateBudget(double newBudget) {
-		customer.setBudget(newBudget);
+	static void updateBudget(double budget) {
+		monitor.setBudget(budget);
 	}
 
 	/**
@@ -363,6 +337,35 @@ class Controller {
 	static void generateBills() {
 		// TODO Temporarily codes
 		manager.generateBills();
+	}
+
+	/**
+	 * This function converts string to calendar.
+	 *
+	 * @param dateString The string contains the information of date.
+	 * @return The date instance of the converted time.
+	 */
+	private static Calendar stringToCalendar(String dateString) {
+		Date newDate = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			newDate = simpleDateFormat.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Calendar date = Calendar.getInstance();
+		date.setTime(newDate);
+		return date;
+	}
+
+	/**
+	 * This function converts calendar to string.
+	 *
+	 * @param date The calendar instance.
+	 * @return The date string.
+	 */
+	private static String calendarToString(Calendar date) {
+		return String.valueOf(date.get(Calendar.YEAR)) + "-" + (date.get(Calendar.MONTH) + 1) + "-" + date.get(Calendar.DATE);
 	}
 
 	/**
@@ -446,6 +449,95 @@ class Controller {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File("./Customers.xml"));
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // Set the indent. For better looks.
+			transformer.transform(source, result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * This function read readings from xml and save to an ArrayList, and return it.
+	 *
+	 * @param ID The ID of customer.
+	 * @return The ArrayList which contains all customers.
+	 */
+	static ArrayList<Readings> getReadingsFromFile(int ID) {
+		ArrayList<Readings> readings = new ArrayList<>();
+		try {
+			File file = new File("./readings/" + ID + ".xml");
+			if (file.createNewFile()){
+				System.out.println("Readings file not exist. Created new one.");
+				return readings;
+			}
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			NodeList readingsList = doc.getElementsByTagName("reading");
+
+			for (int i = 0; i < readingsList.getLength(); i++) {
+				Node readingsNode = readingsList.item(i);
+				if (readingsNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element readingsElement = (Element) readingsNode;
+
+					Calendar date = stringToCalendar(readingsElement.getElementsByTagName("date").item(0).getTextContent());
+					double electricity = Double.parseDouble(readingsElement.getElementsByTagName("electricity").item(0).getTextContent());
+					double gas = Double.parseDouble(readingsElement.getElementsByTagName("gas").item(0).getTextContent());
+
+					readings.add(new Readings(date, electricity, gas));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+		return readings;
+	}
+
+	/**
+	 * This function saves readings of monitors to xml file.
+	 *
+	 * @param ID           The ID of customer of monitor.
+	 * @param readingsList The readings.
+	 */
+	static void writeReadingsToFile(int ID, ArrayList<Readings> readingsList) {
+		Document doc;
+		Element readings;
+		Element reading;
+		Element date;
+		Element electricity;
+		Element gas;
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
+			doc = dbBuilder.newDocument();
+
+			readings = doc.createElement("readings");
+			for (Readings singleReading : readingsList) {
+				reading = doc.createElement("reading");
+
+				date = doc.createElement("date");
+				date.appendChild(doc.createTextNode(calendarToString(singleReading.getDate())));
+
+				electricity = doc.createElement("electricity");
+				electricity.appendChild(doc.createTextNode("" + singleReading.getElectricity()));
+
+				gas = doc.createElement("gas");
+				gas.appendChild(doc.createTextNode("" + singleReading.getGas()));
+
+				reading.appendChild(date);
+				reading.appendChild(electricity);
+				reading.appendChild(gas);
+
+				readings.appendChild(reading);
+			}
+			doc.appendChild(readings);
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("./readings/" + ID + ".xml"));
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // Set the indent. For better looks.
 			transformer.transform(source, result);

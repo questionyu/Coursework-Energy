@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Title        Monitor.java
@@ -23,6 +23,21 @@ class Monitor {
 	 * The gas meter of monitor.
 	 */
 	private MeterGas meterGas;
+
+	/**
+	 * The readings of monitor.
+	 */
+	private ArrayList<Readings> readings;
+
+	/**
+	 * Recording timer.
+	 */
+	private Timer recordingTimer;
+
+	/**
+	 * Recording task.
+	 */
+	private RecordingTask recordingTask;
 
 	/**
 	 * The constructor function of monitor.
@@ -62,7 +77,7 @@ class Monitor {
 	/**
 	 * This function sends readings.
 	 */
-	void sendReadings() {
+	void sendReadings() { //TODO
 		try {
 			File electricityReadingsFile = new File("./readings/" + customer.getID() + "electricity.txt");
 			File gasReadingsFile = new File("./readings/" + customer.getID() + "gas.txt");
@@ -92,30 +107,69 @@ class Monitor {
 	}
 
 	/**
+	 * This function will load readings.
+	 */
+	void loadReadings() {
+		readings = Controller.getReadingsFromFile(getID());
+		if (readings.size() == 0) {
+			meterElectricity.setReading(0);
+			meterGas.setReading(0);
+			readings.add(new Readings(Calendar.getInstance(), 0, 0));
+		} else {
+			Readings latestReadings = readings.get(readings.size() - 1);
+			meterElectricity.setReading(latestReadings.getElectricity());
+			meterGas.setReading(latestReadings.getGas());
+
+			Calendar now = Calendar.getInstance();
+			Calendar dateCalendar = latestReadings.getDate();
+			if (now.get(Calendar.YEAR) != dateCalendar.get(Calendar.YEAR) || now.get(Calendar.DAY_OF_YEAR) != dateCalendar.get(Calendar.DAY_OF_YEAR)) // 当天的记录是否存在
+				readings.add(new Readings(Calendar.getInstance(), latestReadings.getElectricity(), latestReadings.getGas()));
+
+		}
+
+	}
+
+	/**
 	 * This function will start recording.
 	 */
 	void startRecording() {
 		meterElectricity.startRecording();
 		meterGas.startRecording();
+
+		recordingTimer = new Timer();
+		recordingTask = new RecordingTask();
+		recordingTimer.schedule(recordingTask, 0, 10 * 1000); // Let monitor run the recordingTask periodically.
 	}
 
 	/**
-	 * This function will stop recording before some customer be removed.
+	 * This function will stop recording.
 	 */
 	void stopRecording() {
+		recordingTask.cancel();
+		recordingTimer.cancel();
+		recordingTimer.purge();
+
 		meterElectricity.stopRecording();
 		meterGas.stopRecording();
 	}
 
 	/**
+	 * This function will save readings into file.
+	 */
+	void saveReadings() {
+		Readings latestReadings = readings.get(readings.size() - 1);
+		latestReadings.setElectricity(meterElectricity.getReading());
+		latestReadings.setGas(meterGas.getReading());
+		Controller.writeReadingsToFile(getID(), readings);
+	}
+
+	/**
 	 * This function will delete reading of this monitor.
 	 */
-	void deleteReadings() { // TODO
+	void deleteReadings() { // TODO Need test
 		try {
-			File electricityFile = new File("./readings/" + customer.getID() + "electricity.txt");
-			electricityFile.delete();
-			File gasFile = new File("./readings/" + customer.getID() + "gas.txt");
-			gasFile.delete();
+			File readingsFile = new File("./readings/" + customer.getID() + ".xml");
+			readingsFile.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -137,5 +191,36 @@ class Monitor {
 	 */
 	double getBudget() {
 		return customer.getBudget();
+	}
+
+	/**
+	 * The setter function of budget.
+	 *
+	 * @param budget The new budget.
+	 */
+	void setBudget(double budget) {
+		customer.setBudget(budget);
+	}
+
+	/**
+	 * Getter function of ID.
+	 *
+	 * @return The ID of customer.
+	 */
+	int getID() {
+		return customer.getID();
+	}
+
+	/**
+	 * This class will run the saveReadings function.
+	 */
+	private class RecordingTask extends TimerTask {
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void run() {
+			saveReadings();
+		}
 	}
 }

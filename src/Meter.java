@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -68,19 +63,57 @@ abstract class Meter {
 	 * @return Reading.
 	 */
 	double getReading() {
-		double result = 0;
-		try {
-			File file = new File("./readings/" + customerID + suffix + ".txt");
-			FileInputStream fileInputStream = new FileInputStream(file);
-			Scanner fileScanner = new Scanner(fileInputStream);
+		if (meterType == ELECTRICITY_METER)
+			return electricityReading;
+		else if (meterType == GAS_METER)
+			return gasReading;
+		else
+			return 0;
+	}
 
-			result = Double.parseDouble(fileScanner.nextLine());
-			fileScanner.close();
-			fileInputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
+	/**
+	 * This function will set the readings.
+	 *
+	 * @param reading The reading.
+	 */
+	void setReading(double reading) {
+		if (meterType == ELECTRICITY_METER)
+			electricityReading = reading;
+		else if (meterType == GAS_METER)
+			gasReading = reading;
+	}
+
+	/**
+	 * This function will return readings by day. (7 days)
+	 *
+	 * @return The readings of 7 days.
+	 */
+	double[] getReadingsByDay() {
+		double readings[] = new double[7];
+		// TODO
+		return readings;
+	}
+
+	/**
+	 * This function will return readings by week. (4 weeks)
+	 *
+	 * @return The readings of 4 weeks.
+	 */
+	double[] getReadingsByWeek() {
+		double readings[] = new double[4];
+		// TODO
+		return readings;
+	}
+
+	/**
+	 * This function will return readings by month. (3 months)
+	 *
+	 * @return The readings of 3 months.
+	 */
+	double[] getReadingsByMonth() {
+		double readings[] = new double[3];
+		// TODO
+		return readings;
 	}
 
 	/**
@@ -95,9 +128,7 @@ abstract class Meter {
 	/**
 	 * Let the meter start the timer.
 	 */
-	void startRecording() { // This only can run once.
-		electricityReading = 0;
-		gasReading = 0;
+	void startRecording() {
 		recordingTimer = new Timer();
 		recordingTask = new RecordingTask();
 		recordingTimer.schedule(recordingTask, 0, period * 1000); // Let meter run the recordingTask periodically.
