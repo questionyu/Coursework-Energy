@@ -84,39 +84,6 @@ abstract class Meter {
 	}
 
 	/**
-	 * This function will return readings by day. (7 days)
-	 *
-	 * @return The readings of 7 days.
-	 */
-	double[] getReadingsByDay() {
-		double readings[] = new double[7];
-		// TODO
-		return readings;
-	}
-
-	/**
-	 * This function will return readings by week. (4 weeks)
-	 *
-	 * @return The readings of 4 weeks.
-	 */
-	double[] getReadingsByWeek() {
-		double readings[] = new double[4];
-		// TODO
-		return readings;
-	}
-
-	/**
-	 * This function will return readings by month. (3 months)
-	 *
-	 * @return The readings of 3 months.
-	 */
-	double[] getReadingsByMonth() {
-		double readings[] = new double[3];
-		// TODO
-		return readings;
-	}
-
-	/**
 	 * This function returns a random reading.
 	 *
 	 * @return Random number smaller than 1
