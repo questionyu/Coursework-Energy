@@ -46,7 +46,7 @@ class GUIRemoveCustomer extends JPanel {
 	/**
 	 * This class extends MouseAdapter. This class's instance record the customer of each button.
 	 */
-	class mouseAdapter extends MouseAdapter {
+	private class mouseAdapter extends MouseAdapter {
 		/**
 		 * The customer.
 		 */
