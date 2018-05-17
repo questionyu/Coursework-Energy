@@ -354,6 +354,23 @@ class Controller {
 	}
 
 	/**
+	 * This function will get the readings and bill of all customers.
+	 *
+	 * @return The readings and bills.
+	 */
+	static String[][] getReadingsAndBills() {
+		if (getMonitors().size() == 0)
+			return new String[][]{};
+		String[][] data = new String[getMonitors().size()][];
+		for (int i = 0; i < data.length; i++) {
+			Monitor monitor = getMonitors().get(i);
+			double[] bill = manager.generateBill(monitor.getCustomer());
+			data[i] = new String[]{monitor.getCustomer().getName(), "" + bill[0], "" + bill[1], "" + bill[2]};
+		}
+		return data;
+	}
+
+	/**
 	 * This function will get the costs of logged monitor.
 	 *
 	 * @return The costs.

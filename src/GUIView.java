@@ -15,14 +15,9 @@ class GUIView extends JPanel {
 
 		// BorderLayout.CENTER
 		String[] columnNames = {"Name", "Electricity", "Gas", "Bill"};
-		String[][] readingsData = new String[Controller.getMonitors().size()][];
-		for (int i = 0; i < readingsData.length; i++) {
-			Monitor monitor = Controller.getMonitors().get(i);
-			readingsData[i] = new String[]{monitor.getCustomer().getName(), "" + "1", "" + "2", "3"}; // Temporarily
-		}
+		String[][] data = Controller.getReadingsAndBills();
 
-		JTable table = new JTable(readingsData, columnNames);
-		table.setFont(new Font(null, Font.PLAIN, 15));
+		JTable table = new JTable(data, columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		// BorderLayout.SOUTH
