@@ -399,15 +399,6 @@ class Controller {
 	}
 
 	/**
-	 * This function will let monitors to send readings.
-	 */
-	static void sendReadings() {
-		// TODO Temporarily codes
-		for (Monitor monitor : manager.getMonitors())
-			monitor.sendReadings();
-	}
-
-	/**
 	 * This function converts string to calendar.
 	 *
 	 * @param dateString The string contains the information of date.
