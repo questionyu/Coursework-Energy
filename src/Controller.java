@@ -293,23 +293,50 @@ class Controller {
 	 *
 	 * @return The readings data.
 	 */
-	static String[][] getReadingsData() {
-		if (getReadings().size() == 0)
+	private static String[][] getReadingsData(ArrayList<Readings> readings) {
+		if (readings.size() == 0)
 			return new String[][]{};
-		String[][] readingsData = new String[getReadings().size()][];
-		readingsData[0] = new String[]{calendarToString(getReadings().get(0).getDate()),
-				"" + getReadings().get(0).getElectricity(),
-				"" + getReadings().get(0).getGas(),
-				"" + (getReadings().get(0).getElectricity() * (getPriceElectricity() + getTariffElectricity() / 100) + getReadings().get(0).getGas() * (getPriceGas() + getTariffGas() / 100))};
+		String[][] readingsData = new String[readings.size()][];
+		readingsData[0] = new String[]{calendarToString(readings.get(0).getDate()),
+				"" + readings.get(0).getElectricity(),
+				"" + readings.get(0).getGas(),
+				"" + (readings.get(0).getElectricity() * (getPriceElectricity() + getTariffElectricity() / 100) + readings.get(0).getGas() * (getPriceGas() + getTariffGas() / 100))};
 		for (int i = 1; i < readingsData.length; i++) {
-			Readings singleReadings = getReadings().get(i);
-			Readings lastReadings = getReadings().get(i - 1);
+			Readings singleReadings = readings.get(i);
+			Readings lastReadings = readings.get(i - 1);
 			readingsData[i] = new String[]{calendarToString(singleReadings.getDate()),
 					"" + singleReadings.getElectricity(),
 					"" + singleReadings.getGas(),
 					"" + ((singleReadings.getElectricity() - lastReadings.getElectricity()) * (getPriceElectricity() + getTariffElectricity() / 100) + (singleReadings.getGas() - lastReadings.getGas()) * (getPriceGas() + getTariffGas() / 100))};
 		}
 		return readingsData;
+	}
+
+	/**
+	 * This function will get the readings data by day. (7 days)
+	 *
+	 * @return The readings data.
+	 */
+	static String[][] getReadingsDataByDay() {
+		return getReadingsData(monitor.getReadingsByDay());
+	}
+
+	/**
+	 * This function will get the readings data by week. (4 weeks)
+	 *
+	 * @return The readings data.
+	 */
+	static String[][] getReadingsDataByWeek() {
+		return getReadingsData(monitor.getReadingsByWeek());
+	}
+
+	/**
+	 * This function will get the readings data by month. (3 months)
+	 *
+	 * @return The readings data.
+	 */
+	static String[][] getReadingsDataByMonth() {
+		return getReadingsData(monitor.getReadingsByMonth());
 	}
 
 	/**

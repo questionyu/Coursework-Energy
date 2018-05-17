@@ -84,6 +84,66 @@ class Monitor {
 	}
 
 	/**
+	 * This function will return readings by day. (7 days)
+	 *
+	 * @return The readings of 7 days.
+	 */
+	ArrayList<Readings> getReadingsByDay() {
+		if (readings.size() == 0)
+			return readings;
+		Calendar date = Calendar.getInstance();
+		date.add(Calendar.DAY_OF_YEAR, -7);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		ArrayList<Readings> newReadings = new ArrayList<>();
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().after(date))
+				newReadings.add(singleReadings);
+		return newReadings;
+	}
+
+	/**
+	 * This function will return readings by week. (4 weeks)
+	 *
+	 * @return The readings of 4 weeks.
+	 */
+	ArrayList<Readings> getReadingsByWeek() {
+		if (readings.size() == 0)
+			return readings;
+		Calendar date = Calendar.getInstance();
+		date.add(Calendar.WEEK_OF_YEAR, -7);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		ArrayList<Readings> newReadings = new ArrayList<>();
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().after(date))
+				newReadings.add(singleReadings);
+		return newReadings;
+	}
+
+	/**
+	 * This function will return readings by month. (3 months)
+	 *
+	 * @return The readings of 3 months.
+	 */
+	ArrayList<Readings> getReadingsByMonth() {
+		if (readings.size() == 0)
+			return readings;
+		Calendar date = Calendar.getInstance();
+		date.add(Calendar.MONTH, -7);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		ArrayList<Readings> newReadings = new ArrayList<>();
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().after(date))
+				newReadings.add(singleReadings);
+		return newReadings;
+	}
+
+	/**
 	 * This function will get the costs.
 	 *
 	 * @return The costs of this monitor.
