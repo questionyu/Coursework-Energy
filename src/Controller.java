@@ -404,7 +404,7 @@ class Controller {
 		ArrayList<Customer> customers = new ArrayList<>();
 		try {
 			File file = new File("./Customers.xml");
-			if (file.createNewFile()){
+			if (file.createNewFile()) {
 				System.out.println("Customers file not exist. Created new one.");
 				return customers;
 			}
@@ -499,7 +499,7 @@ class Controller {
 		ArrayList<Readings> readings = new ArrayList<>();
 		try {
 			File file = new File("./readings/" + ID + ".xml");
-			if (file.createNewFile()){
+			if (file.createNewFile()) {
 				System.out.println("Readings file not exist. Created new one.");
 				return readings;
 			}

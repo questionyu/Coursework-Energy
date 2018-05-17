@@ -53,7 +53,7 @@ class Monitor {
 	/**
 	 * This function will get the real-time reading.
 	 *
-	 * @return The readings of this monitor.
+	 * @return The reading of this monitor.
 	 */
 	double[] getReading() {
 		double reading[] = new double[2];
