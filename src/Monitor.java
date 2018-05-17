@@ -172,7 +172,7 @@ class Monitor {
 	 * This function will load readings.
 	 */
 	void loadReadings() {
-		readings = Controller.getReadingsFromFile(getID());
+		readings = Controller.getReadingsFromFile(getID(), "readings");
 		if (readings.size() == 0) {
 			meterElectricity.setReading(0);
 			meterGas.setReading(0);

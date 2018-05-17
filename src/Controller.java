@@ -519,13 +519,14 @@ class Controller {
 	/**
 	 * This function read readings from xml and save to an ArrayList, and return it.
 	 *
-	 * @param ID The ID of customer.
+	 * @param ID     The ID of customer.
+	 * @param folder The folder which contains readings files.
 	 * @return The ArrayList which contains readings.
 	 */
-	static ArrayList<Readings> getReadingsFromFile(int ID) {
+	static ArrayList<Readings> getReadingsFromFile(int ID, String folder) {
 		ArrayList<Readings> readings = new ArrayList<>();
 		try {
-			File file = new File("./readings/" + ID + ".xml");
+			File file = new File("./" + folder + "/" + ID + ".xml");
 			if (file.createNewFile()) {
 				System.out.println("Readings file not exist. Created new one.");
 				return readings;
