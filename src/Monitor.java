@@ -51,15 +51,15 @@ class Monitor {
 	}
 
 	/**
-	 * This function will get the real-time readings.
+	 * This function will get the real-time reading.
 	 *
 	 * @return The readings of this monitor.
 	 */
-	double[] getReadings() {
-		double readings[] = new double[2];
-		readings[0] = meterElectricity.getReading();
-		readings[1] = meterGas.getReading();
-		return readings;
+	double[] getReading() {
+		double reading[] = new double[2];
+		reading[0] = meterElectricity.getReading();
+		reading[1] = meterGas.getReading();
+		return reading;
 	}
 
 	/**

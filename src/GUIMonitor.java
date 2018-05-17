@@ -25,13 +25,13 @@ class GUIMonitor extends JPanel {
 		JLabel budgetLabel = new JLabel("Budget:");
 		budgetLabel.setFont(GUIMain.getUIMainFont());
 
-		JLabel electricityReading = new JLabel(((int) Controller.getReadings()[0]) + " KWh");
+		JLabel electricityReading = new JLabel(((int) Controller.getReading()[0]) + " KWh");
 		electricityReading.setFont(GUIMain.getUIMainFont());
 
 		JLabel electricityCost = new JLabel(Controller.getCosts()[0] + " £");
 		electricityCost.setFont(GUIMain.getUIMainFont());
 
-		JLabel gasReading = new JLabel(((int) Controller.getReadings()[1]) + " KWh");
+		JLabel gasReading = new JLabel(((int) Controller.getReading()[1]) + " KWh");
 		gasReading.setFont(GUIMain.getUIMainFont());
 
 		JLabel gasCost = new JLabel(Controller.getCosts()[1] + " £");

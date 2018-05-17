@@ -271,12 +271,12 @@ class Controller {
 	}
 
 	/**
-	 * This function will get the readings of logged monitor.
+	 * This function will get the real-time reading of logged monitor.
 	 *
-	 * @return The readings.
+	 * @return The reading.
 	 */
-	static double[] getReadings() {
-		return monitor.getReadings();
+	static double[] getReading() {
+		return monitor.getReading();
 	}
 
 	/**
