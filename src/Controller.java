@@ -334,14 +334,6 @@ class Controller {
 	}
 
 	/**
-	 * This function will let manager to generate bills.
-	 */
-	static void generateBills() {
-		// TODO Temporarily codes
-		manager.generateBills();
-	}
-
-	/**
 	 * This function converts string to calendar.
 	 *
 	 * @param dateString The string contains the information of date.
