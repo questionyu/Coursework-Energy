@@ -56,6 +56,20 @@ class GUIMonitor extends JPanel {
 		centerPanel.add(budget);
 		centerPanel.add(alertPanel);
 
+		Timer timer = new Timer(5000, e -> {
+			System.out.println(Controller.getReading()[0]);
+			electricityReading.setText(((int) Controller.getReading()[0]) + " KWh");
+			electricityCost.setText(Controller.getCosts()[0] + " £");
+			gasReading.setText(((int) Controller.getReading()[1]) + " KWh");
+			gasCost.setText(Controller.getCosts()[1] + " £");
+			if (Controller.getBudget() > Controller.getCosts()[0] + Controller.getCosts()[1])
+				alertPanel.setBackground(Color.CYAN);
+			else
+				alertPanel.setBackground(Color.RED);
+			this.revalidate();
+			this.repaint();
+		});
+
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
@@ -63,13 +77,17 @@ class GUIMonitor extends JPanel {
 		JButton backButton = new JButton("Back");
 		backButton.setFont(GUIMain.getUIMainFont());
 		backButton.addActionListener(e -> {
+			timer.stop();
 			Controller.logout();
 			GUIMain.showWelcome();
 		});
 
 		JButton moreButton = new JButton("More");
 		moreButton.setFont(GUIMain.getUIMainFont());
-		moreButton.addActionListener(e -> GUIMain.more());
+		moreButton.addActionListener(e -> {
+			timer.stop();
+			GUIMain.more();
+		});
 
 		southPanel.add(backButton);
 		southPanel.add(Box.createHorizontalGlue());
@@ -78,5 +96,7 @@ class GUIMonitor extends JPanel {
 		add(promptLabel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
 		add(southPanel, BorderLayout.SOUTH);
+
+		timer.start();
 	}
 }
