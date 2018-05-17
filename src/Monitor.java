@@ -63,6 +63,15 @@ class Monitor {
 	}
 
 	/**
+	 * This function will get the readings. (Historic readings)
+	 *
+	 * @return The readings of this monitor.
+	 */
+	ArrayList<Readings> getReadings() {
+		return readings;
+	}
+
+	/**
 	 * This function will get the costs.
 	 *
 	 * @return The costs of this monitor.

@@ -280,6 +280,39 @@ class Controller {
 	}
 
 	/**
+	 * This function will get the readings. (Historic readings)
+	 *
+	 * @return The readings of this monitor.
+	 */
+	static ArrayList<Readings> getReadings() {
+		return monitor.getReadings();
+	}
+
+	/**
+	 * This function will get the readings data.
+	 *
+	 * @return The readings data.
+	 */
+	static String[][] getReadingsData() {
+		if (getReadings().size() == 0)
+			return new String[][]{};
+		String[][] readingsData = new String[getReadings().size()][];
+		readingsData[0] = new String[]{calendarToString(getReadings().get(0).getDate()),
+				"" + getReadings().get(0).getElectricity(),
+				"" + getReadings().get(0).getGas(),
+				"" + (getReadings().get(0).getElectricity() * (getPriceElectricity() + getTariffElectricity() / 100) + getReadings().get(0).getGas() * (getPriceGas() + getTariffGas() / 100))};
+		for (int i = 1; i < readingsData.length; i++) {
+			Readings singleReadings = getReadings().get(i);
+			Readings lastReaings = getReadings().get(i - 1);
+			readingsData[i] = new String[]{calendarToString(singleReadings.getDate()),
+					"" + singleReadings.getElectricity(),
+					"" + singleReadings.getGas(),
+					"" + ((singleReadings.getElectricity() - lastReaings.getElectricity()) * (getPriceElectricity() + getTariffElectricity() / 100) + (singleReadings.getGas() - lastReaings.getGas()) * (getPriceGas() + getTariffGas() / 100))};
+		}
+		return readingsData;
+	}
+
+	/**
 	 * This function will get the costs of logged monitor.
 	 *
 	 * @return The costs.

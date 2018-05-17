@@ -10,7 +10,12 @@ class GUIHistory extends JPanel {
 		promptLabel.setFont(GUIMain.getUIMainFont());
 
 		// BorderLayout.CENTER
-		JScrollPane scrollPane = new JScrollPane();
+		String[] columnNames = {"Date", "Electricity", "Gas", "Cost"};
+		String[][] readingsData = Controller.getReadingsData();
+
+		JTable table = new JTable(readingsData, columnNames);
+		table.setFont(new Font(null, Font.PLAIN, 15));
+		JScrollPane scrollPane = new JScrollPane(table);
 
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();
