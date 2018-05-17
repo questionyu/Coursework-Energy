@@ -131,7 +131,7 @@ abstract class Meter {
 	void startRecording() {
 		recordingTimer = new Timer();
 		recordingTask = new RecordingTask();
-		recordingTimer.schedule(recordingTask, 0, period * 1000); // Let meter run the recordingTask periodically.
+		recordingTimer.schedule(recordingTask, 0, (period * 1000)); // Let meter run the recordingTask periodically.
 	}
 
 	/**

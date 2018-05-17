@@ -138,7 +138,7 @@ class Monitor {
 
 		recordingTimer = new Timer();
 		recordingTask = new RecordingTask();
-		recordingTimer.schedule(recordingTask, 0, 10 * 1000); // Let monitor run the recordingTask periodically.
+		recordingTimer.schedule(recordingTask, 0, (10 * 60 * 1000)); // Let monitor run the recordingTask periodically.
 	}
 
 	/**
