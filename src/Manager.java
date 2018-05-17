@@ -150,37 +150,40 @@ public class Manager {
 	 * @return Bill information.
 	 */
 	private String generateBill(Customer customer) {
-		try {
-			File readingsFile = new File("./receivedReadings/" + customer.getID() + ".txt");
-			FileInputStream readingsInputStream = new FileInputStream(readingsFile);
-			Scanner readingsScanner = new Scanner(readingsInputStream);
-
-			double electricityReadings = Double.parseDouble(readingsScanner.nextLine());
-			double gasReadings = Double.parseDouble(readingsScanner.nextLine());
-
-			readingsScanner.close();
-			readingsInputStream.close();
-
+		ArrayList<Readings> readings = Controller.getReadingsFromFile(customer.getID(), "receivedReadings");
+		Calendar now = Calendar.getInstance();
+		int thisMonth = now.get(Calendar.MONTH); // TODO 1,2月的情况需要考虑
+		ArrayList<Readings> lastMonthReadings = new ArrayList<>();
+		ArrayList<Readings> theMonthBeforeLastReadings = new ArrayList<>();
+		for (Readings singleReadings : readings) {
+			if (singleReadings.getDate().get(Calendar.MONTH) == (thisMonth - 1))
+				lastMonthReadings.add(singleReadings);
+			if (singleReadings.getDate().get(Calendar.MONTH) == (thisMonth - 2))
+				theMonthBeforeLastReadings.add(singleReadings);
+		}
+		double electricityReadings;
+		double gasReadings;
+		if (lastMonthReadings.size() == 0)
 			return "Name: " + customer.getName() + "\n" +
 					"Address: " + customer.getAddress() + "\n" +
-					"Electricity readings: " + electricityReadings + "\n" +
-					"Gas readings: " + gasReadings + "\n" +
-					"Total bill: " + calculateBill(electricityReadings, gasReadings);
-		} catch (IOException e) {
-			e.printStackTrace();
+					"Electricity readings: " + 0 + "\n" +
+					"Gas readings: " + 0 + "\n" +
+					"Total bill: " + 0;
+		Readings lastMonthReading = lastMonthReadings.get(lastMonthReadings.size() - 1);
+		if (theMonthBeforeLastReadings.size() == 0) {
+			electricityReadings = lastMonthReading.getElectricity();
+			gasReadings = lastMonthReading.getGas();
+		} else {
+			Readings theMonthBeforeLastReading = theMonthBeforeLastReadings.get(theMonthBeforeLastReadings.size() - 1);
+			electricityReadings = lastMonthReading.getElectricity() - theMonthBeforeLastReading.getElectricity();
+			gasReadings = lastMonthReading.getGas() - theMonthBeforeLastReading.getGas();
 		}
-		return "System error! Please contact manager.";
-	}
-
-	/**
-	 * This function will calculate bill of some customer.
-	 *
-	 * @param electricityReadings Electricity readings.
-	 * @param gasReadings         Gas readings.
-	 * @return Bill.
-	 */
-	private double calculateBill(double electricityReadings, double gasReadings) {
-		return electricityReadings * (priceElectricity + tariffElectricity / 100) + gasReadings * (priceGas + tariffGas / 100);
+		double total = electricityReadings * (priceElectricity + tariffElectricity / 100) + gasReadings * (priceGas + tariffGas / 100);
+		return "Name: " + customer.getName() + "\n" +
+				"Address: " + customer.getAddress() + "\n" +
+				"Electricity readings: " + electricityReadings + "\n" +
+				"Gas readings: " + gasReadings + "\n" +
+				"Total bill: " + total;
 	}
 
 	/**
