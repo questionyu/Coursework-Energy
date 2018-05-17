@@ -549,7 +549,7 @@ class Controller {
 		ArrayList<Readings> readings = new ArrayList<>();
 		try {
 			File file = new File("./" + folder + "/" + ID + ".xml");
-			if (file.createNewFile()) {
+			if (folder.equals("readings") && file.createNewFile()) {
 				System.out.println("Readings file not exist. Created new one.");
 				return readings;
 			}
@@ -571,7 +571,6 @@ class Controller {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			return new ArrayList<>();
 		}
 		return readings;
