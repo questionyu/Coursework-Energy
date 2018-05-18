@@ -119,11 +119,10 @@ class Manager {
 	void removeCustomer(Customer customer) {
 		for (Monitor monitor : monitors)
 			if (monitor.getCustomer().equals(customer)) {
-				monitor.stopRecording();
-				monitor.deleteReadings();
 				monitors.remove(monitor);
+				customers.remove(customer);
+				return;
 			}
-		customers.remove(customer);
 	}
 
 	/**
