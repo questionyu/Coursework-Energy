@@ -25,6 +25,11 @@ class Customer {
 	private String address;
 
 	/**
+	 * The email address of customer.
+	 */
+	private String email;
+
+	/**
 	 * The budget which be set by customer.
 	 */
 	private double budget;
@@ -34,12 +39,14 @@ class Customer {
 	 *
 	 * @param name    The name of customer.
 	 * @param address The address of customer.
+	 * @param email   The email address of customer.
 	 * @param ID      The specified ID of customer.
 	 * @param budget  The budget of customer.
 	 */
-	Customer(String name, String address, int ID, double budget) {
+	Customer(String name, String address, String email, int ID, double budget) {
 		this.name = name;
 		this.address = address;
+		this.email = email;
 		this.ID = ID;
 		this.budget = budget;
 	}
@@ -78,6 +85,15 @@ class Customer {
 	 */
 	String getAddress() {
 		return address;
+	}
+
+	/**
+	 * Getter function of email.
+	 *
+	 * @return Customer's email address.
+	 */
+	String getEmail() {
+		return email;
 	}
 
 	/**

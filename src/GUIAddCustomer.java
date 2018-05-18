@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.regex.Pattern;
 
 /**
  * Title        GUIAddCustomer.java
@@ -14,7 +15,7 @@ class GUIAddCustomer extends JPanel {
 		promptLabel.setFont(GUIMain.getUIMainFont());
 
 		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 25, 25));
+		JPanel centerPanel = new JPanel(new GridLayout(3, 2, 25, 25));
 
 		JLabel nameLabel = new JLabel("Name:");
 		nameLabel.setFont(GUIMain.getUIMainFont());
@@ -26,10 +27,17 @@ class GUIAddCustomer extends JPanel {
 
 		JTextField addressTextField = new JTextField();
 
+		JLabel emailLabel = new JLabel("Email:");
+		emailLabel.setFont(GUIMain.getUIMainFont());
+
+		JTextField emailTextField = new JTextField();
+
 		centerPanel.add(nameLabel);
 		centerPanel.add(nameTextField);
 		centerPanel.add(addressLabel);
 		centerPanel.add(addressTextField);
+		centerPanel.add(emailLabel);
+		centerPanel.add(emailTextField);
 
 		// BorderLayout.SOUTH
 		JPanel southPanel = new JPanel();
@@ -44,13 +52,19 @@ class GUIAddCustomer extends JPanel {
 		addButton.addActionListener(e -> {
 			String name = nameTextField.getText();
 			String address = addressTextField.getText();
-			if (name.equals("") || address.equals("")) {
-				GUIMain.showMessageDialog("Name or address can not be blank!", "Whoops!", JOptionPane.ERROR_MESSAGE);
+			String email = emailTextField.getText();
+			if (name.equals("") || address.equals("") || email.equals("")) {
+				GUIMain.showMessageDialog("Name or address or email can not be blank!", "Whoops!", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			Pattern pattern = Pattern.compile("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
+			if (!pattern.matcher(email).matches()) {
+				GUIMain.showMessageDialog("Email address wrong!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			if (GUIMain.showConfirmDialog("Confirm to add new customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
 				return;
-			if (!Controller.addCustomer(name, address)) {
+			if (!Controller.addCustomer(name, address, email)) {
 				GUIMain.showMessageDialog("Customer already exists!", "Whoops!", JOptionPane.WARNING_MESSAGE);
 				return;
 			}

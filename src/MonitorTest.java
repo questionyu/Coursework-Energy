@@ -10,7 +10,7 @@ public class MonitorTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		Controller.startManager();
-		customer = new Customer("testName", "testAddress", 11223344, 150);
+		customer = new Customer("testName", "testAddress", "example@test.com", 11223344, 150);
 		monitor = new Monitor(customer);
 		monitor.loadReadings();
 	}
