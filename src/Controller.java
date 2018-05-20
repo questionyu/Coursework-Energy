@@ -220,11 +220,16 @@ class Controller {
 	 * This function generates a random ID.
 	 */
 	private static int generateRandomID() {
-		StringBuilder ticketNo = new StringBuilder();
-		for (int i = 0; i < Customer.CUSTOMER_ID_LENGTH; i++) {
-			ticketNo.append((int) (1 + Math.random() * 9)); // Generate a random integer [1, 9]
+		if (Customer.CUSTOMER_ID_LENGTH < 10)
+			return (int) (Math.pow(10, Customer.CUSTOMER_ID_LENGTH - 1) * (1 + Math.random() * 9));
+		else {
+			StringBuilder ticketNo = new StringBuilder();
+			ticketNo.append((int) (1 + Math.random() * 9));
+			for (int i = 1; i < Customer.CUSTOMER_ID_LENGTH; i++) {
+				ticketNo.append((int) (Math.random() * 10));
+			}
+			return Integer.parseInt(ticketNo.toString());
 		}
-		return Integer.parseInt(ticketNo.toString());
 	}
 
 	/**

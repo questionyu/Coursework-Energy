@@ -5,6 +5,6 @@
  */
 class MeterElectricity extends Meter {
 	MeterElectricity() {
-		super(30, Meter.ELECTRICITY_METER); // 30 seconds
+		super(5, Meter.ELECTRICITY_METER); // 5 seconds for demo
 	}
 }
