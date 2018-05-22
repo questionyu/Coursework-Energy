@@ -166,8 +166,8 @@ class Monitor {
 			gasReadings = meterGas.getReading() - lastMonthReading.getGas();
 		}
 		double costs[] = new double[2];
-		costs[0] = electricityReadings * (Controller.getPriceElectricity() + Controller.getTariffElectricity() / 100);
-		costs[1] = gasReadings * (Controller.getPriceGas() + Controller.getTariffGas() / 100);
+		costs[0] = electricityReadings * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100);
+		costs[1] = gasReadings * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100);
 		return costs;
 	}
 
@@ -188,7 +188,7 @@ class Monitor {
 	 * This function will load readings.
 	 */
 	void loadReadings() {
-		readings = Controller.getReadingsFromFile(getID(), "readings");
+		readings = FileController.getReadingsFromFile(getID(), "readings");
 		if (readings.size() == 0) {
 			meterElectricity.setReading(0);
 			meterGas.setReading(0);
@@ -246,7 +246,7 @@ class Monitor {
 		Readings latestReadings = readings.get(readings.size() - 1);
 		latestReadings.setElectricity(meterElectricity.getReading());
 		latestReadings.setGas(meterGas.getReading());
-		Controller.writeReadingsToFile(getID(), readings);
+		FileController.writeReadingsToFile(getID(), readings);
 	}
 
 	/**

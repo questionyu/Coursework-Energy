@@ -11,8 +11,7 @@ public class Main {
 				System.out.println("Load customers failed!");
 				System.exit(1);
 			}
-			Controller.startManager();
-			Controller.startGUI();
+			Controller.start();
 		});
 	}
 }

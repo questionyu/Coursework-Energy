@@ -82,10 +82,10 @@ class GUI extends JFrame {
 			if (Controller.getIDType(ID) < 0) {
 				showMessageDialog("ID does not exist!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 			} else if (Controller.getIDType(ID) == 0) {
-				Controller.startManagerTimer();
+				ManagerController.startManagerTimer();
 				manager();
 			} else {
-				Controller.login(ID);
+				MonitorController.login(ID);
 				monitor();
 			}
 		});
@@ -153,7 +153,7 @@ class GUI extends JFrame {
 		JButton backButton = new JButton("Back");
 		backButton.setFont(UIMainFont);
 		backButton.addActionListener(e -> {
-			Controller.stopManagerTimer();
+			ManagerController.stopManagerTimer();
 			showWelcome();
 		});
 
@@ -161,7 +161,7 @@ class GUI extends JFrame {
 		JButton billsButton = new JButton("Bills (Only for demo)");
 		billsButton.setFont(UIMainFont);
 		billsButton.addActionListener(e -> {
-			Controller.bills();
+			ManagerController.bills();
 			showMessageDialog("Generate and send bills successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 		});
 
@@ -250,7 +250,7 @@ class GUI extends JFrame {
 			}
 			if (showConfirmDialog("Confirm to add new customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
 				return;
-			if (!Controller.addCustomer(name, address, email)) {
+			if (!ManagerController.addCustomer(name, address, email)) {
 				showMessageDialog("Customer already exists!", "Whoops!", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
@@ -297,7 +297,7 @@ class GUI extends JFrame {
 		JPanel userListPanel = new JPanel();
 		userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
 
-		for (Customer customer : Controller.getCustomers()) {
+		for (Customer customer : ManagerController.getCustomers()) {
 			JButton customerButton = new JButton("\"" + customer.getName() + "\"  " + customer.getAddress());
 			customerButton.setFont(UIMainFont);
 			customerButton.addMouseListener(new mouseAdapter(customer));
@@ -353,13 +353,13 @@ class GUI extends JFrame {
 		JLabel tariffElectricityLabel = new JLabel("Electricity tariff:");
 		tariffElectricityLabel.setFont(UIMainFont);
 
-		JLabel electricityLabel = new JLabel(Controller.getTariffElectricity() + " p/KWh");
+		JLabel electricityLabel = new JLabel(ManagerController.getTariffElectricity() + " p/KWh");
 		electricityLabel.setFont(UIMainFont);
 
 		JLabel tariffGasLabel = new JLabel("Gas tariff:");
 		tariffGasLabel.setFont(UIMainFont);
 
-		JLabel gasLabel = new JLabel(Controller.getTariffGas() + " p/KWh");
+		JLabel gasLabel = new JLabel(ManagerController.getTariffGas() + " p/KWh");
 		gasLabel.setFont(UIMainFont);
 
 		centerPanel.add(tariffElectricityLabel);
@@ -462,7 +462,7 @@ class GUI extends JFrame {
 			}
 			if (showConfirmDialog("Confirm to update tariff?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
 				return;
-			Controller.updateTariff(tariffElectricity, tariffGas);
+			ManagerController.updateTariff(tariffElectricity, tariffGas);
 			showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 			showManager();
 		});
@@ -504,7 +504,7 @@ class GUI extends JFrame {
 
 		// BorderLayout.CENTER
 		String[] columnNames = {"Name", "Electricity", "Gas", "Bill"};
-		String[][] data = Controller.getReadingsAndBills();
+		String[][] data = ManagerController.getReadingsAndBills();
 
 		JTable table = new JTable(data, columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -563,23 +563,23 @@ class GUI extends JFrame {
 		JLabel budgetLabel = new JLabel("Budget:");
 		budgetLabel.setFont(UIMainFont);
 
-		JLabel electricityReading = new JLabel(((int) Controller.getReading()[0]) + " KWh");
+		JLabel electricityReading = new JLabel(((int) MonitorController.getReading()[0]) + " KWh");
 		electricityReading.setFont(UIMainFont);
 
-		JLabel electricityCost = new JLabel(Controller.getCosts()[0] + " £");
+		JLabel electricityCost = new JLabel(MonitorController.getCosts()[0] + " £");
 		electricityCost.setFont(UIMainFont);
 
-		JLabel gasReading = new JLabel(((int) Controller.getReading()[1]) + " KWh");
+		JLabel gasReading = new JLabel(((int) MonitorController.getReading()[1]) + " KWh");
 		gasReading.setFont(UIMainFont);
 
-		JLabel gasCost = new JLabel(Controller.getCosts()[1] + " £");
+		JLabel gasCost = new JLabel(MonitorController.getCosts()[1] + " £");
 		gasCost.setFont(UIMainFont);
 
-		JLabel budget = new JLabel(Controller.getBudget() + " £");
+		JLabel budget = new JLabel(MonitorController.getBudget() + " £");
 		budget.setFont(UIMainFont);
 
 		JPanel alertPanel = new JPanel();
-		if (Controller.getBudget() > Controller.getCosts()[0] + Controller.getCosts()[1])
+		if (MonitorController.getBudget() > MonitorController.getCosts()[0] + MonitorController.getCosts()[1])
 			alertPanel.setBackground(Color.CYAN);
 		else
 			alertPanel.setBackground(Color.RED);
@@ -595,12 +595,12 @@ class GUI extends JFrame {
 		centerPanel.add(alertPanel);
 
 		Timer timer = new Timer(5000, e -> {
-			System.out.println(Controller.getReading()[0]);
-			electricityReading.setText(((int) Controller.getReading()[0]) + " KWh");
-			electricityCost.setText(Controller.getCosts()[0] + " £");
-			gasReading.setText(((int) Controller.getReading()[1]) + " KWh");
-			gasCost.setText(Controller.getCosts()[1] + " £");
-			if (Controller.getBudget() > Controller.getCosts()[0] + Controller.getCosts()[1])
+			System.out.println(MonitorController.getReading()[0]);
+			electricityReading.setText(((int) MonitorController.getReading()[0]) + " KWh");
+			electricityCost.setText(MonitorController.getCosts()[0] + " £");
+			gasReading.setText(((int) MonitorController.getReading()[1]) + " KWh");
+			gasCost.setText(MonitorController.getCosts()[1] + " £");
+			if (MonitorController.getBudget() > MonitorController.getCosts()[0] + MonitorController.getCosts()[1])
 				alertPanel.setBackground(Color.CYAN);
 			else
 				alertPanel.setBackground(Color.RED);
@@ -616,7 +616,7 @@ class GUI extends JFrame {
 		backButton.setFont(UIMainFont);
 		backButton.addActionListener(e -> {
 			timer.stop();
-			Controller.logout();
+			MonitorController.logout();
 			showWelcome();
 		});
 
@@ -682,7 +682,7 @@ class GUI extends JFrame {
 		JButton sendReadingsButton = new JButton("Send readings (Only for demo)");
 		sendReadingsButton.setFont(UIMainFont);
 		sendReadingsButton.addActionListener(e -> {
-			Controller.sendReadings();
+			MonitorController.sendReadings();
 			showMessageDialog("Send successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 		});
 
@@ -775,9 +775,9 @@ class GUI extends JFrame {
 
 		// BorderLayout.CENTER
 		String[] columnNames = {"Date", "Electricity", "Gas", "Cost"};
-		String[][] readingsDataByDay = Controller.getReadingsDataByDay();
-		String[][] readingsDataByWeek = Controller.getReadingsDataByWeek();
-		String[][] readingsDataByMonth = Controller.getReadingsDataByMonth();
+		String[][] readingsDataByDay = MonitorController.getReadingsDataByDay();
+		String[][] readingsDataByWeek = MonitorController.getReadingsDataByWeek();
+		String[][] readingsDataByMonth = MonitorController.getReadingsDataByMonth();
 
 		JTable tableByDay = new JTable(readingsDataByDay, columnNames);
 		JTable tableByWeek = new JTable(readingsDataByWeek, columnNames);
@@ -838,7 +838,7 @@ class GUI extends JFrame {
 		JLabel newBudgetLabel = new JLabel("New budget:");
 		newBudgetLabel.setFont(UIMainFont);
 
-		JLabel oldBudget = new JLabel(Controller.getBudget() + " £");
+		JLabel oldBudget = new JLabel(MonitorController.getBudget() + " £");
 		oldBudget.setFont(UIMainFont);
 
 		JTextField newBudget = new JTextField();
@@ -877,7 +877,7 @@ class GUI extends JFrame {
 			}
 			if (showConfirmDialog("Confirm to update Budget?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
 				return;
-			Controller.updateBudget(budget);
+			MonitorController.updateBudget(budget);
 			showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 			showMore();
 		});
@@ -926,10 +926,10 @@ class GUI extends JFrame {
 		JLabel gas = new JLabel("Gas:");
 		gas.setFont(UIMainFont);
 
-		JLabel electricityTariff = new JLabel(Controller.getTariffElectricity() + " p/KWh");
+		JLabel electricityTariff = new JLabel(ManagerController.getTariffElectricity() + " p/KWh");
 		electricityTariff.setFont(UIMainFont);
 
-		JLabel gasTariff = new JLabel(Controller.getTariffGas() + " p/KWh");
+		JLabel gasTariff = new JLabel(ManagerController.getTariffGas() + " p/KWh");
 		gasTariff.setFont(UIMainFont);
 
 		centerPanel.add(electricity);
@@ -1035,7 +1035,7 @@ class GUI extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if (showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
 				return;
-			Controller.removeCustomer(customer);
+			ManagerController.removeCustomer(customer);
 			showMessageDialog("Remove successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
 			showManager();
 		}
