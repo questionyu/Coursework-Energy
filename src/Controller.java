@@ -54,7 +54,7 @@ class Controller {
 	 * This function starts the main GUI.
 	 */
 	static void startGUI() {
-		new GUIMain().welcome();
+		new GUI().welcome();
 	}
 
 	/**

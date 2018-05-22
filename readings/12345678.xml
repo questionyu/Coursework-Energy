@@ -85,4 +85,14 @@
         <electricity>96.61758033394587</electricity>
         <gas>39.43962285267081</gas>
     </reading>
+    <reading>
+        <date>2018-5-22</date>
+        <electricity>97.57127405575334</electricity>
+        <gas>41.107793002236306</gas>
+    </reading>
+    <reading>
+        <date>2018-5-23</date>
+        <electricity>98.62999141964502</electricity>
+        <gas>41.89709942183054</gas>
+    </reading>
 </readings>

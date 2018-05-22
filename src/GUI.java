@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * Title        GUI.java
  * Description  This class controls the UI.
  */
-class GUIMain extends JFrame {
+class GUI extends JFrame {
 	/**
 	 * The cardLayout instance which manages all UI of energy system.
 	 */
@@ -28,7 +28,7 @@ class GUIMain extends JFrame {
 	 * Constructor function of
 	 * This function creates a JFrame to contain a JPanel which uses CardLayout to display all things.
 	 */
-	GUIMain() {
+	GUI() {
 		super("Energy management and monitoring system");
 
 		//For better looks.
