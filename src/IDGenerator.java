@@ -7,7 +7,7 @@ class IDGenerator implements IDInterface {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int get(int length) {
+	public long get(int length) {
 		if (length < 10)
 			return (int) (Math.pow(10, length - 1) * (1 + Math.random() * 9));
 		else {
@@ -16,8 +16,7 @@ class IDGenerator implements IDInterface {
 			for (int i = 1; i < length; i++) {
 				ticketNo.append((int) (Math.random() * 10));
 			}
-			return Integer.parseInt(ticketNo.toString());
+			return Long.parseLong(ticketNo.toString());
 		}
 	}
 }
-// TODO Int -> Long

@@ -33,7 +33,7 @@ interface FileInterface {
 	 * @param folder The folder which contains readings files.
 	 * @return The ArrayList which contains readings.
 	 */
-	ArrayList<Readings> getReadingsFromFile(int ID, String folder);
+	ArrayList<Readings> getReadingsFromFile(long ID, String folder);
 
 	/**
 	 * This function saves readings of monitors to xml file.
@@ -41,5 +41,5 @@ interface FileInterface {
 	 * @param ID           The ID of customer of monitor.
 	 * @param readingsList The readings.
 	 */
-	void writeReadingsToFile(int ID, ArrayList<Readings> readingsList);
+	void writeReadingsToFile(long ID, ArrayList<Readings> readingsList);
 }

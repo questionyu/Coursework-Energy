@@ -52,7 +52,7 @@ class Controller {
 	 * @param ID The ID which need to be checked.
 	 * @return True: Exist. False: Doesn't exist.
 	 */
-	static boolean checkID(int ID) {
+	static boolean checkID(long ID) {
 		for (Customer customer : ManagerController.getCustomers())
 			if (customer.getID() == ID)
 				return true;

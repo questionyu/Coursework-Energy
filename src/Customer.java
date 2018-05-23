@@ -12,7 +12,7 @@ class Customer {
 	/**
 	 * The ID of customer.
 	 */
-	private int ID;
+	private long ID;
 
 	/**
 	 * The name of customer.
@@ -43,7 +43,7 @@ class Customer {
 	 * @param ID      The specified ID of customer.
 	 * @param budget  The budget of customer.
 	 */
-	Customer(String name, String address, String email, int ID, double budget) {
+	Customer(String name, String address, String email, long ID, double budget) {
 		this.name = name;
 		this.address = address;
 		this.email = email;
@@ -56,7 +56,7 @@ class Customer {
 	 *
 	 * @return Customer's ID.
 	 */
-	int getID() {
+	long getID() {
 		return ID;
 	}
 
@@ -65,7 +65,7 @@ class Customer {
 	 *
 	 * @param ID The new ID.
 	 */
-	void setID(int ID) {
+	void setID(long ID) {
 		this.ID = ID;
 	}
 

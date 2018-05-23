@@ -78,7 +78,7 @@ class FileController implements FileInterface {
 				if (customerNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element customerElement = (Element) customerNode;
 
-					int ID = Integer.parseInt(customerElement.getElementsByTagName("ID").item(0).getTextContent());
+					long ID = Long.parseLong(customerElement.getElementsByTagName("ID").item(0).getTextContent());
 					String name = customerElement.getElementsByTagName("name").item(0).getTextContent();
 					String address = customerElement.getElementsByTagName("address").item(0).getTextContent();
 					String email = customerElement.getElementsByTagName("email").item(0).getTextContent();
@@ -158,7 +158,7 @@ class FileController implements FileInterface {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ArrayList<Readings> getReadingsFromFile(int ID, String folder) {
+	public ArrayList<Readings> getReadingsFromFile(long ID, String folder) {
 		ArrayList<Readings> readings = new ArrayList<>();
 		try {
 			File file = new File("./" + folder + "/" + ID + ".xml");
@@ -193,7 +193,7 @@ class FileController implements FileInterface {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void writeReadingsToFile(int ID, ArrayList<Readings> readingsList) {
+	public void writeReadingsToFile(long ID, ArrayList<Readings> readingsList) {
 		Document doc;
 		Element readings;
 		Element reading;

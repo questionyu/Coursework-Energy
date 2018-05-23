@@ -298,7 +298,7 @@ class Monitor {
 	 *
 	 * @return The ID of customer.
 	 */
-	int getID() {
+	long getID() {
 		return customer.getID();
 	}
 
