@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Title        Controller.java
+ * Title        MonitorController.java
  * Description  This class controls the monitor.
  */
 class MonitorController {
