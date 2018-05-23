@@ -12,6 +12,11 @@ import java.util.TimerTask;
  */
 class Monitor {
 	/**
+	 * The instance of fileController.
+	 */
+	private FileController fileController = new FileController();
+
+	/**
 	 * The customer of monitor.
 	 */
 	private Customer customer;
@@ -188,7 +193,7 @@ class Monitor {
 	 * This function will load readings.
 	 */
 	void loadReadings() {
-		readings = FileController.getReadingsFromFile(getID(), "readings");
+		readings = fileController.getReadingsFromFile(getID(), "readings");
 		if (readings.size() == 0) {
 			meterElectricity.setReading(0);
 			meterGas.setReading(0);
@@ -246,7 +251,7 @@ class Monitor {
 		Readings latestReadings = readings.get(readings.size() - 1);
 		latestReadings.setElectricity(meterElectricity.getReading());
 		latestReadings.setGas(meterGas.getReading());
-		FileController.writeReadingsToFile(getID(), readings);
+		fileController.writeReadingsToFile(getID(), readings);
 	}
 
 	/**

@@ -10,6 +10,11 @@ import java.util.Date;
  */
 class Controller {
 	/**
+	 * The instance of fileController.
+	 */
+	private static FileController fileController = new FileController();
+
+	/**
 	 * This function starts the system.
 	 */
 	static void start() {
@@ -23,7 +28,7 @@ class Controller {
 	 * @return True: Succeed. False: Failed.
 	 */
 	static boolean loadCustomers() {
-		return FileController.getCustomersFromFile() != null;
+		return fileController.getCustomersFromFile() != null;
 	}
 
 	/**

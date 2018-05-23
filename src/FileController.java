@@ -22,13 +22,12 @@ import java.util.Scanner;
  * Title        FileController.java
  * Description  This class controls the files.
  */
-class FileController {
+class FileController implements FileInterface {
 	/**
-	 * This function gets tariff from file.
-	 *
-	 * @return An array about tariff.
+	 * {@inheritDoc}
 	 */
-	static double[] getTariffFromFile() {
+	@Override
+	public double[] getTariffFromFile() {
 		double tariff[] = new double[2];
 		try {
 			File file = new File("./tariff.txt");
@@ -58,11 +57,10 @@ class FileController {
 	}
 
 	/**
-	 * This function read customers from xml and save to an ArrayList, and return it.
-	 *
-	 * @return The ArrayList which contains all customers.
+	 * {@inheritDoc}
 	 */
-	static ArrayList<Customer> getCustomersFromFile() {
+	@Override
+	public ArrayList<Customer> getCustomersFromFile() {
 		ArrayList<Customer> customers = new ArrayList<>();
 		try {
 			File file = new File("./Customers.xml");
@@ -98,11 +96,10 @@ class FileController {
 	}
 
 	/**
-	 * This function saves ArrayList of customers to xml file.
-	 *
-	 * @param customersList The ArrayList which contains all customers which you want to save to file.
+	 * {@inheritDoc}
 	 */
-	static void writeCustomersToFile(ArrayList<Customer> customersList) {
+	@Override
+	public void writeCustomersToFile(ArrayList<Customer> customersList) {
 		Document doc;
 		Element customers;
 		Element customer;
@@ -158,13 +155,10 @@ class FileController {
 	}
 
 	/**
-	 * This function read readings from xml and save to an ArrayList, and return it.
-	 *
-	 * @param ID     The ID of customer.
-	 * @param folder The folder which contains readings files.
-	 * @return The ArrayList which contains readings.
+	 * {@inheritDoc}
 	 */
-	static ArrayList<Readings> getReadingsFromFile(int ID, String folder) {
+	@Override
+	public ArrayList<Readings> getReadingsFromFile(int ID, String folder) {
 		ArrayList<Readings> readings = new ArrayList<>();
 		try {
 			File file = new File("./" + folder + "/" + ID + ".xml");
@@ -196,12 +190,10 @@ class FileController {
 	}
 
 	/**
-	 * This function saves readings of monitors to xml file.
-	 *
-	 * @param ID           The ID of customer of monitor.
-	 * @param readingsList The readings.
+	 * {@inheritDoc}
 	 */
-	static void writeReadingsToFile(int ID, ArrayList<Readings> readingsList) {
+	@Override
+	public void writeReadingsToFile(int ID, ArrayList<Readings> readingsList) {
 		Document doc;
 		Element readings;
 		Element reading;

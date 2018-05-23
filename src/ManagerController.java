@@ -6,10 +6,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Title        java
+ * Title        ManagerController.java
  * Description  This class controls the manager.
  */
 class ManagerController {
+	/**
+	 * The instance of fileController.
+	 */
+	private static FileController fileController = new FileController();
+
+	/**
+	 * The instance of IDGenerator.
+	 */
+	private static IDGenerator IDGenerator = new IDGenerator();
+
 	/**
 	 * The instance of manager.
 	 */
@@ -19,8 +29,8 @@ class ManagerController {
 	 * This function creates the object of manager.
 	 */
 	static void startManager() {
-		double tariff[] = FileController.getTariffFromFile();
-		manager = new Manager(FileController.getCustomersFromFile(), tariff[0], tariff[1]);
+		double tariff[] = fileController.getTariffFromFile();
+		manager = new Manager(fileController.getCustomersFromFile(), tariff[0], tariff[1]);
 	}
 
 	/**
@@ -50,11 +60,11 @@ class ManagerController {
 	 * @return True: Succeed. False: Failed(Already exists).
 	 */
 	static boolean addCustomer(String name, String address, String email) {
-		Customer newCustomer = new Customer(name, address, email, IDGenerator.get(), 0);
+		Customer newCustomer = new Customer(name, address, email, IDGenerator.get(Customer.CUSTOMER_ID_LENGTH), 0);
 		if (Controller.checkDuplicated(newCustomer))
 			return false;
 		while (Controller.checkID(newCustomer.getID()))
-			newCustomer.setID(IDGenerator.get());
+			newCustomer.setID(IDGenerator.get(Customer.CUSTOMER_ID_LENGTH));
 		manager.addCustomer(newCustomer);
 		saveCustomer();
 		return true;
@@ -72,7 +82,7 @@ class ManagerController {
 	 * This function saves the customers.
 	 */
 	static void saveCustomer() {
-		FileController.writeCustomersToFile(manager.getCustomers());
+		fileController.writeCustomersToFile(manager.getCustomers());
 	}
 
 	/**
@@ -133,7 +143,7 @@ class ManagerController {
 	 * @return Bill information.
 	 */
 	private static double[] generateBill(Customer customer) { // TODO 1,2月的情况需要考虑
-		ArrayList<Readings> readings = FileController.getReadingsFromFile(customer.getID(), "receivedReadings");
+		ArrayList<Readings> readings = fileController.getReadingsFromFile(customer.getID(), "receivedReadings");
 		Calendar now = Calendar.getInstance();
 		int thisMonth = now.get(Calendar.MONTH);
 		ArrayList<Readings> lastMonthReadings = new ArrayList<>();
