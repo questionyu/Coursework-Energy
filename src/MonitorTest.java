@@ -49,13 +49,6 @@ public class MonitorTest extends TestCase {
 		assertEquals((double) 0, monitor.getCosts()[1]);
 	}
 
-	public void testSendReadings() {
-		monitor.sendReadings();
-		File file = new File("./receivedReadings/11223344.xml");
-		assertTrue(file.exists());
-		file.delete();
-	}
-
 	public void testDeleteReadings() {
 		monitor.deleteReadings();
 		File file = new File("./readings/11223344.xml");
