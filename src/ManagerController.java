@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -214,7 +215,7 @@ class ManagerController {
 			try {
 				File sourceFile = new File("./bills/" + customer.getID() + ".txt");
 				File newFile = new File("./receivedBills/" + customer.getID() + ".txt");
-				Files.copy(sourceFile.toPath(), newFile.toPath());
+				Files.copy(sourceFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
