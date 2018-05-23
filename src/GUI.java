@@ -20,9 +20,24 @@ class GUI extends JFrame {
 	private JPanel energyPanel;
 
 	/**
+	 * Prompt font.
+	 */
+	private Font promptFont;
+
+	/**
 	 * The main font of UI.
 	 */
-	private Font UIMainFont;
+	private Font mainFont;
+
+	/**
+	 * Window's width.
+	 */
+	private int width = 960;
+
+	/**
+	 * Window's height.
+	 */
+	private int height = 540;
 
 	/**
 	 * Constructor function of
@@ -39,7 +54,7 @@ class GUI extends JFrame {
 		}
 
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setSize(960, 540);
+		this.setSize(width, height);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
@@ -48,7 +63,8 @@ class GUI extends JFrame {
 
 		this.setContentPane(energyPanel);
 
-		UIMainFont = new Font("Segoe UI", Font.PLAIN, 25);
+		promptFont = new Font("Curlz MT", Font.PLAIN, 40);
+		mainFont = new Font("Agency FB", Font.PLAIN, 32);
 
 		this.setVisible(true);
 	}
@@ -57,20 +73,26 @@ class GUI extends JFrame {
 	 * Create a panel which shows a welcome and two buttons.
 	 */
 	private JPanel GUIWelcome() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.CENTER
 		JLabel welcomeLabel = new JLabel("Welcome!", JLabel.CENTER);
-		welcomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 50));
+		welcomeLabel.setFont(new Font("Curlz MT", Font.BOLD, 96));
+		welcomeLabel.setBounds(width / 4, height / 7, width / 2, height / 5);
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
+		JLabel IDLabel = new JLabel("ID: ");
+		IDLabel.setFont(mainFont);
+		IDLabel.setBounds((int) (0.4 * width), (int) (0.45 * height), (int) (0.05 * width), height / 12);
+
+		JTextField IDTextField = new JTextField();
+		IDTextField.setFont(mainFont);
+		IDTextField.setBounds((int) (0.45 * width), (int) (0.45 * height), (int) (0.15 * width), height / 12);
 
 		JButton loginButton = new JButton("Login");
-		loginButton.setFont(UIMainFont);
+		loginButton.setFont(mainFont);
+		loginButton.setBounds((int) (0.45 * width), (int) (0.7 * height), (int) (0.1 * width), height / 12);
 		loginButton.addActionListener(e -> {
-			String stringID = showInputDialog("Your ID:", "Input dialog", JOptionPane.QUESTION_MESSAGE);
-			if (stringID == null || stringID.equals(""))
+			String stringID = IDTextField.getText();
+			if (stringID.equals(""))
 				return;
 			long ID;
 			try {
@@ -90,10 +112,10 @@ class GUI extends JFrame {
 			}
 		});
 
-		southPanel.add(loginButton);
-
-		panel.add(welcomeLabel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
+		panel.add(welcomeLabel);
+		panel.add(IDLabel);
+		panel.add(IDTextField);
+		panel.add(loginButton);
 		return panel;
 	}
 
@@ -120,25 +142,25 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Select one to continue");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
 
 		JButton addCustomerButton = new JButton("Add customer");
-		addCustomerButton.setFont(UIMainFont);
+		addCustomerButton.setFont(mainFont);
 		addCustomerButton.addActionListener(e -> addCustomer());
 
 		JButton removeCustomerButton = new JButton("Remove customer");
-		removeCustomerButton.setFont(UIMainFont);
+		removeCustomerButton.setFont(mainFont);
 		removeCustomerButton.addActionListener(e -> removeCustomer());
 
 		JButton tariffButton = new JButton("Tariff");
-		tariffButton.setFont(UIMainFont);
+		tariffButton.setFont(mainFont);
 		tariffButton.addActionListener(e -> tariff());
 
 		JButton viewButton = new JButton("View");
-		viewButton.setFont(UIMainFont);
+		viewButton.setFont(mainFont);
 		viewButton.addActionListener(e -> view());
 
 		centerPanel.add(addCustomerButton);
@@ -151,7 +173,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> {
 			ManagerController.stopManagerTimer();
 			showWelcome();
@@ -159,7 +181,7 @@ class GUI extends JFrame {
 
 		// Only for demo
 		JButton billsButton = new JButton("Bills (Only for demo)");
-		billsButton.setFont(UIMainFont);
+		billsButton.setFont(mainFont);
 		billsButton.addActionListener(e -> {
 			ManagerController.bills();
 			showMessageDialog("Generate and send bills successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
@@ -198,23 +220,23 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("New customer's information");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(3, 2, 25, 25));
 
 		JLabel nameLabel = new JLabel("Name:");
-		nameLabel.setFont(UIMainFont);
+		nameLabel.setFont(mainFont);
 
 		JTextField nameTextField = new JTextField();
 
 		JLabel addressLabel = new JLabel("Address:");
-		addressLabel.setFont(UIMainFont);
+		addressLabel.setFont(mainFont);
 
 		JTextField addressTextField = new JTextField();
 
 		JLabel emailLabel = new JLabel("Email:");
-		emailLabel.setFont(UIMainFont);
+		emailLabel.setFont(mainFont);
 
 		JTextField emailTextField = new JTextField();
 
@@ -230,11 +252,11 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showManager());
 
 		JButton addButton = new JButton("Add");
-		addButton.setFont(UIMainFont);
+		addButton.setFont(mainFont);
 		addButton.addActionListener(e -> {
 			String name = nameTextField.getText();
 			String address = addressTextField.getText();
@@ -291,7 +313,7 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Select one customer to remove");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel userListPanel = new JPanel();
@@ -299,7 +321,7 @@ class GUI extends JFrame {
 
 		for (Customer customer : ManagerController.getCustomers()) {
 			JButton customerButton = new JButton("\"" + customer.getName() + "\"  " + customer.getAddress());
-			customerButton.setFont(UIMainFont);
+			customerButton.setFont(mainFont);
 			customerButton.addMouseListener(new mouseAdapter(customer));
 			userListPanel.add(customerButton);
 		}
@@ -310,7 +332,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showManager());
 
 		southPanel.add(backButton);
@@ -345,22 +367,22 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Tariff information");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 25, 25));
 
 		JLabel tariffElectricityLabel = new JLabel("Electricity tariff:");
-		tariffElectricityLabel.setFont(UIMainFont);
+		tariffElectricityLabel.setFont(mainFont);
 
 		JLabel electricityLabel = new JLabel(ManagerController.getTariffElectricity() + " p/KWh");
-		electricityLabel.setFont(UIMainFont);
+		electricityLabel.setFont(mainFont);
 
 		JLabel tariffGasLabel = new JLabel("Gas tariff:");
-		tariffGasLabel.setFont(UIMainFont);
+		tariffGasLabel.setFont(mainFont);
 
 		JLabel gasLabel = new JLabel(ManagerController.getTariffGas() + " p/KWh");
-		gasLabel.setFont(UIMainFont);
+		gasLabel.setFont(mainFont);
 
 		centerPanel.add(tariffElectricityLabel);
 		centerPanel.add(electricityLabel);
@@ -372,11 +394,11 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showManager());
 
 		JButton updateButton = new JButton("Update");
-		updateButton.setFont(UIMainFont);
+		updateButton.setFont(mainFont);
 		updateButton.addActionListener(e -> updateTariff());
 
 		southPanel.add(backButton);
@@ -412,16 +434,16 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("New tariff");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 25, 25));
 
 		JLabel tariffElectricityLabel = new JLabel("Electricity:");
-		tariffElectricityLabel.setFont(UIMainFont);
+		tariffElectricityLabel.setFont(mainFont);
 
 		JLabel tariffGasLabel = new JLabel("Gas:");
-		tariffGasLabel.setFont(UIMainFont);
+		tariffGasLabel.setFont(mainFont);
 
 		JTextField tariffElectricityTextField = new JTextField();
 		JTextField tariffGasTextField = new JTextField();
@@ -436,11 +458,11 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showManager());
 
 		JButton confirmButton = new JButton("Confirm");
-		confirmButton.setFont(UIMainFont);
+		confirmButton.setFont(mainFont);
 		confirmButton.addActionListener(e -> {
 			String tariffElectricityString = tariffElectricityTextField.getText();
 			String tariffGasString = tariffGasTextField.getText();
@@ -500,7 +522,7 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Readings and bills");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		String[] columnNames = {"Name", "Electricity", "Gas", "Bill"};
@@ -514,7 +536,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showManager());
 
 		southPanel.add(backButton);
@@ -549,34 +571,34 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Monitor");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(3, 3, 5, 5));
 
 		JLabel electricityLabel = new JLabel("Electricity:");
-		electricityLabel.setFont(UIMainFont);
+		electricityLabel.setFont(mainFont);
 
 		JLabel gasLabel = new JLabel("Gas:");
-		gasLabel.setFont(UIMainFont);
+		gasLabel.setFont(mainFont);
 
 		JLabel budgetLabel = new JLabel("Budget:");
-		budgetLabel.setFont(UIMainFont);
+		budgetLabel.setFont(mainFont);
 
 		JLabel electricityReading = new JLabel(((int) MonitorController.getReading()[0]) + " KWh");
-		electricityReading.setFont(UIMainFont);
+		electricityReading.setFont(mainFont);
 
 		JLabel electricityCost = new JLabel(MonitorController.getCosts()[0] + " £");
-		electricityCost.setFont(UIMainFont);
+		electricityCost.setFont(mainFont);
 
 		JLabel gasReading = new JLabel(((int) MonitorController.getReading()[1]) + " KWh");
-		gasReading.setFont(UIMainFont);
+		gasReading.setFont(mainFont);
 
 		JLabel gasCost = new JLabel(MonitorController.getCosts()[1] + " £");
-		gasCost.setFont(UIMainFont);
+		gasCost.setFont(mainFont);
 
 		JLabel budget = new JLabel(MonitorController.getBudget() + " £");
-		budget.setFont(UIMainFont);
+		budget.setFont(mainFont);
 
 		JPanel alertPanel = new JPanel();
 		if (MonitorController.getBudget() > MonitorController.getCosts()[0] + MonitorController.getCosts()[1])
@@ -613,7 +635,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> {
 			timer.stop();
 			MonitorController.logout();
@@ -621,7 +643,7 @@ class GUI extends JFrame {
 		});
 
 		JButton moreButton = new JButton("More");
-		moreButton.setFont(UIMainFont);
+		moreButton.setFont(mainFont);
 		moreButton.addActionListener(e -> {
 			timer.stop();
 			more();
@@ -661,26 +683,26 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Select one to continue");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
 
 		JButton viewButton = new JButton("View");
-		viewButton.setFont(UIMainFont);
+		viewButton.setFont(mainFont);
 		viewButton.addActionListener(e -> history());
 
 		JButton budgetButton = new JButton("Budget");
-		budgetButton.setFont(UIMainFont);
+		budgetButton.setFont(mainFont);
 		budgetButton.addActionListener(e -> budget());
 
 		JButton tariffButton = new JButton("Tariff");
-		tariffButton.setFont(UIMainFont);
+		tariffButton.setFont(mainFont);
 		tariffButton.addActionListener(e -> checkTariff());
 
 		// Only for demo
 		JButton sendReadingsButton = new JButton("Send readings (Only for demo)");
-		sendReadingsButton.setFont(UIMainFont);
+		sendReadingsButton.setFont(mainFont);
 		sendReadingsButton.addActionListener(e -> {
 			MonitorController.sendReadings();
 			showMessageDialog("Send successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
@@ -696,7 +718,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> monitor());
 
 		southPanel.add(backButton);
@@ -736,20 +758,20 @@ class GUI extends JFrame {
 		northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.X_AXIS));
 
 		JLabel promptLabel = new JLabel("Historical information");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		//Radio buttons.
 		JRadioButton day = new JRadioButton("By day");
-		day.setFont(UIMainFont);
+		day.setFont(mainFont);
 		day.setActionCommand("day");
 		day.setSelected(true);
 
 		JRadioButton week = new JRadioButton("By week");
-		week.setFont(UIMainFont);
+		week.setFont(mainFont);
 		week.setActionCommand("week");
 
 		JRadioButton month = new JRadioButton("By month");
-		month.setFont(UIMainFont);
+		month.setFont(mainFont);
 		month.setActionCommand("month");
 
 		//Group the radio buttons.
@@ -792,7 +814,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showMore());
 
 		southPanel.add(backButton);
@@ -827,19 +849,19 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Budget information");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
 
 		JLabel oldBudgetLabel = new JLabel("Old budget:");
-		oldBudgetLabel.setFont(UIMainFont);
+		oldBudgetLabel.setFont(mainFont);
 
 		JLabel newBudgetLabel = new JLabel("New budget:");
-		newBudgetLabel.setFont(UIMainFont);
+		newBudgetLabel.setFont(mainFont);
 
 		JLabel oldBudget = new JLabel(MonitorController.getBudget() + " £");
-		oldBudget.setFont(UIMainFont);
+		oldBudget.setFont(mainFont);
 
 		JTextField newBudget = new JTextField();
 
@@ -853,11 +875,11 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showMore());
 
 		JButton confirmButton = new JButton("Confirm");
-		confirmButton.setFont(UIMainFont);
+		confirmButton.setFont(mainFont);
 		confirmButton.addActionListener(e -> {
 			String newBudgetString = newBudget.getText();
 			if (newBudgetString.equals("")) {
@@ -915,22 +937,22 @@ class GUI extends JFrame {
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Tariff information");
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 
 		// BorderLayout.CENTER
 		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
 
 		JLabel electricity = new JLabel("Electricity:");
-		electricity.setFont(UIMainFont);
+		electricity.setFont(mainFont);
 
 		JLabel gas = new JLabel("Gas:");
-		gas.setFont(UIMainFont);
+		gas.setFont(mainFont);
 
 		JLabel electricityTariff = new JLabel(ManagerController.getTariffElectricity() + " p/KWh");
-		electricityTariff.setFont(UIMainFont);
+		electricityTariff.setFont(mainFont);
 
 		JLabel gasTariff = new JLabel(ManagerController.getTariffGas() + " p/KWh");
-		gasTariff.setFont(UIMainFont);
+		gasTariff.setFont(mainFont);
 
 		centerPanel.add(electricity);
 		centerPanel.add(electricityTariff);
@@ -942,7 +964,7 @@ class GUI extends JFrame {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(UIMainFont);
+		backButton.setFont(mainFont);
 		backButton.addActionListener(e -> showMore());
 
 		southPanel.add(backButton);
@@ -979,7 +1001,7 @@ class GUI extends JFrame {
 	 */
 	private String showInputDialog(String text, String title, int messageType) {
 		JLabel promptLabel = new JLabel(text);
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 		return JOptionPane.showInputDialog(null, promptLabel, title, messageType);
 	}
 
@@ -992,7 +1014,7 @@ class GUI extends JFrame {
 	 */
 	private void showMessageDialog(String text, String title, int messageType) {
 		JLabel promptLabel = new JLabel(text, JLabel.CENTER);
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 		JOptionPane.showMessageDialog(null, promptLabel, title, messageType);
 	}
 
@@ -1006,7 +1028,7 @@ class GUI extends JFrame {
 	 */
 	private int showConfirmDialog(String text, String title, int optionType) {
 		JLabel promptLabel = new JLabel(text, JLabel.CENTER);
-		promptLabel.setFont(UIMainFont);
+		promptLabel.setFont(mainFont);
 		return JOptionPane.showConfirmDialog(null, promptLabel, title, optionType);
 	}
 
