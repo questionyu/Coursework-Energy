@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Title        MonitorController.java
@@ -84,7 +85,23 @@ class MonitorController {
 	 * @return The readings data.
 	 */
 	static String[][] getReadingsDataByDay() {
-		return Controller.getReadingsData(monitor.getReadingsByDay());
+		ArrayList<Readings> readings = monitor.getReadingsByDay();
+		if (readings.size() == 0)
+			return new String[][]{};
+		String[][] readingsData = new String[readings.size()][];
+		readingsData[0] = new String[]{Controller.calendarToString(readings.get(0).getDate()),
+				"" + readings.get(0).getElectricity(),
+				"" + readings.get(0).getGas(),
+				"" + (readings.get(0).getElectricity() * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + readings.get(0).getGas() * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+		for (int i = 1; i < readingsData.length; i++) {
+			Readings singleReadings = readings.get(i);
+			Readings lastReadings = readings.get(i - 1);
+			readingsData[i] = new String[]{Controller.calendarToString(singleReadings.getDate()),
+					"" + singleReadings.getElectricity(),
+					"" + singleReadings.getGas(),
+					"" + ((singleReadings.getElectricity() - lastReadings.getElectricity()) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (singleReadings.getGas() - lastReadings.getGas()) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+		}
+		return readingsData;
 	}
 
 	/**
@@ -93,7 +110,34 @@ class MonitorController {
 	 * @return The readings data.
 	 */
 	static String[][] getReadingsDataByWeek() {
-		return Controller.getReadingsData(monitor.getReadingsByWeek());
+		ArrayList<Readings> readings = monitor.getReadingsByWeek();
+		if (readings.size() == 0)
+			return new String[][]{};
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		double[][] wtfReadings = new double[5][3];
+		for (int i = 0; i < wtfReadings.length; i++)
+			for (int j = 0; j < wtfReadings[i].length; j++)
+				wtfReadings[i][j] = 0;
+		for (int i = 0; i < wtfReadings.length; i++) {
+			for (Readings singleReadings : readings)
+				if (singleReadings.getDate().after(date)) {
+					wtfReadings[wtfReadings.length - i - 1][0] = date.get(Calendar.WEEK_OF_YEAR);
+					wtfReadings[wtfReadings.length - i - 1][1] += singleReadings.getElectricity();
+					wtfReadings[wtfReadings.length - i - 1][2] += singleReadings.getGas();
+				}
+			date.add(Calendar.WEEK_OF_YEAR, -1);
+		}
+		String[][] readingsData = new String[4][];
+		for (int i = 0; i < readingsData.length; i++)
+			readingsData[i] = new String[]{"" + (int) wtfReadings[i + 1][0],
+					"" + wtfReadings[i + 1][1],
+					"" + wtfReadings[i + 1][2],
+					"" + ((wtfReadings[i + 1][1] - wtfReadings[i][1]) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (wtfReadings[i + 1][2] - wtfReadings[i][2]) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+		return readingsData;
 	}
 
 	/**
@@ -102,7 +146,34 @@ class MonitorController {
 	 * @return The readings data.
 	 */
 	static String[][] getReadingsDataByMonth() {
-		return Controller.getReadingsData(monitor.getReadingsByMonth());
+		ArrayList<Readings> readings = monitor.getReadingsByMonth();
+		if (readings.size() == 0)
+			return new String[][]{};
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.DAY_OF_MONTH, 1);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		double[][] wtfReadings = new double[4][3];
+		for (int i = 0; i < wtfReadings.length; i++)
+			for (int j = 0; j < wtfReadings[i].length; j++)
+				wtfReadings[i][j] = 0;
+		for (int i = 0; i < wtfReadings.length; i++) {
+			for (Readings singleReadings : readings)
+				if (singleReadings.getDate().after(date)) {
+					wtfReadings[wtfReadings.length - i - 1][0] = date.get(Calendar.MONTH);
+					wtfReadings[wtfReadings.length - i - 1][1] += singleReadings.getElectricity();
+					wtfReadings[wtfReadings.length - i - 1][2] += singleReadings.getGas();
+				}
+			date.add(Calendar.MONTH, -1);
+		}
+		String[][] readingsData = new String[3][];
+		for (int i = 0; i < readingsData.length; i++)
+			readingsData[i] = new String[]{"" + (int) (wtfReadings[i + 1][0] + 1),
+					"" + wtfReadings[i + 1][1],
+					"" + wtfReadings[i + 1][2],
+					"" + ((wtfReadings[i + 1][1] - wtfReadings[i][1]) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (wtfReadings[i + 1][2] - wtfReadings[i][2]) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+		return readingsData;
 	}
 
 	/**
