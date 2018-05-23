@@ -72,9 +72,9 @@ class GUI extends JFrame {
 			String stringID = showInputDialog("Your ID:", "Input dialog", JOptionPane.QUESTION_MESSAGE);
 			if (stringID == null || stringID.equals(""))
 				return;
-			int ID;
+			long ID;
 			try {
-				ID = Integer.parseInt(stringID);
+				ID = Long.parseLong(stringID);
 			} catch (Exception exception) {
 				showMessageDialog("ID must be a number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;

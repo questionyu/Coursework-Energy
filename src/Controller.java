@@ -36,7 +36,7 @@ class Controller {
 	 * @param ID The ID which need to be checked.
 	 * @return Negative: Doesn't exist. Zero: Manager. Positive: Customer.
 	 */
-	static int getIDType(int ID) {
+	static int getIDType(long ID) {
 		if (ManagerController.isManager(ID))
 			return 0;
 		if (!checkID(ID)) {

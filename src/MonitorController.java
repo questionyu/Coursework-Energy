@@ -33,7 +33,7 @@ class MonitorController {
 	 *
 	 * @param ID The ID of customer.
 	 */
-	static void login(int ID) {
+	static void login(long ID) {
 		for (Monitor logMonitor : ManagerController.getMonitors())
 			if (logMonitor.getID() == ID) {
 				monitor = logMonitor;

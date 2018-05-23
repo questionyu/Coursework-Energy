@@ -48,7 +48,7 @@ class ManagerController {
 	 * @param ID The ID which will be checked.
 	 * @return True: Is manager. False: Not.
 	 */
-	static boolean isManager(int ID) {
+	static boolean isManager(long ID) {
 		return ID == Manager.MANAGER_ID;
 	}
 
