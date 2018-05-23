@@ -88,14 +88,10 @@ class MonitorController {
 		ArrayList<Readings> readings = monitor.getReadingsByDay();
 		if (readings.size() == 0)
 			return new String[][]{};
-		String[][] readingsData = new String[readings.size()][];
-		readingsData[0] = new String[]{Controller.calendarToString(readings.get(0).getDate()),
-				"" + readings.get(0).getElectricity(),
-				"" + readings.get(0).getGas(),
-				"" + (readings.get(0).getElectricity() * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + readings.get(0).getGas() * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
-		for (int i = 1; i < readingsData.length; i++) {
-			Readings singleReadings = readings.get(i);
-			Readings lastReadings = readings.get(i - 1);
+		String[][] readingsData = new String[7][];
+		for (int i = 0; i < readingsData.length; i++) {
+			Readings singleReadings = readings.get(i + 1);
+			Readings lastReadings = readings.get(i);
 			readingsData[i] = new String[]{Controller.calendarToString(singleReadings.getDate()),
 					"" + singleReadings.getElectricity(),
 					"" + singleReadings.getGas(),
