@@ -257,7 +257,7 @@ class Monitor {
 	/**
 	 * This function will delete reading of this monitor.
 	 */
-	void deleteReadings() { // TODO Need test
+	void deleteReadings() {
 		try {
 			File readingsFile = new File("./readings/" + customer.getID() + ".xml");
 			readingsFile.delete();
