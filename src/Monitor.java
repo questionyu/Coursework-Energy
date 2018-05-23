@@ -1,7 +1,4 @@
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
@@ -208,19 +205,6 @@ class Monitor {
 	}
 
 	/**
-	 * This function sends readings.
-	 */
-	void sendReadings() {
-		try {
-			File sourceFile = new File("./readings/" + customer.getID() + ".xml");
-			File newFile = new File("./receivedReadings/" + customer.getID() + ".xml");
-			Files.copy(sourceFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * This function will load readings.
 	 */
 	void loadReadings() {
@@ -357,7 +341,7 @@ class Monitor {
 		public void run() {
 			Calendar now = Calendar.getInstance();
 			if (now.get(Calendar.DAY_OF_MONTH) == 1) // Send readings in the first day of the month.
-				sendReadings();
+				MonitorController.sendReadings();
 		}
 	}
 }

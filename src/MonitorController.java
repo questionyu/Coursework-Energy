@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -12,10 +16,16 @@ class MonitorController {
 	private static Monitor monitor;
 
 	/**
-	 * Only for demo. Send readings.
+	 * This function sends readings.
 	 */
 	static void sendReadings() {
-		monitor.sendReadings();
+		try {
+			File sourceFile = new File("./readings/" + monitor.getID() + ".xml");
+			File newFile = new File("./receivedReadings/" + monitor.getID() + ".xml");
+			Files.copy(sourceFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
