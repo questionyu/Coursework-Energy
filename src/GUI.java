@@ -1082,20 +1082,6 @@ class GUI extends JFrame {
 	}
 
 	/**
-	 * This function shows a input dialog on screen.
-	 *
-	 * @param text        The prompt message.
-	 * @param title       The window title.
-	 * @param messageType The type of this message.
-	 * @return The input string.
-	 */
-	private String showInputDialog(String text, String title, int messageType) {
-		JLabel promptLabel = new JLabel(text);
-		promptLabel.setFont(mainFont);
-		return JOptionPane.showInputDialog(null, promptLabel, title, messageType);
-	}
-
-	/**
 	 * This function shows a message dialog on screen.
 	 *
 	 * @param text        The message.
