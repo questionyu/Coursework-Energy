@@ -194,10 +194,8 @@ class Manager {
 		@Override
 		public void run() {
 			Calendar now = Calendar.getInstance();
-			if (now.get(Calendar.DAY_OF_MONTH) == 1) {
-				ManagerController.generateBills();
-				ManagerController.sendBills();
-			}
+			if (now.get(Calendar.DAY_OF_MONTH) == 1)
+				ManagerController.bills();
 		}
 	}
 }

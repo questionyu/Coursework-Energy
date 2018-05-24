@@ -181,7 +181,7 @@ class ManagerController {
 	/**
 	 * This function will generate bills.
 	 */
-	static void generateBills() {
+	private static void generateBills() {
 		for (Customer customer : getCustomers()) {
 			try {
 				File billFile = new File("./bills/" + customer.getID() + ".txt");
@@ -216,7 +216,7 @@ class ManagerController {
 	/**
 	 * This function will send bills.
 	 */
-	static void sendBills() {
+	private static void sendBills() {
 		for (Customer customer : manager.getCustomers()) {
 			try {
 				File sourceFile = new File("./bills/" + customer.getID() + ".txt");
