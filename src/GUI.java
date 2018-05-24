@@ -63,7 +63,7 @@ class GUI extends JFrame {
 
 		this.setContentPane(energyPanel);
 
-		promptFont = new Font("Curlz MT", Font.PLAIN, 40);
+		promptFont = new Font("Curlz MT", Font.PLAIN, 64);
 		mainFont = new Font("Agency FB", Font.PLAIN, 32);
 
 		this.setVisible(true);
@@ -138,62 +138,70 @@ class GUI extends JFrame {
 	 * Create a manager panel.
 	 */
 	private JPanel GUIManager() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Select one to continue");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		back.addMouseListener(new MouseAdapter() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ManagerController.stopManagerTimer();
+				showWelcome();
+			}
 
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+		});
+
+		JLabel promptLabel = new JLabel("Select one to continue", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
 
 		JButton addCustomerButton = new JButton("Add customer");
 		addCustomerButton.setFont(mainFont);
+		addCustomerButton.setBounds((int) (0.25 * width), (int) (0.6 * height), (int) (0.25 * width), height / 10);
 		addCustomerButton.addActionListener(e -> addCustomer());
 
 		JButton removeCustomerButton = new JButton("Remove customer");
 		removeCustomerButton.setFont(mainFont);
+		removeCustomerButton.setBounds((int) (0.5 * width), (int) (0.6 * height), (int) (0.25 * width), height / 10);
 		removeCustomerButton.addActionListener(e -> removeCustomer());
 
 		JButton tariffButton = new JButton("Tariff");
 		tariffButton.setFont(mainFont);
+		tariffButton.setBounds((int) (0.25 * width), (int) (0.75 * height), (int) (0.25 * width), height / 10);
 		tariffButton.addActionListener(e -> tariff());
 
 		JButton viewButton = new JButton("View");
 		viewButton.setFont(mainFont);
+		viewButton.setBounds((int) (0.5 * width), (int) (0.75 * height), (int) (0.25 * width), height / 10);
 		viewButton.addActionListener(e -> view());
 
-		centerPanel.add(addCustomerButton);
-		centerPanel.add(removeCustomerButton);
-		centerPanel.add(tariffButton);
-		centerPanel.add(viewButton);
-
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> {
-			ManagerController.stopManagerTimer();
-			showWelcome();
-		});
-
-		// Only for demo
-		JButton billsButton = new JButton("Bills (Only for demo)");
-		billsButton.setFont(mainFont);
-		billsButton.addActionListener(e -> {
-			ManagerController.bills();
-			showMessageDialog("Generate and send bills successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-		});
-
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-		southPanel.add(billsButton);
-
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
+		panel.add(back);
+		panel.add(promptLabel);
+		panel.add(addCustomerButton);
+		panel.add(removeCustomerButton);
+		panel.add(tariffButton);
+		panel.add(viewButton);
 		return panel;
 	}
 
