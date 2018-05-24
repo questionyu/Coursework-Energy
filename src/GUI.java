@@ -113,9 +113,12 @@ class GUI extends JFrame {
 		});
 
 		panel.add(welcomeLabel);
+
 		panel.add(IDLabel);
 		panel.add(IDTextField);
+
 		panel.add(loginButton);
+
 		return panel;
 	}
 
@@ -198,10 +201,12 @@ class GUI extends JFrame {
 
 		panel.add(back);
 		panel.add(promptLabel);
+
 		panel.add(addCustomerButton);
 		panel.add(removeCustomerButton);
 		panel.add(tariffButton);
 		panel.add(viewButton);
+
 		return panel;
 	}
 
