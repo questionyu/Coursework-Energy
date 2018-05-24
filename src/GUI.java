@@ -455,49 +455,41 @@ class GUI extends JFrame {
 		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
 		clickShowManager(panel, backImage, back);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Tariff information");
-		promptLabel.setFont(mainFont);
-
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 25, 25));
+		JLabel promptLabel = new JLabel("Tariff information", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
 
 		JLabel tariffElectricityLabel = new JLabel("Electricity tariff:");
 		tariffElectricityLabel.setFont(mainFont);
+		tariffElectricityLabel.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
 
-		JLabel electricityLabel = new JLabel(ManagerController.getTariffElectricity() + " p/KWh");
+		JLabel electricityLabel = new JLabel(ManagerController.getTariffElectricity() + " p/KWh", JLabel.RIGHT);
 		electricityLabel.setFont(mainFont);
+		electricityLabel.setBounds((int) (0.5 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
 
 		JLabel tariffGasLabel = new JLabel("Gas tariff:");
 		tariffGasLabel.setFont(mainFont);
+		tariffGasLabel.setBounds((int) (0.3 * width), (int) (0.6 * height), (int) (0.2 * width), height / 12);
 
-		JLabel gasLabel = new JLabel(ManagerController.getTariffGas() + " p/KWh");
+		JLabel gasLabel = new JLabel(ManagerController.getTariffGas() + " p/KWh", JLabel.RIGHT);
 		gasLabel.setFont(mainFont);
-
-		centerPanel.add(tariffElectricityLabel);
-		centerPanel.add(electricityLabel);
-		centerPanel.add(tariffGasLabel);
-		centerPanel.add(gasLabel);
-
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showManager());
+		gasLabel.setBounds((int) (0.5 * width), (int) (0.6 * height), (int) (0.2 * width), height / 12);
 
 		JButton updateButton = new JButton("Update");
 		updateButton.setFont(mainFont);
+		updateButton.setBounds((int) (0.4 * width), (int) (0.7 * height), (int) (0.2 * width), height / 10);
 		updateButton.addActionListener(e -> updateTariff());
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-		southPanel.add(updateButton);
+		panel.add(back);
+		panel.add(promptLabel);
 
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
+		panel.add(tariffElectricityLabel);
+		panel.add(electricityLabel);
+		panel.add(tariffGasLabel);
+		panel.add(gasLabel);
+
+		panel.add(updateButton);
+
 		return panel;
 	}
 
