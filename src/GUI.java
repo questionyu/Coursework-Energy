@@ -89,7 +89,7 @@ class GUI extends JFrame {
 
 		JButton loginButton = new JButton("Login");
 		loginButton.setFont(mainFont);
-		loginButton.setBounds((int) (0.45 * width), (int) (0.7 * height), (int) (0.1 * width), height / 12);
+		loginButton.setBounds((int) (0.45 * width), (int) (0.7 * height), (int) (0.1 * width), height / 10);
 		loginButton.addActionListener(e -> {
 			String stringID = IDTextField.getText();
 			if (stringID.equals(""))
