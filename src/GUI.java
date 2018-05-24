@@ -584,33 +584,31 @@ class GUI extends JFrame {
 	 * Create a view panel.
 	 */
 	private JPanel GUIView() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Readings and bills");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowManager(panel, backImage, back);
 
-		// BorderLayout.CENTER
+		JLabel promptLabel = new JLabel("Readings and bills", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
+
 		String[] columnNames = {"Name", "Electricity", "Gas", "Bill"};
 		String[][] data = ManagerController.getReadingsAndBills();
 
 		JTable table = new JTable(data, columnNames);
-		JScrollPane scrollPane = new JScrollPane(table);
+		table.setFont(mainFont);
+		table.setRowHeight(42);
+		JScrollPane scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(0, (int) (0.35 * height), width, (int) (0.6 * height));
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+		panel.add(back);
+		panel.add(promptLabel);
 
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showManager());
+		panel.add(scrollPane);
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(scrollPane, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
 		return panel;
 	}
 
