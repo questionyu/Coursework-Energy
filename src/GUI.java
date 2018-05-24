@@ -180,7 +180,7 @@ class GUI extends JFrame {
 
 		JLabel promptLabel = new JLabel("Select one to continue", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
-		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JButton addCustomerButton = new JButton("Add customer");
 		addCustomerButton.setFont(mainFont);
@@ -279,7 +279,7 @@ class GUI extends JFrame {
 
 		JLabel promptLabel = new JLabel("New customer's information", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
-		promptLabel.setBounds(width / 8, height / 7, width / 4 * 3, height / 5);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JLabel nameLabel = new JLabel("Name:");
 		nameLabel.setFont(mainFont);
@@ -374,7 +374,7 @@ class GUI extends JFrame {
 
 		JLabel promptLabel = new JLabel("Select one customer to remove", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
-		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		String[] columnNames = {"Name", "Address", "Email", "Button"};
 		String[][] customerList = ManagerController.getCustomerList();
@@ -431,7 +431,7 @@ class GUI extends JFrame {
 
 		JLabel promptLabel = new JLabel("Tariff information", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
-		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JLabel tariffElectricityLabel = new JLabel("Electricity tariff:");
 		tariffElectricityLabel.setFont(mainFont);
@@ -495,7 +495,7 @@ class GUI extends JFrame {
 
 		JLabel promptLabel = new JLabel("New tariff", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
-		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JLabel tariffElectricityLabel = new JLabel("Electricity:");
 		tariffElectricityLabel.setFont(mainFont);
@@ -593,7 +593,7 @@ class GUI extends JFrame {
 
 		JLabel promptLabel = new JLabel("Readings and bills", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
-		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		String[] columnNames = {"Name", "Electricity", "Gas", "Bill"};
 		String[][] data = ManagerController.getReadingsAndBills();
