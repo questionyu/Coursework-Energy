@@ -86,6 +86,22 @@ class ManagerController {
 	}
 
 	/**
+	 * This function will get the customer list.
+	 *
+	 * @return Customer list.
+	 */
+	static String[][] getCustomerList() {
+		String[][] customerList = new String[manager.getCustomers().size()][4];
+		for (int i = 0; i < customerList.length; i++) {
+			customerList[i][0] = manager.getCustomers().get(i).getName();
+			customerList[i][1] = manager.getCustomers().get(i).getAddress();
+			customerList[i][2] = manager.getCustomers().get(i).getEmail();
+			customerList[i][3] = manager.getCustomers().get(i).getID() + "";
+		}
+		return customerList;
+	}
+
+	/**
 	 * This function saves the customers.
 	 */
 	static void saveCustomer() {
