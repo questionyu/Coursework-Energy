@@ -73,9 +73,15 @@ class ManagerController {
 
 	/**
 	 * This function removes a customer.
+	 *
+	 * @param ID Customer's ID.
 	 */
-	static void removeCustomer(Customer customer) {
-		manager.removeCustomer(customer);
+	static void removeCustomer(Long ID) {
+		for (Customer customer : getCustomers())
+			if (customer.getID() == ID) {
+				manager.removeCustomer(customer);
+				break;
+			}
 		saveCustomer();
 	}
 
