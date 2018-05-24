@@ -229,47 +229,70 @@ class GUI extends JFrame {
 	 * Create an add customer panel.
 	 */
 	private JPanel GUIAddCustomer() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("New customer's information");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		back.addMouseListener(new MouseAdapter() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				showManager();
+			}
 
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(3, 2, 25, 25));
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+		});
+
+		JLabel promptLabel = new JLabel("New customer's information", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(width / 8, height / 7, width / 4 * 3, height / 5);
 
 		JLabel nameLabel = new JLabel("Name:");
 		nameLabel.setFont(mainFont);
+		nameLabel.setBounds((int) (0.3 * width), (int) (0.4 * height), (int) (0.15 * width), height / 12);
 
 		JTextField nameTextField = new JTextField();
+		nameTextField.setFont(mainFont);
+		nameTextField.setBounds((int) (0.45 * width), (int) (0.4 * height), (int) (0.25 * width), height / 12);
 
 		JLabel addressLabel = new JLabel("Address:");
 		addressLabel.setFont(mainFont);
+		addressLabel.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.15 * width), height / 12);
 
 		JTextField addressTextField = new JTextField();
+		addressTextField.setFont(mainFont);
+		addressTextField.setBounds((int) (0.45 * width), (int) (0.5 * height), (int) (0.25 * width), height / 12);
 
 		JLabel emailLabel = new JLabel("Email:");
 		emailLabel.setFont(mainFont);
+		emailLabel.setBounds((int) (0.3 * width), (int) (0.6 * height), (int) (0.15 * width), height / 12);
 
 		JTextField emailTextField = new JTextField();
-
-		centerPanel.add(nameLabel);
-		centerPanel.add(nameTextField);
-		centerPanel.add(addressLabel);
-		centerPanel.add(addressTextField);
-		centerPanel.add(emailLabel);
-		centerPanel.add(emailTextField);
-
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showManager());
+		emailTextField.setFont(mainFont);
+		emailTextField.setBounds((int) (0.45 * width), (int) (0.6 * height), (int) (0.25 * width), height / 12);
 
 		JButton addButton = new JButton("Add");
 		addButton.setFont(mainFont);
+		addButton.setBounds((int) (0.45 * width), (int) (0.7 * height), (int) (0.1 * width), height / 10);
 		addButton.addActionListener(e -> {
 			String name = nameTextField.getText();
 			String address = addressTextField.getText();
@@ -293,13 +316,18 @@ class GUI extends JFrame {
 			showManager();
 		});
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-		southPanel.add(addButton);
+		panel.add(back);
+		panel.add(promptLabel);
 
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
+		panel.add(nameLabel);
+		panel.add(nameTextField);
+		panel.add(addressLabel);
+		panel.add(addressTextField);
+		panel.add(emailLabel);
+		panel.add(emailTextField);
+
+		panel.add(addButton);
+
 		return panel;
 	}
 
