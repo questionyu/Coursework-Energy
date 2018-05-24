@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -226,6 +229,44 @@ class GUI extends JFrame {
 	}
 
 	/**
+	 * This function add mouse listener to one JLabel.
+	 *
+	 * @param panel     This panel will show the JLabel.
+	 * @param backImage Back image.
+	 * @param back      Back JLabel.
+	 */
+	private void clickShowManager(JPanel panel, ImageIcon backImage, JLabel back) {
+		back.addMouseListener(new MouseAdapter() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ManagerController.stopManagerTimer();
+				showManager();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+		});
+	}
+
+	/**
 	 * Create an add customer panel.
 	 */
 	private JPanel GUIAddCustomer() {
@@ -350,38 +391,41 @@ class GUI extends JFrame {
 	 * Create a remove customer panel.
 	 */
 	private JPanel GUIRemoveCustomer() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Select one customer to remove");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowManager(panel, backImage, back);
 
-		// BorderLayout.CENTER
-		JPanel userListPanel = new JPanel();
-		userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
+		JLabel promptLabel = new JLabel("Select one customer to remove", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(width / 5, height / 7, width / 5 * 3, height / 5);
 
-		for (Customer customer : ManagerController.getCustomers()) {
-			JButton customerButton = new JButton("\"" + customer.getName() + "\"  " + customer.getAddress());
-			customerButton.setFont(mainFont);
-			customerButton.addMouseListener(new mouseAdapter(customer));
-			userListPanel.add(customerButton);
+		String[] columnNames = {"Name", "Address", "Email", "Button"};
+		String[][] customerList = ManagerController.getCustomerList();
+		Object[][] data = new Object[customerList.length][4];
+		for (int i = 0; i < data.length; i++) {
+			data[i][0] = customerList[i][0];
+			data[i][1] = customerList[i][1];
+			data[i][2] = customerList[i][2];
 		}
-		JScrollPane scrollPane = new JScrollPane(userListPanel);
+		DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames);
+		JTable table = new JTable(defaultTableModel);
+		table.setFont(mainFont);
+		table.setRowHeight(42);
+		for (int i = 0; i < data.length; i++) {
+			table.getColumnModel().getColumn(3).setCellEditor(new ButtonInTable(customerList[i][3]));
+			table.getColumnModel().getColumn(3).setCellRenderer(new ButtonInTable(customerList[i][3]));
+		}
+		JScrollPane scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(0, (int) (0.35 * height), width, (int) (0.6 * height));
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+		panel.add(back);
+		panel.add(promptLabel);
 
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showManager());
+		panel.add(scrollPane);
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(scrollPane, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
 		return panel;
 	}
 
@@ -404,7 +448,12 @@ class GUI extends JFrame {
 	 * Create a tariff panel.
 	 */
 	private JPanel GUITariff() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
+
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowManager(panel, backImage, back);
 
 		// BorderLayout.NORTH
 		JLabel promptLabel = new JLabel("Tariff information");
@@ -1074,33 +1123,63 @@ class GUI extends JFrame {
 	}
 
 	/**
-	 * This class extends MouseAdapter. This class's instance record the customer of each button.
+	 * ButtonInTable class.
 	 */
-	class mouseAdapter extends MouseAdapter {
+	class ButtonInTable extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
 		/**
-		 * The customer.
+		 * Serial version UID.
 		 */
-		private Customer customer;
+		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Constructor function. Create a mouse adapter instance.
-		 *
-		 * @param customer The customer.
+		 * The button.
 		 */
-		mouseAdapter(Customer customer) {
-			this.customer = customer;
+		private JButton button;
+
+		/**
+		 * Constructor function of ButtonInTable.
+		 *
+		 * @param actionCommand The command string.
+		 */
+		ButtonInTable(String actionCommand) {
+			button = new JButton("Remove");
+			button.setFont(mainFont);
+			button.setActionCommand(actionCommand);
+			button.addActionListener(e -> {
+				try {
+					if (showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+						return;
+					ManagerController.removeCustomer(Long.parseLong(e.getActionCommand()));
+					showMessageDialog("Remove successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+					showManager();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
 		}
 
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			if (showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
-				return;
-			ManagerController.removeCustomer(customer);
-			showMessageDialog("Remove successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-			showManager();
+		public Object getCellEditorValue() {
+			return null;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			return button;
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+			return button;
 		}
 	}
 }
