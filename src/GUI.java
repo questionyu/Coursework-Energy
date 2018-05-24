@@ -275,33 +275,7 @@ class GUI extends JFrame {
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
 		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
-		back.addMouseListener(new MouseAdapter() {
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				showManager();
-			}
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public void mousePressed(MouseEvent e) {
-				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
-				panel.updateUI();
-			}
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
-				panel.updateUI();
-			}
-		});
+		clickShowManager(panel, backImage, back);
 
 		JLabel promptLabel = new JLabel("New customer's information", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
