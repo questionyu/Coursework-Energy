@@ -90,7 +90,7 @@ class MonitorController {
 	}
 
 	/**
-	 * This function will get the readings data by day. (7 days)
+	 * This function will get the readings data by day. (no more than 7 days)
 	 *
 	 * @return The readings data.
 	 */
@@ -100,18 +100,18 @@ class MonitorController {
 			return new String[][]{};
 		String[][] readingsData = new String[readings.size() - 1][];
 		for (int i = 0; i < readingsData.length; i++) {
-			Readings singleReadings = readings.get(i + 1);
-			Readings lastReadings = readings.get(i);
-			readingsData[i] = new String[]{Controller.calendarToString(singleReadings.getDate()),
-					"" + singleReadings.getElectricity(),
-					"" + singleReadings.getGas(),
-					"" + ((singleReadings.getElectricity() - lastReadings.getElectricity()) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (singleReadings.getGas() - lastReadings.getGas()) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+			Readings newR = readings.get(i + 1);
+			Readings oldR = readings.get(i);
+			readingsData[i] = new String[]{Controller.calendarToString(newR.getDate()),
+					"" + newR.getElectricity(),
+					"" + newR.getGas(),
+					"" + ((newR.getElectricity() - oldR.getElectricity()) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (newR.getGas() - oldR.getGas()) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
 		}
 		return readingsData;
 	}
 
 	/**
-	 * This function will get the readings data by week. (4 weeks)
+	 * This function will get the readings data by week. (no more than 4 weeks)
 	 *
 	 * @return The readings data.
 	 */
@@ -119,35 +119,45 @@ class MonitorController {
 		ArrayList<Readings> readings = monitor.getReadingsByWeek();
 		if (readings.size() == 0)
 			return new String[][]{};
+		Calendar oldDate = Calendar.getInstance();
+		oldDate.add(Calendar.WEEK_OF_YEAR, -4);
+		oldDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		oldDate.set(Calendar.HOUR_OF_DAY, 0);
+		oldDate.set(Calendar.MINUTE, 0);
+		oldDate.set(Calendar.SECOND, 0);
 		Calendar date = Calendar.getInstance();
+		date.add(Calendar.WEEK_OF_YEAR, -3);
 		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
-		double[][] wtfReadings = new double[5][3];
-		for (int i = 0; i < wtfReadings.length; i++)
-			for (int j = 0; j < wtfReadings[i].length; j++)
-				wtfReadings[i][j] = 0;
-		for (int i = 0; i < wtfReadings.length; i++) {
+		ArrayList<double[]> wtfReadings = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			int tempWeek = 0;
+			double tempElectricity = 0, tempGas = 0;
 			for (Readings singleReadings : readings)
-				if (singleReadings.getDate().after(date)) {
-					wtfReadings[wtfReadings.length - i - 1][0] = date.get(Calendar.WEEK_OF_YEAR);
-					wtfReadings[wtfReadings.length - i - 1][1] += singleReadings.getElectricity();
-					wtfReadings[wtfReadings.length - i - 1][2] += singleReadings.getGas();
+				if (singleReadings.getDate().after(oldDate) && singleReadings.getDate().before(date)) {
+					// Make the wtfReadings has the last day's readings of every week.
+					tempWeek = date.get(Calendar.WEEK_OF_YEAR);
+					tempElectricity = Math.max(tempElectricity, singleReadings.getElectricity());
+					tempGas = Math.max(tempGas, singleReadings.getGas());
 				}
-			date.add(Calendar.WEEK_OF_YEAR, -1);
+			if (tempWeek > 0 || tempElectricity > 0 || tempGas > 0)
+				wtfReadings.add(new double[]{date.get(Calendar.WEEK_OF_YEAR), tempElectricity, tempGas});
+			date.add(Calendar.WEEK_OF_YEAR, 1);
+			oldDate.add(Calendar.WEEK_OF_YEAR, 1);
 		}
-		String[][] readingsData = new String[4][];
+		String[][] readingsData = new String[wtfReadings.size() - 1][];
 		for (int i = 0; i < readingsData.length; i++)
-			readingsData[i] = new String[]{"" + (int) wtfReadings[i + 1][0],
-					"" + wtfReadings[i + 1][1],
-					"" + wtfReadings[i + 1][2],
-					"" + ((wtfReadings[i + 1][1] - wtfReadings[i][1]) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (wtfReadings[i + 1][2] - wtfReadings[i][2]) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+			readingsData[i] = new String[]{"" + (int) wtfReadings.get(i + 1)[0],
+					"" + Math.round(wtfReadings.get(i + 1)[1] * 100) / 100.0,
+					"" + Math.round(wtfReadings.get(i + 1)[2] * 100) / 100.0,
+					"" + Math.round(((wtfReadings.get(i + 1)[1] - wtfReadings.get(i)[1]) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (wtfReadings.get(i + 1)[2] - wtfReadings.get(i)[2]) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100)) * 100) / 100.0};
 		return readingsData;
 	}
 
 	/**
-	 * This function will get the readings data by month. (3 months)
+	 * This function will get the readings data by month. (no more than 3 months)
 	 *
 	 * @return The readings data.
 	 */
@@ -155,30 +165,40 @@ class MonitorController {
 		ArrayList<Readings> readings = monitor.getReadingsByMonth();
 		if (readings.size() == 0)
 			return new String[][]{};
+		Calendar oldDate = Calendar.getInstance();
+		oldDate.add(Calendar.MONTH, -3);
+		oldDate.set(Calendar.DAY_OF_MONTH, 1);
+		oldDate.set(Calendar.HOUR_OF_DAY, 0);
+		oldDate.set(Calendar.MINUTE, 0);
+		oldDate.set(Calendar.SECOND, 0);
 		Calendar date = Calendar.getInstance();
+		date.add(Calendar.MONTH, -2);
 		date.set(Calendar.DAY_OF_MONTH, 1);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
-		double[][] wtfReadings = new double[4][3];
-		for (int i = 0; i < wtfReadings.length; i++)
-			for (int j = 0; j < wtfReadings[i].length; j++)
-				wtfReadings[i][j] = 0;
-		for (int i = 0; i < wtfReadings.length; i++) {
+		ArrayList<double[]> wtfReadings = new ArrayList<>();
+		for (int i = 0; i < 4; i++) {
+			int tempMonth = -1;
+			double tempElectricity = 0, tempGas = 0;
 			for (Readings singleReadings : readings)
-				if (singleReadings.getDate().after(date)) {
-					wtfReadings[wtfReadings.length - i - 1][0] = date.get(Calendar.MONTH);
-					wtfReadings[wtfReadings.length - i - 1][1] += singleReadings.getElectricity();
-					wtfReadings[wtfReadings.length - i - 1][2] += singleReadings.getGas();
+				if (singleReadings.getDate().after(oldDate) && singleReadings.getDate().before(date)) {
+					// Make the wtfReadings has the last day's readings of every month.
+					tempMonth = date.get(Calendar.MONTH);
+					tempElectricity = Math.max(tempElectricity, singleReadings.getElectricity());
+					tempGas = Math.max(tempGas, singleReadings.getGas());
 				}
-			date.add(Calendar.MONTH, -1);
+			if (tempMonth > -1 || tempElectricity > 0 || tempGas > 0)
+				wtfReadings.add(new double[]{date.get(Calendar.MONTH), tempElectricity, tempGas});
+			date.add(Calendar.MONTH, 1);
+			oldDate.add(Calendar.MONTH, 1);
 		}
-		String[][] readingsData = new String[3][];
+		String[][] readingsData = new String[wtfReadings.size() - 1][];
 		for (int i = 0; i < readingsData.length; i++)
-			readingsData[i] = new String[]{"" + (int) (wtfReadings[i + 1][0] + 1),
-					"" + wtfReadings[i + 1][1],
-					"" + wtfReadings[i + 1][2],
-					"" + ((wtfReadings[i + 1][1] - wtfReadings[i][1]) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (wtfReadings[i + 1][2] - wtfReadings[i][2]) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+			readingsData[i] = new String[]{"" + (int) (wtfReadings.get(i + 1)[0] + 1),
+					"" + Math.round(wtfReadings.get(i + 1)[1] * 100) / 100.0,
+					"" + Math.round(wtfReadings.get(i + 1)[2] * 100) / 100.0,
+					"" + Math.round(((wtfReadings.get(i + 1)[1] - wtfReadings.get(i)[1]) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (wtfReadings.get(i + 1)[2] - wtfReadings.get(i)[2]) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100)) * 100) / 100.0};
 		return readingsData;
 	}
 

@@ -87,49 +87,27 @@ class Monitor {
 	}
 
 	/**
-	 * This function will get the readings by date limit.
-	 *
-	 * @param oldDate Old date.
-	 * @param date    Date.
-	 * @return Readings.
-	 */
-	private ArrayList<Readings> getReadingsByDate(Calendar oldDate, Calendar date) {
-		ArrayList<Readings> targetReadings = new ArrayList<>();
-		for (Readings singleReadings : readings)
-			if (singleReadings.getDate().after(oldDate) && singleReadings.getDate().before(date))
-				targetReadings.add(singleReadings);
-		return targetReadings;
-	}
-
-	/**
-	 * This function will return readings by day. (8 days but only show 7 days')
+	 * This function will return readings by day. (8 days)
 	 *
 	 * @return The readings of 8 days.
 	 */
 	ArrayList<Readings> getReadingsByDay() {
 		if (readings.size() == 0)
 			return readings;
-		Calendar oldDate = Calendar.getInstance();
-		oldDate.add(Calendar.DAY_OF_YEAR, -7);
-		oldDate.set(Calendar.HOUR_OF_DAY, 0);
-		oldDate.set(Calendar.MINUTE, 0);
-		oldDate.set(Calendar.SECOND, 0);
 		Calendar date = Calendar.getInstance();
-		date.add(Calendar.DAY_OF_YEAR, -6);
+		date.add(Calendar.DAY_OF_YEAR, -7);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
 		ArrayList<Readings> targetReadings = new ArrayList<>();
-		for (int i = 0; i < 8; i++) {
-			targetReadings.addAll(getReadingsByDate(oldDate, date));
-			oldDate.add(Calendar.DAY_OF_YEAR, 1);
-			date.add(Calendar.DAY_OF_YEAR, 1);
-		}
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().after(date))
+				targetReadings.add(singleReadings);
 		return targetReadings;
 	}
 
 	/**
-	 * This function will return readings by week. (5 weeks but only show 4 weeks')
+	 * This function will return readings by week. (5 weeks)
 	 *
 	 * @return The readings of 5 weeks.
 	 */
@@ -137,52 +115,36 @@ class Monitor {
 		if (readings.size() == 0)
 			return readings;
 		Calendar date = Calendar.getInstance();
-		Calendar oldDate = Calendar.getInstance();
-		oldDate.add(Calendar.WEEK_OF_YEAR, -4);
-		oldDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		oldDate.set(Calendar.HOUR_OF_DAY, 0);
-		oldDate.set(Calendar.MINUTE, 0);
-		oldDate.set(Calendar.SECOND, 0);
-		date.add(Calendar.WEEK_OF_YEAR, -3);
+		date.add(Calendar.WEEK_OF_YEAR, -4);
 		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
 		ArrayList<Readings> targetReadings = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			targetReadings.addAll(getReadingsByDate(oldDate, date));
-			oldDate.add(Calendar.WEEK_OF_YEAR, 1);
-			date.add(Calendar.WEEK_OF_YEAR, 1);
-		}
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().after(date))
+				targetReadings.add(singleReadings);
 		return targetReadings;
 	}
 
 	/**
-	 * This function will return readings by month. (4 months but only show 3 months')
+	 * This function will return readings by month. (4 months)
 	 *
 	 * @return The readings of 4 months.
 	 */
 	ArrayList<Readings> getReadingsByMonth() {
 		if (readings.size() == 0)
 			return readings;
-		Calendar oldDate = Calendar.getInstance();
-		oldDate.add(Calendar.MONTH, -3);
-		oldDate.set(Calendar.DAY_OF_MONTH, 1);
-		oldDate.set(Calendar.HOUR_OF_DAY, 0);
-		oldDate.set(Calendar.MINUTE, 0);
-		oldDate.set(Calendar.SECOND, 0);
 		Calendar date = Calendar.getInstance();
-		date.add(Calendar.MONTH, -2);
+		date.add(Calendar.MONTH, -3);
 		date.set(Calendar.DAY_OF_MONTH, 1);
 		date.set(Calendar.HOUR_OF_DAY, 0);
 		date.set(Calendar.MINUTE, 0);
 		date.set(Calendar.SECOND, 0);
 		ArrayList<Readings> targetReadings = new ArrayList<>();
-		for (int i = 0; i < 4; i++) {
-			targetReadings.addAll(getReadingsByDate(oldDate, date));
-			oldDate.add(Calendar.MONTH, 1);
-			date.add(Calendar.MONTH, 1);
-		}
+		for (Readings singleReadings : readings)
+			if (singleReadings.getDate().after(date))
+				targetReadings.add(singleReadings);
 		return targetReadings;
 	}
 
