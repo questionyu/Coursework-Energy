@@ -631,95 +631,123 @@ class GUI extends JFrame {
 	 * Create a monitor panel.
 	 */
 	private JPanel GUIMonitor() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Monitor");
-		promptLabel.setFont(mainFont);
-
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(3, 3, 5, 5));
+		JLabel promptLabel = new JLabel("Monitor", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JLabel electricityLabel = new JLabel("Electricity:");
 		electricityLabel.setFont(mainFont);
+		electricityLabel.setBounds((int) (0.3 * width), (int) (0.4 * height), (int) (0.15 * width), height / 12);
+
+		JLabel electricityReading = new JLabel((int) MonitorController.getReading()[0] + " KWh", JLabel.RIGHT);
+		electricityReading.setFont(mainFont);
+		electricityReading.setBounds((int) (0.45 * width), (int) (0.4 * height), (int) (0.1 * width), height / 12);
+
+		JLabel electricityCost = new JLabel(Math.round(MonitorController.getCosts()[0] * 100) / 100.0 + " £", JLabel.RIGHT);
+		electricityCost.setFont(mainFont);
+		electricityCost.setBounds((int) (0.55 * width), (int) (0.4 * height), (int) (0.15 * width), height / 12);
 
 		JLabel gasLabel = new JLabel("Gas:");
 		gasLabel.setFont(mainFont);
+		gasLabel.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.15 * width), height / 12);
+
+		JLabel gasReading = new JLabel((int) MonitorController.getReading()[1] + " KWh", JLabel.RIGHT);
+		gasReading.setFont(mainFont);
+		gasReading.setBounds((int) (0.45 * width), (int) (0.5 * height), (int) (0.1 * width), height / 12);
+
+		JLabel gasCost = new JLabel(Math.round(MonitorController.getCosts()[1] * 100) / 100.0 + " £", JLabel.RIGHT);
+		gasCost.setFont(mainFont);
+		gasCost.setBounds((int) (0.55 * width), (int) (0.5 * height), (int) (0.15 * width), height / 12);
 
 		JLabel budgetLabel = new JLabel("Budget:");
 		budgetLabel.setFont(mainFont);
+		budgetLabel.setBounds((int) (0.3 * width), (int) (0.6 * height), (int) (0.15 * width), height / 12);
 
-		JLabel electricityReading = new JLabel(((int) MonitorController.getReading()[0]) + " KWh");
-		electricityReading.setFont(mainFont);
-
-		JLabel electricityCost = new JLabel(MonitorController.getCosts()[0] + " £");
-		electricityCost.setFont(mainFont);
-
-		JLabel gasReading = new JLabel(((int) MonitorController.getReading()[1]) + " KWh");
-		gasReading.setFont(mainFont);
-
-		JLabel gasCost = new JLabel(MonitorController.getCosts()[1] + " £");
-		gasCost.setFont(mainFont);
-
-		JLabel budget = new JLabel(MonitorController.getBudget() + " £");
+		JLabel budget = new JLabel(Math.round(MonitorController.getBudget() * 100) / 100.0 + " £", JLabel.RIGHT);
 		budget.setFont(mainFont);
+		budget.setBounds((int) (0.45 * width), (int) (0.6 * height), (int) (0.1 * width), height / 12);
 
-		JPanel alertPanel = new JPanel();
+		JProgressBar progressBar = new JProgressBar();
 		if (MonitorController.getBudget() > MonitorController.getCosts()[0] + MonitorController.getCosts()[1])
-			alertPanel.setBackground(Color.CYAN);
+			progressBar.setValue((int) ((MonitorController.getCosts()[0] + MonitorController.getCosts()[1]) / MonitorController.getBudget() * 100));
 		else
-			alertPanel.setBackground(Color.RED);
-
-		centerPanel.add(electricityLabel);
-		centerPanel.add(electricityReading);
-		centerPanel.add(electricityCost);
-		centerPanel.add(gasLabel);
-		centerPanel.add(gasReading);
-		centerPanel.add(gasCost);
-		centerPanel.add(budgetLabel);
-		centerPanel.add(budget);
-		centerPanel.add(alertPanel);
+			progressBar.setString("Over budget");
+		progressBar.setFont(mainFont);
+		progressBar.setStringPainted(true);
+		progressBar.setBounds((int) (0.59 * width), (int) (0.6 * height), (int) (0.14 * width), height / 12);
 
 		Timer timer = new Timer(5000, e -> {
-			System.out.println(MonitorController.getReading()[0]);
+			System.out.println((int) ((MonitorController.getCosts()[0] + MonitorController.getCosts()[1]) / MonitorController.getBudget() * 100));
 			electricityReading.setText(((int) MonitorController.getReading()[0]) + " KWh");
-			electricityCost.setText(MonitorController.getCosts()[0] + " £");
+			electricityCost.setText(Math.round(MonitorController.getCosts()[0] * 100) / 100.0 + " £");
 			gasReading.setText(((int) MonitorController.getReading()[1]) + " KWh");
-			gasCost.setText(MonitorController.getCosts()[1] + " £");
+			gasCost.setText(Math.round(MonitorController.getCosts()[1] * 100) / 100.0 + " £");
 			if (MonitorController.getBudget() > MonitorController.getCosts()[0] + MonitorController.getCosts()[1])
-				alertPanel.setBackground(Color.CYAN);
+				progressBar.setValue((int) ((MonitorController.getCosts()[0] + MonitorController.getCosts()[1]) / MonitorController.getBudget() * 100));
 			else
-				alertPanel.setBackground(Color.RED);
+				progressBar.setString("Over budget");
 			panel.revalidate();
 			panel.repaint();
 		});
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> {
-			timer.stop();
-			MonitorController.logout();
-			showWelcome();
-		});
-
 		JButton moreButton = new JButton("More");
 		moreButton.setFont(mainFont);
+		moreButton.setBounds((int) (0.4 * width), (int) (0.7 * height), (int) (0.2 * width), height / 10);
 		moreButton.addActionListener(e -> {
 			timer.stop();
 			more();
 		});
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-		southPanel.add(moreButton);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		back.addMouseListener(new MouseAdapter() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				timer.stop();
+				MonitorController.logout();
+				showWelcome();
+			}
 
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+		});
+
+		panel.add(back);
+		panel.add(promptLabel);
+
+		panel.add(electricityLabel);
+		panel.add(electricityReading);
+		panel.add(electricityCost);
+		panel.add(gasLabel);
+		panel.add(gasReading);
+		panel.add(gasCost);
+		panel.add(budgetLabel);
+		panel.add(budget);
+		panel.add(progressBar);
+
+		panel.add(moreButton);
+
 		timer.start();
 		return panel;
 	}
