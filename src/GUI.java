@@ -848,19 +848,64 @@ class GUI extends JFrame {
 	}
 
 	/**
+	 * This function add mouse listener to one JLabel.
+	 *
+	 * @param panel     This panel will show the JLabel.
+	 * @param backImage Back image.
+	 * @param back      Back JLabel.
+	 */
+	private void clickShowMore(JPanel panel, ImageIcon backImage, JLabel back) {
+		back.addMouseListener(new MouseAdapter() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				showMore();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+		});
+	}
+
+	/**
 	 * Create a history panel.
 	 */
 	private JPanel GUIHistory() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
+
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowMore(panel, backImage, back);
+
+		JLabel promptLabel = new JLabel("Historical information", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
+
 		CardLayout historyCardLayout = new CardLayout();
 		JPanel historyPanel = new JPanel(historyCardLayout);
+		historyPanel.setBounds(0, (int) (0.4 * height), width, (int) (0.55 * height));
 
-		// BorderLayout.NORTH
-		JPanel northPanel = new JPanel();
-		northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.X_AXIS));
-
-		JLabel promptLabel = new JLabel("Historical information");
-		promptLabel.setFont(mainFont);
+		//Add radio buttons to a panel.
+		JPanel radioPanel = new JPanel(new GridLayout(1, 0));
+		radioPanel.setBounds((int) (0.3 * width), (int) (0.3 * height), (int) (0.4 * width), height / 10);
 
 		//Radio buttons.
 		JRadioButton day = new JRadioButton("By day");
@@ -887,15 +932,9 @@ class GUI extends JFrame {
 		day.addActionListener(e -> historyCardLayout.show(historyPanel, e.getActionCommand()));
 		month.addActionListener(e -> historyCardLayout.show(historyPanel, e.getActionCommand()));
 
-		//Add radio buttons to a panel.
-		JPanel radioPanel = new JPanel(new GridLayout(1, 0));
 		radioPanel.add(day);
 		radioPanel.add(week);
 		radioPanel.add(month);
-
-		northPanel.add(promptLabel);
-		northPanel.add(Box.createHorizontalGlue());
-		northPanel.add(radioPanel);
 
 		// BorderLayout.CENTER
 		String[] columnNames = {"Date", "Electricity", "Gas", "Cost"};
@@ -907,24 +946,24 @@ class GUI extends JFrame {
 		JTable tableByWeek = new JTable(readingsDataByWeek, columnNames);
 		JTable tableByMonth = new JTable(readingsDataByMonth, columnNames);
 
+		tableByDay.setFont(mainFont);
+		tableByWeek.setFont(mainFont);
+		tableByMonth.setFont(mainFont);
+
+		tableByDay.setRowHeight(42);
+		tableByWeek.setRowHeight(42);
+		tableByMonth.setRowHeight(42);
+
 		historyPanel.add(new JScrollPane(tableByDay), "day");
 		historyPanel.add(new JScrollPane(tableByWeek), "week");
 		historyPanel.add(new JScrollPane(tableByMonth), "month");
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+		panel.add(back);
+		panel.add(promptLabel);
 
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showMore());
+		panel.add(radioPanel);
+		panel.add(historyPanel);
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-
-		panel.add(northPanel, BorderLayout.NORTH);
-		panel.add(historyPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
 		return panel;
 	}
 
