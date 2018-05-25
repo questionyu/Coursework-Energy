@@ -90,6 +90,7 @@ class Controller {
 		}
 		Calendar date = Calendar.getInstance();
 		date.setTime(newDate);
+		date.set(Calendar.HOUR, 1);
 		return date;
 	}
 
