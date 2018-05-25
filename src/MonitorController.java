@@ -103,9 +103,9 @@ class MonitorController {
 			Readings newR = readings.get(i + 1);
 			Readings oldR = readings.get(i);
 			readingsData[i] = new String[]{Controller.calendarToString(newR.getDate()),
-					"" + newR.getElectricity(),
-					"" + newR.getGas(),
-					"" + ((newR.getElectricity() - oldR.getElectricity()) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (newR.getGas() - oldR.getGas()) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100))};
+					"" + Math.round(newR.getElectricity() * 100) / 100.0,
+					"" + Math.round(newR.getGas() * 100) / 100.0,
+					"" + Math.round(((newR.getElectricity() - oldR.getElectricity()) * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100) + (newR.getGas() - oldR.getGas()) * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100)) * 100) / 100.0};
 		}
 		return readingsData;
 	}
