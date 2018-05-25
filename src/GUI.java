@@ -1082,46 +1082,41 @@ class GUI extends JFrame {
 	 * Create a check tariff panel.
 	 */
 	private JPanel GUICheckTariff() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Tariff information");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowMore(panel, backImage, back);
 
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+		JLabel promptLabel = new JLabel("Tariff information", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JLabel electricity = new JLabel("Electricity:");
 		electricity.setFont(mainFont);
+		electricity.setBounds((int) (0.3 * width), (int) (0.4 * height), (int) (0.2 * width), height / 12);
+
+		JLabel electricityTariff = new JLabel(ManagerController.getTariffElectricity() + " p/KWh", JLabel.RIGHT);
+		electricityTariff.setFont(mainFont);
+		electricityTariff.setBounds((int) (0.5 * width), (int) (0.4 * height), (int) (0.2 * width), height / 12);
 
 		JLabel gas = new JLabel("Gas:");
 		gas.setFont(mainFont);
+		gas.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
 
-		JLabel electricityTariff = new JLabel(ManagerController.getTariffElectricity() + " p/KWh");
-		electricityTariff.setFont(mainFont);
-
-		JLabel gasTariff = new JLabel(ManagerController.getTariffGas() + " p/KWh");
+		JLabel gasTariff = new JLabel(ManagerController.getTariffGas() + " p/KWh", JLabel.RIGHT);
 		gasTariff.setFont(mainFont);
+		gasTariff.setBounds((int) (0.5 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
 
-		centerPanel.add(electricity);
-		centerPanel.add(electricityTariff);
-		centerPanel.add(gas);
-		centerPanel.add(gasTariff);
+		panel.add(back);
+		panel.add(promptLabel);
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
+		panel.add(electricity);
+		panel.add(electricityTariff);
+		panel.add(gas);
+		panel.add(gasTariff);
 
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showMore());
-
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
 		return panel;
 	}
 
