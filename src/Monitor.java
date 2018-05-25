@@ -86,6 +86,13 @@ class Monitor {
 		return readings;
 	}
 
+	/**
+	 * This function will get the readings by date limit.
+	 *
+	 * @param oldDate Old date.
+	 * @param date    Date.
+	 * @return Readings.
+	 */
 	private ArrayList<Readings> getReadingsByDate(Calendar oldDate, Calendar date) {
 		ArrayList<Readings> targetReadings = new ArrayList<>();
 		for (Readings singleReadings : readings)
