@@ -986,41 +986,44 @@ class GUI extends JFrame {
 	 * Create a budget panel.
 	 */
 	private JPanel GUIBudget() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Budget information");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowMore(panel, backImage, back);
 
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+		JLabel promptLabel = new JLabel("Budget information", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JLabel oldBudgetLabel = new JLabel("Old budget:");
 		oldBudgetLabel.setFont(mainFont);
+		oldBudgetLabel.setBounds((int) (0.3 * width), (int) (0.4 * height), (int) (0.15 * width), height / 12);
+
+		JLabel oldBudget = new JLabel("" + MonitorController.getBudget());
+		oldBudget.setFont(mainFont);
+		oldBudget.setBounds((int) (0.45 * width), (int) (0.4 * height), (int) (0.15 * width), height / 12);
+
+		JLabel unitOldLabel = new JLabel("£");
+		unitOldLabel.setFont(mainFont);
+		unitOldLabel.setBounds((int) (0.6 * width), (int) (0.4 * height), (int) (0.1 * width), height / 12);
 
 		JLabel newBudgetLabel = new JLabel("New budget:");
 		newBudgetLabel.setFont(mainFont);
-
-		JLabel oldBudget = new JLabel(MonitorController.getBudget() + " £");
-		oldBudget.setFont(mainFont);
+		newBudgetLabel.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.15 * width), height / 12);
 
 		JTextField newBudget = new JTextField();
+		newBudget.setFont(mainFont);
+		newBudget.setBounds((int) (0.45 * width), (int) (0.5 * height), (int) (0.15 * width), height / 12);
 
-		centerPanel.add(oldBudgetLabel);
-		centerPanel.add(oldBudget);
-		centerPanel.add(newBudgetLabel);
-		centerPanel.add(newBudget);
-
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> showMore());
+		JLabel unitNewLabel = new JLabel("£");
+		unitNewLabel.setFont(mainFont);
+		unitNewLabel.setBounds((int) (0.6 * width), (int) (0.5 * height), (int) (0.1 * width), height / 12);
 
 		JButton confirmButton = new JButton("Confirm");
 		confirmButton.setFont(mainFont);
+		confirmButton.setBounds((int) (0.4 * width), (int) (0.7 * height), (int) (0.2 * width), height / 10);
 		confirmButton.addActionListener(e -> {
 			String newBudgetString = newBudget.getText();
 			if (newBudgetString.equals("")) {
@@ -1045,13 +1048,18 @@ class GUI extends JFrame {
 			showMore();
 		});
 
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-		southPanel.add(confirmButton);
+		panel.add(back);
+		panel.add(promptLabel);
 
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
+		panel.add(oldBudgetLabel);
+		panel.add(oldBudget);
+		panel.add(unitOldLabel);
+		panel.add(newBudgetLabel);
+		panel.add(newBudget);
+		panel.add(unitNewLabel);
+
+		panel.add(confirmButton);
+
 		return panel;
 	}
 
