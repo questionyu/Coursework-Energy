@@ -434,19 +434,19 @@ class GUI extends JFrame {
 
 		JLabel tariffElectricityLabel = new JLabel("Electricity tariff:");
 		tariffElectricityLabel.setFont(mainFont);
-		tariffElectricityLabel.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
+		tariffElectricityLabel.setBounds((int) (0.3 * width), (int) (0.4 * height), (int) (0.2 * width), height / 12);
 
 		JLabel electricityLabel = new JLabel(ManagerController.getTariffElectricity() + " p/KWh", JLabel.RIGHT);
 		electricityLabel.setFont(mainFont);
-		electricityLabel.setBounds((int) (0.5 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
+		electricityLabel.setBounds((int) (0.5 * width), (int) (0.4 * height), (int) (0.2 * width), height / 12);
 
 		JLabel tariffGasLabel = new JLabel("Gas tariff:");
 		tariffGasLabel.setFont(mainFont);
-		tariffGasLabel.setBounds((int) (0.3 * width), (int) (0.6 * height), (int) (0.2 * width), height / 12);
+		tariffGasLabel.setBounds((int) (0.3 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
 
 		JLabel gasLabel = new JLabel(ManagerController.getTariffGas() + " p/KWh", JLabel.RIGHT);
 		gasLabel.setFont(mainFont);
-		gasLabel.setBounds((int) (0.5 * width), (int) (0.6 * height), (int) (0.2 * width), height / 12);
+		gasLabel.setBounds((int) (0.5 * width), (int) (0.5 * height), (int) (0.2 * width), height / 12);
 
 		JButton updateButton = new JButton("Update");
 		updateButton.setFont(mainFont);
