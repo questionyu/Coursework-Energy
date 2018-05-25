@@ -767,13 +767,14 @@ class GUI extends JFrame {
 	}
 
 	/**
-	 * This function add mouse listener to one JLabel.
-	 *
-	 * @param panel     This panel will show the JLabel.
-	 * @param backImage Back image.
-	 * @param back      Back JLabel.
+	 * Create a more panel.
 	 */
-	private void clickShowMonitor(JPanel panel, ImageIcon backImage, JLabel back) {
+	private JPanel GUIMore() {
+		JPanel panel = new JPanel(null);
+
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
 		back.addMouseListener(new MouseAdapter() {
 			/**
 			 * {@inheritDoc}
@@ -801,18 +802,6 @@ class GUI extends JFrame {
 				panel.updateUI();
 			}
 		});
-	}
-
-	/**
-	 * Create a more panel.
-	 */
-	private JPanel GUIMore() {
-		JPanel panel = new JPanel(null);
-
-		ImageIcon backImage = new ImageIcon("./images/back.png");
-		JLabel back = new JLabel(backImage, JLabel.CENTER);
-		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
-		clickShowMonitor(panel, backImage, back);
 
 		JLabel promptLabel = new JLabel("Select one to continue", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
