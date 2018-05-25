@@ -391,7 +391,7 @@ class GUI extends JFrame {
 			table.getColumnModel().getColumn(3).setCellEditor(new ButtonInTable(customerList[i][3]));
 			table.getColumnModel().getColumn(3).setCellRenderer(new ButtonInTable(customerList[i][3]));
 		}
-		JScrollPane scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, (int) (0.35 * height), width, (int) (0.6 * height));
 
 		panel.add(back);
@@ -600,7 +600,7 @@ class GUI extends JFrame {
 		JTable table = new JTable(data, columnNames);
 		table.setFont(mainFont);
 		table.setRowHeight(42);
-		JScrollPane scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, (int) (0.35 * height), width, (int) (0.6 * height));
 
 		panel.add(back);
