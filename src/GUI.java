@@ -242,7 +242,6 @@ class GUI extends JFrame {
 			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ManagerController.stopManagerTimer();
 				showManager();
 			}
 
@@ -768,57 +767,79 @@ class GUI extends JFrame {
 	}
 
 	/**
+	 * This function add mouse listener to one JLabel.
+	 *
+	 * @param panel     This panel will show the JLabel.
+	 * @param backImage Back image.
+	 * @param back      Back JLabel.
+	 */
+	private void clickShowMonitor(JPanel panel, ImageIcon backImage, JLabel back) {
+		back.addMouseListener(new MouseAdapter() {
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				showMonitor();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mousePressed(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				backImage.setImage(backImage.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+				panel.updateUI();
+			}
+		});
+	}
+
+	/**
 	 * Create a more panel.
 	 */
 	private JPanel GUIMore() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(null);
 
-		// BorderLayout.NORTH
-		JLabel promptLabel = new JLabel("Select one to continue");
-		promptLabel.setFont(mainFont);
+		ImageIcon backImage = new ImageIcon("./images/back.png");
+		JLabel back = new JLabel(backImage, JLabel.CENTER);
+		back.setBounds((int) (0.01 * width), (int) (0.02 * height), 64, 64);
+		clickShowMonitor(panel, backImage, back);
 
-		// BorderLayout.CENTER
-		JPanel centerPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+		JLabel promptLabel = new JLabel("Select one to continue", JLabel.CENTER);
+		promptLabel.setFont(promptFont);
+		promptLabel.setBounds(0, height / 8, width, height / 5);
 
 		JButton viewButton = new JButton("View");
 		viewButton.setFont(mainFont);
+		viewButton.setBounds((int) (0.25 * width), (int) (0.6 * height), (int) (0.25 * width), height / 10);
 		viewButton.addActionListener(e -> history());
 
 		JButton budgetButton = new JButton("Budget");
 		budgetButton.setFont(mainFont);
+		budgetButton.setBounds((int) (0.5 * width), (int) (0.6 * height), (int) (0.25 * width), height / 10);
 		budgetButton.addActionListener(e -> budget());
 
 		JButton tariffButton = new JButton("Tariff");
 		tariffButton.setFont(mainFont);
+		tariffButton.setBounds((int) (0.25 * width), (int) (0.75 * height), (int) (0.25 * width), height / 10);
 		tariffButton.addActionListener(e -> checkTariff());
 
-		// Only for demo
-		JButton sendReadingsButton = new JButton("Send readings (Only for demo)");
-		sendReadingsButton.setFont(mainFont);
-		sendReadingsButton.addActionListener(e -> {
-			MonitorController.sendReadings();
-			showMessageDialog("Send successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-		});
+		panel.add(back);
+		panel.add(promptLabel);
 
-		centerPanel.add(viewButton);
-		centerPanel.add(budgetButton);
-		centerPanel.add(tariffButton);
-		centerPanel.add(sendReadingsButton);
+		panel.add(viewButton);
+		panel.add(budgetButton);
+		panel.add(tariffButton);
 
-		// BorderLayout.SOUTH
-		JPanel southPanel = new JPanel();
-		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(mainFont);
-		backButton.addActionListener(e -> monitor());
-
-		southPanel.add(backButton);
-		southPanel.add(Box.createHorizontalGlue());
-
-		panel.add(promptLabel, BorderLayout.NORTH);
-		panel.add(centerPanel, BorderLayout.CENTER);
-		panel.add(southPanel, BorderLayout.SOUTH);
 		return panel;
 	}
 
