@@ -905,7 +905,7 @@ class GUI extends JFrame {
 
 		//Add radio buttons to a panel.
 		JPanel radioPanel = new JPanel(new GridLayout(1, 0));
-		radioPanel.setBounds((int) (0.3 * width), (int) (0.3 * height), (int) (0.4 * width), height / 10);
+		radioPanel.setBounds((int) (0.3 * width), (int) (0.3 * height), (int) (0.4 * width), height / 12);
 
 		//Radio buttons.
 		JRadioButton day = new JRadioButton("By day");
