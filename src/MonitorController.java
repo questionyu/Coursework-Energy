@@ -98,7 +98,7 @@ class MonitorController {
 		ArrayList<Readings> readings = monitor.getReadingsByDay();
 		if (readings.size() == 0)
 			return new String[][]{};
-		String[][] readingsData = new String[7][];
+		String[][] readingsData = new String[readings.size() - 1][];
 		for (int i = 0; i < readingsData.length; i++) {
 			Readings singleReadings = readings.get(i + 1);
 			Readings lastReadings = readings.get(i);
