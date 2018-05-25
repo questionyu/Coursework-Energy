@@ -123,7 +123,7 @@ class Monitor {
 		date.set(Calendar.SECOND, 0);
 		Calendar oldDate = Calendar.getInstance();
 		oldDate.add(Calendar.WEEK_OF_YEAR, -4);
-		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		oldDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		oldDate.set(Calendar.HOUR_OF_DAY, 0);
 		oldDate.set(Calendar.MINUTE, 0);
 		oldDate.set(Calendar.SECOND, 0);
@@ -146,7 +146,7 @@ class Monitor {
 		date.set(Calendar.SECOND, 0);
 		Calendar oldDate = Calendar.getInstance();
 		oldDate.add(Calendar.MONTH, -3);
-		date.set(Calendar.DAY_OF_MONTH, 1);
+		oldDate.set(Calendar.DAY_OF_MONTH, 1);
 		oldDate.set(Calendar.HOUR_OF_DAY, 0);
 		oldDate.set(Calendar.MINUTE, 0);
 		oldDate.set(Calendar.SECOND, 0);
