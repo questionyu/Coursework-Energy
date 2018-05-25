@@ -187,10 +187,10 @@ class ManagerController {
 			gasReadings = lastMonthReading.getGas();
 		} else {
 			Readings theMonthBeforeLastReading = theMonthBeforeLastReadings.get(theMonthBeforeLastReadings.size() - 1);
-			electricityReadings = lastMonthReading.getElectricity() - theMonthBeforeLastReading.getElectricity();
-			gasReadings = lastMonthReading.getGas() - theMonthBeforeLastReading.getGas();
+			electricityReadings = Math.round((lastMonthReading.getElectricity() - theMonthBeforeLastReading.getElectricity()) * 100) / 100.0;
+			gasReadings = Math.round((lastMonthReading.getGas() - theMonthBeforeLastReading.getGas()) * 100) / 100.0;
 		}
-		double total = electricityReadings * (getPriceElectricity() + getTariffElectricity() / 100) + gasReadings * (getPriceGas() + getTariffGas() / 100);
+		double total = Math.round((electricityReadings * (getPriceElectricity() + getTariffElectricity() / 100) + gasReadings * (getPriceGas() + getTariffGas() / 100)) * 100) / 100.0;
 		return new double[]{electricityReadings, gasReadings, total};
 	}
 
