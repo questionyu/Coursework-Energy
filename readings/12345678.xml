@@ -82,8 +82,23 @@
     </reading>
     <reading>
         <date>2018-5-18</date>
-        <electricity>96.61758033394587</electricity>
+        <electricity>70.61758033394587</electricity>
         <gas>39.43962285267081</gas>
+    </reading>
+    <reading>
+        <date>2018-5-19</date>
+        <electricity>80.57127405575334</electricity>
+        <gas>39.73779300223631</gas>
+    </reading>
+    <reading>
+        <date>2018-5-20</date>
+        <electricity>90.57127405575334</electricity>
+        <gas>40.507793002236305</gas>
+    </reading>
+    <reading>
+        <date>2018-5-21</date>
+        <electricity>94.57127405575334</electricity>
+        <gas>40.9077930022363</gas>
     </reading>
     <reading>
         <date>2018-5-22</date>
@@ -92,7 +107,22 @@
     </reading>
     <reading>
         <date>2018-5-23</date>
-        <electricity>98.62999141964502</electricity>
-        <gas>41.89709942183054</gas>
+        <electricity>100.62999141964502</electricity>
+        <gas>45.89709942183054</gas>
+    </reading>
+    <reading>
+        <date>2018-5-24</date>
+        <electricity>110.62999141964502</electricity>
+        <gas>50.89709942183054</gas>
+    </reading>
+    <reading>
+        <date>2018-5-25</date>
+        <electricity>120.62999141964502</electricity>
+        <gas>60.89709942183054</gas>
+    </reading>
+    <reading>
+        <date>2018-5-26</date>
+        <electricity>136.7167125262213</electricity>
+        <gas>75.67023277564437</gas>
     </reading>
 </readings>

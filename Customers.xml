@@ -5,7 +5,7 @@
         <name>Jim</name>
         <address>New York</address>
         <email>jim@example.com</email>
-        <budget>150.0</budget>
+        <budget>400.0</budget>
     </customer>
     <customer>
         <ID>63147727</ID>
