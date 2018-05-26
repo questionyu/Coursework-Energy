@@ -2,76 +2,126 @@ import junit.framework.TestCase;
 
 import java.io.File;
 
+/**
+ * Title        MonitorTest.java
+ * Description  Monitor test class.
+ */
 public class MonitorTest extends TestCase {
-
+	/**
+	 * Tested monitor.
+	 */
 	private Monitor monitor;
+
+	/**
+	 * Tested customer.
+	 */
 	private Customer customer;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		ManagerController.startManager();
-		customer = new Customer("testName", "testAddress", "example@test.com", 11223344, 150);
+		customer = new Customer("testName", "testAddress", "example@test.com", 11223344, 150.0);
 		monitor = new Monitor(customer);
 		monitor.loadReadings();
 	}
 
+	/**
+	 * Test getReading.
+	 */
 	public void testGetReading() {
-		assertEquals((double) 0, monitor.getReading()[0]);
-		assertEquals((double) 0, monitor.getReading()[1]);
+		assertNotNull(monitor.getReading());
 	}
 
+	/**
+	 * Test getReadings.
+	 */
 	public void testGetReadings() {
-		assertEquals(1, monitor.getReadings().size());
-		assertEquals((double) 0, monitor.getReadings().get(0).getElectricity());
-		assertEquals((double) 0, monitor.getReadings().get(0).getGas());
+		assertNotNull(monitor.getReadings());
 	}
 
+	/**
+	 * Test getReadingsByDay.
+	 */
 	public void testGetReadingsByDay() {
-		assertEquals(1, monitor.getReadingsByDay().size());
-		assertEquals((double) 0, monitor.getReadingsByDay().get(0).getElectricity());
-		assertEquals((double) 0, monitor.getReadingsByDay().get(0).getGas());
+		assertNotNull(monitor.getReadingsByDay());
 	}
 
+	/**
+	 * Test getReadingsByWeek.
+	 */
 	public void testGetReadingsByWeek() {
-		assertEquals(1, monitor.getReadingsByWeek().size());
-		assertEquals((double) 0, monitor.getReadingsByWeek().get(0).getElectricity());
-		assertEquals((double) 0, monitor.getReadingsByWeek().get(0).getGas());
+		assertNotNull(monitor.getReadingsByWeek());
 	}
 
+	/**
+	 * Test getReadingsByMonth.
+	 */
 	public void testGetReadingsByMonth() {
-		assertEquals(1, monitor.getReadingsByMonth().size());
-		assertEquals((double) 0, monitor.getReadingsByMonth().get(0).getElectricity());
-		assertEquals((double) 0, monitor.getReadingsByMonth().get(0).getGas());
+		assertNotNull(monitor.getReadingsByMonth());
 	}
 
+	/**
+	 * Test getCosts.
+	 */
 	public void testGetCosts() {
-		assertEquals((double) 0, monitor.getCosts()[0]);
-		assertEquals((double) 0, monitor.getCosts()[1]);
+		assertNotNull(monitor.getCosts());
 	}
 
+	/**
+	 * Test deleteReadings.
+	 */
 	public void testDeleteReadings() {
 		monitor.deleteReadings();
 		File file = new File("./readings/11223344.xml");
 		assertFalse(file.exists());
 	}
 
+	/**
+	 * Test saveReadings.
+	 */
+	public void testSaveReadings() {
+		monitor.saveReadings();
+		File file = new File("./readings/11223344.xml");
+		assertTrue(file.exists());
+	}
+
+	/**
+	 * Test getCustomer.
+	 */
 	public void testGetCustomer() {
 		assertEquals(customer, monitor.getCustomer());
 	}
 
+	/**
+	 * Test getBudget.
+	 */
 	public void testGetBudget() {
-		assertEquals((double) 150, monitor.getBudget());
+		assertEquals(150.0, monitor.getBudget());
 	}
 
+	/**
+	 * Test setBudget.
+	 */
 	public void testSetBudget() {
-		monitor.setBudget(100);
-		assertEquals((double) 100, monitor.getBudget());
+		monitor.setBudget(100.0);
+		assertEquals(100.0, monitor.getBudget());
 	}
 
+	/**
+	 * Test getID.
+	 */
 	public void testGetID() {
 		assertEquals(11223344, monitor.getID());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void tearDown() {
 		File file = new File("./readings/11223344.xml");
 		file.delete();
