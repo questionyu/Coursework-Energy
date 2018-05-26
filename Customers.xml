@@ -63,4 +63,11 @@
         <email>5@example.com</email>
         <budget>0.0</budget>
     </customer>
+    <customer>
+        <ID>87654321</ID>
+        <name>test</name>
+        <address>test</address>
+        <email>test@example.com</email>
+        <budget>100.0</budget>
+    </customer>
 </customers>
