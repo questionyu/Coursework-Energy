@@ -18,8 +18,9 @@ public class ReadingsTest extends TestCase {
 	private Calendar date;
 
 	/**
-	 * Set up function.
+	 * {@inheritDoc}
 	 */
+	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		date = Calendar.getInstance();
