@@ -194,9 +194,7 @@ class Monitor {
 			Calendar dateCalendar = latestReadings.getDate();
 			if (now.get(Calendar.YEAR) != dateCalendar.get(Calendar.YEAR) || now.get(Calendar.DAY_OF_YEAR) != dateCalendar.get(Calendar.DAY_OF_YEAR)) // 当天的记录是否存在
 				readings.add(new Readings(Calendar.getInstance(), latestReadings.getElectricity(), latestReadings.getGas()));
-
 		}
-
 	}
 
 	/**
