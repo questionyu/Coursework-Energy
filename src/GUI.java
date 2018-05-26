@@ -74,6 +74,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a panel which shows a welcome and two buttons.
+	 *
+	 * @return GUIWelcome panel.
 	 */
 	private JPanel GUIWelcome() {
 		JPanel panel = new JPanel(null);
@@ -142,6 +144,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a manager panel.
+	 *
+	 * @return GUIManager panel.
 	 */
 	private JPanel GUIManager() {
 		JPanel panel = new JPanel(null);
@@ -267,6 +271,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create an add customer panel.
+	 *
+	 * @return GUIAddCustomer panel.
 	 */
 	private JPanel GUIAddCustomer() {
 		JPanel panel = new JPanel(null);
@@ -362,6 +368,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a remove customer panel.
+	 *
+	 * @return GUIRemoveCustomer panel.
 	 */
 	private JPanel GUIRemoveCustomer() {
 		JPanel panel = new JPanel(null);
@@ -419,6 +427,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a tariff panel.
+	 *
+	 * @return GUITariff panel.
 	 */
 	private JPanel GUITariff() {
 		JPanel panel = new JPanel(null);
@@ -483,6 +493,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create an update tariff panel.
+	 *
+	 * @return GUIUpdateTariff panel.
 	 */
 	private JPanel GUIUpdateTariff() {
 		JPanel panel = new JPanel(null);
@@ -581,6 +593,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a view panel.
+	 *
+	 * @return GUIView panel.
 	 */
 	private JPanel GUIView() {
 		JPanel panel = new JPanel(null);
@@ -628,6 +642,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a monitor panel.
+	 *
+	 * @return GUIMonitor panel.
 	 */
 	private JPanel GUIMonitor() {
 		JPanel panel = new JPanel(null);
@@ -768,6 +784,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a more panel.
+	 *
+	 * @return GUIMore panel.
 	 */
 	private JPanel GUIMore() {
 		JPanel panel = new JPanel(null);
@@ -886,6 +904,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a history panel.
+	 *
+	 * @return GUIHistory panel.
 	 */
 	private JPanel GUIHistory() {
 		JPanel panel = new JPanel(null);
@@ -984,6 +1004,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a budget panel.
+	 *
+	 * @return GUIBudget panel.
 	 */
 	private JPanel GUIBudget() {
 		JPanel panel = new JPanel(null);
@@ -1080,6 +1102,8 @@ class GUI extends JFrame {
 
 	/**
 	 * Create a check tariff panel.
+	 *
+	 * @return GUICheckTariff panel.
 	 */
 	private JPanel GUICheckTariff() {
 		JPanel panel = new JPanel(null);
