@@ -8,6 +8,7 @@ public class ManagerControllerTest extends TestCase {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		ManagerController.startManager();
