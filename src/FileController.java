@@ -36,8 +36,6 @@ class FileController implements FileInterface {
 				fileWriter.write(Double.toString(0) + "\n");
 				fileWriter.write(Double.toString(0) + "\n");
 				fileWriter.close();
-				tariff[0] = 0;
-				tariff[1] = 0;
 			} else {
 				FileInputStream fileInputStream = new FileInputStream(file);
 				Scanner fileScanner = new Scanner(fileInputStream);
