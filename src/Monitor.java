@@ -153,7 +153,7 @@ class Monitor {
 	 *
 	 * @return The costs of this monitor.
 	 */
-	double[] getCosts() {  // TODO 1月的情况需要考虑
+	double[] getCosts() {
 		Calendar now = Calendar.getInstance();
 		int thisMonth = now.get(Calendar.MONTH);
 		ArrayList<Readings> lastMonthReadings = new ArrayList<>();
@@ -192,7 +192,7 @@ class Monitor {
 
 			Calendar now = Calendar.getInstance();
 			Calendar dateCalendar = latestReadings.getDate();
-			if (now.get(Calendar.YEAR) != dateCalendar.get(Calendar.YEAR) || now.get(Calendar.DAY_OF_YEAR) != dateCalendar.get(Calendar.DAY_OF_YEAR)) // 当天的记录是否存在
+			if (now.get(Calendar.YEAR) != dateCalendar.get(Calendar.YEAR) || now.get(Calendar.DAY_OF_YEAR) != dateCalendar.get(Calendar.DAY_OF_YEAR))
 				readings.add(new Readings(Calendar.getInstance(), latestReadings.getElectricity(), latestReadings.getGas()));
 		}
 	}

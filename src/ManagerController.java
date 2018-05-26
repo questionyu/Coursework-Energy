@@ -165,7 +165,7 @@ class ManagerController {
 	 * @param customer The customer whose bill will be generated.
 	 * @return Bill information.
 	 */
-	private static double[] generateBill(Customer customer) { // TODO 1,2月的情况需要考虑
+	private static double[] generateBill(Customer customer) {
 		ArrayList<Readings> readings = fileController.getReadingsFromFile(customer.getID(), "receivedReadings");
 		Calendar now = Calendar.getInstance();
 		int thisMonth = now.get(Calendar.MONTH);
