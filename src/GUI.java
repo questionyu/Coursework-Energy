@@ -78,7 +78,7 @@ class GUI extends JFrame {
 	 * @return GUIWelcome panel.
 	 */
 	private JPanel GUIWelcome() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel(null, "./images/background.jpg");
 
 		JLabel welcomeLabel = new JLabel("Welcome!", JLabel.CENTER);
 		welcomeLabel.setFont(new Font("Curlz MT", Font.BOLD, 96));
@@ -1244,6 +1244,34 @@ class GUI extends JFrame {
 		@Override
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 			return button;
+		}
+	}
+
+	/**
+	 * A panel with background.
+	 */
+	class ImagePanel extends JPanel {
+		/**
+		 * Background image.
+		 */
+		private ImageIcon imageIcon;
+
+		/**
+		 * Create a panel with background.
+		 */
+		ImagePanel(LayoutManager layout, String filename) {
+			super(layout);
+			imageIcon = new ImageIcon(filename);
+			imageIcon.setImage(imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(imageIcon.getImage(), 0, 0, this);
 		}
 	}
 }
