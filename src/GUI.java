@@ -78,7 +78,7 @@ class GUI extends JFrame {
 	 * @return GUIWelcome panel.
 	 */
 	private JPanel GUIWelcome() {
-		JPanel panel = new ImagePanel(null, "./images/background.jpg");
+		JPanel panel = new ImagePanel();
 
 		JLabel welcomeLabel = new JLabel("Welcome!", JLabel.CENTER);
 		welcomeLabel.setFont(new Font("Curlz MT", Font.BOLD, 96));
@@ -148,7 +148,7 @@ class GUI extends JFrame {
 	 * @return GUIManager panel.
 	 */
 	private JPanel GUIManager() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -275,7 +275,7 @@ class GUI extends JFrame {
 	 * @return GUIAddCustomer panel.
 	 */
 	private JPanel GUIAddCustomer() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -372,7 +372,7 @@ class GUI extends JFrame {
 	 * @return GUIRemoveCustomer panel.
 	 */
 	private JPanel GUIRemoveCustomer() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -431,7 +431,7 @@ class GUI extends JFrame {
 	 * @return GUITariff panel.
 	 */
 	private JPanel GUITariff() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -497,7 +497,7 @@ class GUI extends JFrame {
 	 * @return GUIUpdateTariff panel.
 	 */
 	private JPanel GUIUpdateTariff() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -597,7 +597,7 @@ class GUI extends JFrame {
 	 * @return GUIView panel.
 	 */
 	private JPanel GUIView() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -646,7 +646,7 @@ class GUI extends JFrame {
 	 * @return GUIMonitor panel.
 	 */
 	private JPanel GUIMonitor() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		JLabel promptLabel = new JLabel("Monitor", JLabel.CENTER);
 		promptLabel.setFont(promptFont);
@@ -788,7 +788,7 @@ class GUI extends JFrame {
 	 * @return GUIMore panel.
 	 */
 	private JPanel GUIMore() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -908,7 +908,7 @@ class GUI extends JFrame {
 	 * @return GUIHistory panel.
 	 */
 	private JPanel GUIHistory() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -925,6 +925,7 @@ class GUI extends JFrame {
 
 		//Add radio buttons to a panel.
 		JPanel radioPanel = new JPanel(new GridLayout(1, 0));
+		radioPanel.setOpaque(false);
 		radioPanel.setBounds((int) (0.3 * width), (int) (0.3 * height), (int) (0.4 * width), height / 12);
 
 		//Radio buttons.
@@ -1008,7 +1009,7 @@ class GUI extends JFrame {
 	 * @return GUIBudget panel.
 	 */
 	private JPanel GUIBudget() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -1106,7 +1107,7 @@ class GUI extends JFrame {
 	 * @return GUICheckTariff panel.
 	 */
 	private JPanel GUICheckTariff() {
-		JPanel panel = new JPanel(null);
+		JPanel panel = new ImagePanel();
 
 		ImageIcon backImage = new ImageIcon("./images/back.png");
 		JLabel back = new JLabel(backImage, JLabel.CENTER);
@@ -1259,9 +1260,9 @@ class GUI extends JFrame {
 		/**
 		 * Create a panel with background.
 		 */
-		ImagePanel(LayoutManager layout, String filename) {
-			super(layout);
-			imageIcon = new ImageIcon(filename);
+		ImagePanel() {
+			super(null);
+			imageIcon = new ImageIcon("./images/background.jpg");
 			imageIcon.setImage(imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
 		}
 
