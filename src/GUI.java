@@ -395,10 +395,8 @@ class GUI extends JFrame {
 		JTable table = new JTable(defaultTableModel);
 		table.setFont(mainFont);
 		table.setRowHeight(42);
-		for (int i = 0; i < data.length; i++) {
-			table.getColumnModel().getColumn(3).setCellEditor(new ButtonInTable(customerList[i][3]));
-			table.getColumnModel().getColumn(3).setCellRenderer(new ButtonInTable(customerList[i][3]));
-		}
+		table.getColumnModel().getColumn(3).setCellEditor(new ButtonInTable(customerList));
+		table.getColumnModel().getColumn(3).setCellRenderer(new ButtonInTable(customerList));
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, (int) (0.35 * height), width, (int) (0.6 * height));
 
@@ -1192,35 +1190,17 @@ class GUI extends JFrame {
 	 */
 	class ButtonInTable extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
 		/**
-		 * Serial version UID.
+		 * The customerList.
 		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * The button.
-		 */
-		private JButton button;
+		private String[][] customerList;
 
 		/**
 		 * Constructor function of ButtonInTable.
 		 *
-		 * @param actionCommand The command string.
+		 * @param customerList The customer list.
 		 */
-		ButtonInTable(String actionCommand) {
-			button = new JButton("Remove");
-			button.setFont(mainFont);
-			button.setActionCommand(actionCommand);
-			button.addActionListener(e -> {
-				try {
-					if (showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
-						return;
-					ManagerController.removeCustomer(Long.parseLong(e.getActionCommand()));
-					showMessageDialog("Remove successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
-					showManager();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			});
+		ButtonInTable(String[][] customerList) {
+			this.customerList = customerList;
 		}
 
 		/**
@@ -1236,6 +1216,9 @@ class GUI extends JFrame {
 		 */
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			JButton button = new JButton("Remove");
+			button.setFont(mainFont);
+
 			return button;
 		}
 
@@ -1244,6 +1227,20 @@ class GUI extends JFrame {
 		 */
 		@Override
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+			JButton button = new JButton("Remove");
+			button.setFont(mainFont);
+			button.setActionCommand(customerList[row][3]);
+			button.addActionListener(e -> {
+				try {
+					if (showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+						return;
+					ManagerController.removeCustomer(Long.parseLong(e.getActionCommand()));
+					showMessageDialog("Remove successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
+					showManager();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
 			return button;
 		}
 	}
