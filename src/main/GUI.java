@@ -326,7 +326,7 @@ class GUI extends JFrame {
 				showMessageDialog("Email address wrong!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (showConfirmDialog("Confirm to add new customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+			if (showConfirmDialog("Confirm to add new customer?") != 0)
 				return;
 			if (!ManagerController.addCustomer(name, address, email)) {
 				showMessageDialog("Customer already exists!", "Whoops!", JOptionPane.WARNING_MESSAGE);
@@ -552,7 +552,7 @@ class GUI extends JFrame {
 				showMessageDialog("Tariff must be a positive number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (showConfirmDialog("Confirm to update tariff?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+			if (showConfirmDialog("Confirm to update tariff?") != 0)
 				return;
 			ManagerController.updateTariff(tariffElectricity, tariffGas);
 			showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
@@ -1062,7 +1062,7 @@ class GUI extends JFrame {
 				showMessageDialog("Budget must be a positive number!", "Whoops!", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (showConfirmDialog("Confirm to update Budget?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+			if (showConfirmDialog("Confirm to update Budget?") != 0)
 				return;
 			MonitorController.updateBudget(budget);
 			showMessageDialog("Update successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);
@@ -1175,14 +1175,12 @@ class GUI extends JFrame {
 	 * This function shows a confirm dialog on screen.
 	 *
 	 * @param text       The message.
-	 * @param title      The window title.
-	 * @param optionType The type of this message.
 	 * @return An int indicating the option selected by the user.
 	 */
-	private int showConfirmDialog(String text, String title, int optionType) {
+	private int showConfirmDialog(String text) {
 		JLabel promptLabel = new JLabel(text, JLabel.CENTER);
 		promptLabel.setFont(mainFont);
-		return JOptionPane.showConfirmDialog(null, promptLabel, title, optionType);
+		return JOptionPane.showConfirmDialog(null, promptLabel, "Confirmation", JOptionPane.YES_NO_OPTION);
 	}
 
 	/**
@@ -1232,7 +1230,7 @@ class GUI extends JFrame {
 			button.setActionCommand(customerList[row][3]);
 			button.addActionListener(e -> {
 				try {
-					if (showConfirmDialog("Confirm to remove this customer?", "Confirmation", JOptionPane.YES_NO_OPTION) != 0)
+					if (showConfirmDialog("Confirm to remove this customer?") != 0)
 						return;
 					ManagerController.removeCustomer(Long.parseLong(e.getActionCommand()));
 					showMessageDialog("Remove successfully!", "Done!", JOptionPane.INFORMATION_MESSAGE);

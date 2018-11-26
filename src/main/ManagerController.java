@@ -30,7 +30,7 @@ class ManagerController {
 	 * This function creates the object of manager.
 	 */
 	static void startManager() {
-		double tariff[] = fileController.getTariffFromFile();
+		double[] tariff = fileController.getTariffFromFile();
 		manager = new Manager(fileController.getCustomersFromFile(), tariff[0], tariff[1]);
 	}
 
@@ -134,8 +134,8 @@ class ManagerController {
 		try {
 			File file = new File("./tariff.txt");
 			FileWriter fileWriter = new FileWriter(file);
-			fileWriter.write(Double.toString(newTariffElectricity) + "\n");
-			fileWriter.write(Double.toString(newTariffGas) + "\n");
+			fileWriter.write(newTariffElectricity + "\n");
+			fileWriter.write(newTariffGas + "\n");
 			fileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();

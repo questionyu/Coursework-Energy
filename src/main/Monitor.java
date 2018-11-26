@@ -71,7 +71,7 @@ class Monitor {
 	 * @return The reading of this monitor.
 	 */
 	double[] getReading() {
-		double reading[] = new double[2];
+		double[] reading = new double[2];
 		reading[0] = meterElectricity.getReading();
 		reading[1] = meterGas.getReading();
 		return reading;
@@ -170,7 +170,7 @@ class Monitor {
 			electricityReadings = meterElectricity.getReading() - lastMonthReading.getElectricity();
 			gasReadings = meterGas.getReading() - lastMonthReading.getGas();
 		}
-		double costs[] = new double[2];
+		double[] costs = new double[2];
 		costs[0] = electricityReadings * (ManagerController.getPriceElectricity() + ManagerController.getTariffElectricity() / 100);
 		costs[1] = gasReadings * (ManagerController.getPriceGas() + ManagerController.getTariffGas() / 100);
 		return costs;

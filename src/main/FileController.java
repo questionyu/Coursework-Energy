@@ -28,13 +28,13 @@ class FileController implements FileInterface {
 	 */
 	@Override
 	public double[] getTariffFromFile() {
-		double tariff[] = new double[2];
+		double[] tariff = new double[2];
 		try {
 			File file = new File("./tariff.txt");
 			if (file.createNewFile()) {
 				FileWriter fileWriter = new FileWriter(file);
-				fileWriter.write(Double.toString(0) + "\n");
-				fileWriter.write(Double.toString(0) + "\n");
+				fileWriter.write(0 + "\n");
+				fileWriter.write(0 + "\n");
 				fileWriter.close();
 			} else {
 				FileInputStream fileInputStream = new FileInputStream(file);

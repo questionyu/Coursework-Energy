@@ -24,16 +24,6 @@ class Manager {
 	private ArrayList<Monitor> monitors;
 
 	/**
-	 * Electricity price. (Unit: Pound)
-	 */
-	private double priceElectricity = 1;
-
-	/**
-	 * Gas price. (Unit: Pound)
-	 */
-	private double priceGas = 1.2;
-
-	/**
 	 * Electricity tariff. (Unit: Penny)
 	 */
 	private double tariffElectricity;
@@ -133,19 +123,19 @@ class Manager {
 	/**
 	 * Getter function of priceElectricity.
 	 *
-	 * @return The electricity price.
+	 * @return The electricity price. (Unit: Pound)
 	 */
 	double getPriceElectricity() {
-		return priceElectricity;
+		return (double) 1;
 	}
 
 	/**
 	 * Getter function of priceGas.
 	 *
-	 * @return The gas price.
+	 * @return The gas price. (Unit: Pound)
 	 */
 	double getPriceGas() {
-		return priceGas;
+		return 1.2;
 	}
 
 	/**

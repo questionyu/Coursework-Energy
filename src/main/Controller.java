@@ -101,6 +101,6 @@ class Controller {
 	 * @return The date string.
 	 */
 	static String calendarToString(Calendar date) {
-		return String.valueOf(date.get(Calendar.YEAR)) + "-" + (date.get(Calendar.MONTH) + 1) + "-" + date.get(Calendar.DATE);
+		return date.get(Calendar.YEAR) + "-" + (date.get(Calendar.MONTH) + 1) + "-" + date.get(Calendar.DATE);
 	}
 }
